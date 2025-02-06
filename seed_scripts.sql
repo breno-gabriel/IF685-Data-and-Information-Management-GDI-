@@ -151,9 +151,9 @@ INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES (
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('776655443', '48', '55');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('665544332', '92', '55');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('554433221', '98', '55');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('112233445', '11', '55'); 
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('223344556', '21', '55'); 
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('334455667', '61', '55'); 
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('112233445', '11', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('223344556', '21', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('334455667', '61', '55');
 
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('987654321', '213', '1');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('876543210', '305', '1');
@@ -171,9 +171,9 @@ INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES 
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('765432109', '65', '65');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('654321098', '62', '62');
 
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('445566778', '44', '44'); 
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('445566778', '44', '44');
 
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('556677889', '81', '81'); 
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('556677889', '81', '81');
 
 
 --Inserindo Aeroporto --CEP (fkey)
@@ -187,85 +187,130 @@ INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.N
 
 ---Inserindo aeronaves
 
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '12345678000101', 'Airbus A320', 180, 2018);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '12345678000101', 'Embraer E195', 132, 2020);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '98765432000199', 'Boeing 737-800', 189, 2015);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '56789012000188', 'Boeing 777-300', 396, 2017);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '56789012000188', 'Airbus A350', 350, 2021);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '34567890000177', 'Boeing 787-9', 296, 2019);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '23456789000166', 'Airbus A380', 850, 2015);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '45678901000155', 'Boeing 777X', 425, 2022);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '67890123000144', 'Airbus A350', 325, 2021);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '78901234000133', 'Boeing 747-8', 410, 2014);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '89012345000122', 'Airbus A320neo', 195, 2020);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 737 MAX', 210, 2021);
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 767-300', 261, 2016);
 
-SELECT * FROM Funcao_Salario; 
+SELECT * FROM Funcao_Salario;
 
-SELECT * FROM Passaporte; 
+SELECT * FROM Passaporte;
 
 SELECT * FROM Companhia_Aerea;
 
 -- Inserindo pessoas
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('12345678901', 'Lucas', 'Silva', 'lucas.silva@email.com', TO_DATE('1995-03-15', 'YYYY-MM-DD'), '998877665', '01001000');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('23456789012', 'Mariana', 'Souza', 'mariana.souza@email.com', TO_DATE('1988-07-22', 'YYYY-MM-DD'), '887766554', '20040002');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('34567890123', 'Fernando', 'Oliveira', 'fernando.oliveira@email.com', TO_DATE('1990-11-05', 'YYYY-MM-DD'), '776655443', '30120040');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('45678901234', 'Amanda', 'Costa', 'amanda.costa@email.com', TO_DATE('1985-05-12', 'YYYY-MM-DD'), '665544332', '40010010');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('56789012345', 'Carlos', 'Pereira', 'carlos.pereira@email.com', TO_DATE('1992-09-30', 'YYYY-MM-DD'), '554433221', '80010020');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('67890123456', 'Juliana', 'Ferreira', 'juliana.ferreira@email.com', TO_DATE('1998-12-18', 'YYYY-MM-DD'), '112233445', '50010030');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('78901234567', 'Roberto', 'Almeida', 'roberto.almeida@email.com', TO_DATE('1975-04-25', 'YYYY-MM-DD'), '223344556', '60010040');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('89012345678', 'Tatiane', 'Lima', 'tatiane.lima@email.com', TO_DATE('2000-06-10', 'YYYY-MM-DD'), '334455667', '70040050');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('90123456789', 'Eduardo', 'Rodrigues', 'eduardo.rodrigues@email.com', TO_DATE('1983-08-07', 'YYYY-MM-DD'), '987654321', '80010020');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('01234567890', 'Beatriz', 'Martins', 'beatriz.martins@email.com', TO_DATE('1997-10-03', 'YYYY-MM-DD'), '876543210', '90030070');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('11223344556', 'André', 'Gomes', 'andre.gomes@email.com', TO_DATE('1986-01-22', 'YYYY-MM-DD'), '765432109', '01122000');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('22334455667', 'Fernanda', 'Barbosa', 'fernanda.barbosa@email.com', TO_DATE('1993-03-29', 'YYYY-MM-DD'), '654321098', '20230010');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('33445566778', 'Ricardo', 'Mendes', 'ricardo.mendes@email.com', TO_DATE('1979-07-14', 'YYYY-MM-DD'), '543210987', '30150080');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('44556677889', 'Larissa', 'Carvalho', 'larissa.carvalho@email.com', TO_DATE('2002-09-08', 'YYYY-MM-DD'), '432109876', '40020030');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('55667788990', 'Paulo', 'Nogueira', 'paulo.nogueira@email.com', TO_DATE('1991-05-17', 'YYYY-MM-DD'), '321098765', '80030040');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('66778899001', 'Gabriela', 'Ramos', 'gabriela.ramos@email.com', TO_DATE('1996-12-02', 'YYYY-MM-DD'), '210987654', '50040050');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('77889900112', 'Diego', 'Azevedo', 'diego.azevedo@email.com', TO_DATE('1984-11-23', 'YYYY-MM-DD'), '109876543', '60050060');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('88990011223', 'Aline', 'Teixeira', 'aline.teixeira@email.com', TO_DATE('1972-06-19', 'YYYY-MM-DD'), '987654321', '70060070');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('99001122334', 'Rodrigo', 'Campos', 'rodrigo.campos@email.com', TO_DATE('2001-08-31', 'YYYY-MM-DD'), '876543210', '90040080');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP) 
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('10111222334', 'Camila', 'Monteiro', 'camila.monteiro@email.com', TO_DATE('1994-04-13', 'YYYY-MM-DD'), '556677889', '68900020');
 
 
 -- Inserindo passageiros
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('12345678901', 'A123456789', 'Brasil', 'Janela', 'Brasileira');
+
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('23456789012', 'B987654321', 'Estados Unidos', 'Corredor', 'Americana');
+
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('34567890123', 'C456789012', 'França', 'Meio', 'Francesa');
+
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('45678901234', 'D112233445', 'Alemanha', 'Janela', 'Alemã');
+
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('56789012345', 'E223344556', 'Argentina', 'Corredor', 'Argentina');
 
 -- Inserindo tripulantes
+
+-- Inserting crew members into the Tripulante table
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('12345678901', '12345678000101', NULL, 4, 1001, TO_DATE('2015-03-15', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('23456789012', '98765432000199', '12345678901', 5, 1002, TO_DATE('2018-07-22', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('34567890123', '56789012000188', '12345678901', 6, 1003, TO_DATE('2019-11-05', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('45678901234', '34567890000177', '23456789012', 7, 1004, TO_DATE('2020-05-12', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('56789012345', '23456789000166', '23456789012', 8, 1005, TO_DATE('2021-09-30', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('67890123456', '45678901000155', '34567890123', 9, 1006, TO_DATE('2022-12-18', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('78901234567', '67890123000144', '34567890123', 10, 1007, TO_DATE('2023-04-25', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('89012345678', '78901234000133', '45678901234', 1, 1008, TO_DATE('2017-06-10', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('90123456789', '89012345000122', '45678901234', 2, 1009, TO_DATE('2016-08-07', 'YYYY-MM-DD'));
+
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('01234567890', '90123456000111', '56789012345', 3, 1010, TO_DATE('2019-10-03', 'YYYY-MM-DD'));
 
 -- Inserindo bagagens
 
@@ -280,46 +325,46 @@ VALUES ('10111222334', 'Camila', 'Monteiro', 'camila.monteiro@email.com', TO_DAT
 -- Inserindo necessidades_especiais
 
 -- Inserindo Voa
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (1, 1, '1');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (2, 2, '2');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (3, 3, '3');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (4, 4, '4');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (5, 5, '5');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (6, 1, '6');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (7, 2, '7');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (8, 3, '8');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (9, 4, '9');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) 
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
 VALUES (10, 5, '10');
 
 
 -- Inserindo Acomoda
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (1, '12345678000101');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (2, '98765432000199');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (3, '56789012000188');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (4, '34567890000177');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (5, '23456789000166');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (1, '45678901000155');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (2, '67890123000144');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (3, '78901234000133');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (4, '89012345000122');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
 VALUES (5, '90123456000111');
