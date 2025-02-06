@@ -172,7 +172,6 @@ INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES 
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('654321098', '62', '62');
 
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('445566778', '44', '44'); 
-
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('556677889', '81', '81'); 
 
 
