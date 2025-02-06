@@ -52,36 +52,45 @@ CREATE SEQUENCE bagagem_sequence
 
 ---Inserindo as funções e salarios.
 
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Atendente de Check-in', 3200.000);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Agente de Segurança', 2900.500);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Controlador de Tráfego Aéreo', 8500.750);
+
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Piloto', 15000.000);
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Copiloto', 12000.000);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Mecânico de Aeronaves', 5000.250);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Despachante Operacional', 4800.000);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Funcionário de Bagagem', 2500.000);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Assistente de Pista', 2800.750);
-INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Supervisor de Terminal', 6200.000);
-
+INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Comissário de Bordo', 5000.000);
+INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Engenheiro de Voo', 11000.000);
+INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Enfermeiro de Bordo', 8000.000);
 
 
 --- Inserindo os passaportes.
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
 VALUES ('A123456789', 'Brasil', TO_DATE('2020-01-15', 'YYYY-MM-DD'), TO_DATE('2030-01-15', 'YYYY-MM-DD'));
-
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
 VALUES ('B987654321', 'Estados Unidos', TO_DATE('2018-06-10', 'YYYY-MM-DD'), TO_DATE('2028-06-10', 'YYYY-MM-DD'));
-
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
 VALUES ('C456789012', 'França', TO_DATE('2022-11-01', 'YYYY-MM-DD'), TO_DATE('2032-11-01', 'YYYY-MM-DD'));
-
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
 VALUES ('D112233445', 'Alemanha', TO_DATE('2019-03-20', 'YYYY-MM-DD'), TO_DATE('2029-03-20', 'YYYY-MM-DD'));
-
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
 VALUES ('E223344556', 'Argentina', TO_DATE('2021-07-05', 'YYYY-MM-DD'), TO_DATE('2031-07-05', 'YYYY-MM-DD'));
-
-
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('F334455667', 'Canadá', TO_DATE('2017-12-22', 'YYYY-MM-DD'), TO_DATE('2027-12-22', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('G556677889', 'Itália', TO_DATE('2023-04-18', 'YYYY-MM-DD'), TO_DATE('2033-04-18', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('H667788990', 'Espanha', TO_DATE('2020-09-30', 'YYYY-MM-DD'), TO_DATE('2030-09-30', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('I778899001', 'Japão', TO_DATE('2021-01-25', 'YYYY-MM-DD'), TO_DATE('2031-01-25', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('J889900112', 'Austrália', TO_DATE('2019-06-14', 'YYYY-MM-DD'), TO_DATE('2029-06-14', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('K990011223', 'Portugal', TO_DATE('2016-11-03', 'YYYY-MM-DD'), TO_DATE('2026-11-03', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('L112233445', 'China', TO_DATE('2024-02-01', 'YYYY-MM-DD'), TO_DATE('2034-02-01', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('M223344556', 'Rússia', TO_DATE('2015-08-12', 'YYYY-MM-DD'), TO_DATE('2025-08-12', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('N334455667', 'Índia', TO_DATE('2022-07-09', 'YYYY-MM-DD'), TO_DATE('2032-07-09', 'YYYY-MM-DD'));
+INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
+VALUES ('P445566778', 'África do Sul', TO_DATE('2018-03-27', 'YYYY-MM-DD'), TO_DATE('2028-03-27', 'YYYY-MM-DD'));
 
 
 ---Inserindo endereços.
@@ -105,7 +114,6 @@ INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('60050060
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('70060070', 'Setor Comercial Sul', 100, 'Brasília', 'Distrito Federal');
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('90040080', 'Rua Padre Chagas', 120, 'Porto Alegre', 'Rio Grande do Sul');
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('68900020', 'Avenida FAB', 250, 'Macapá', 'Amapá');
-
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('65020090', 'Avenida Litorânea', 180, 'São Luís', 'Maranhão');
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('57025010', 'Rua do Comércio', 75, 'Maceió', 'Alagoas');
 INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('76801020', 'Avenida Jorge Teixeira', 500, 'Porto Velho', 'Rondônia');
@@ -154,25 +162,20 @@ INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES (
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('112233445', '11', '55');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('223344556', '21', '55');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('334455667', '61', '55');
-
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('987654321', '213', '1');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('876543210', '305', '1');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('765432109', '312', '1');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('654321098', '702', '1');
-
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('543210987', '39', '39');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('432109876', '34', '34');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('321098765', '46', '46');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('210987654', '31', '31');
-
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('109876543', '86', '86');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('987654321', '91', '91');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('876543210', '82', '82');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('765432109', '65', '65');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais)  VALUES ('654321098', '62', '62');
-
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('987654321', '213', '1');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('876543210', '305', '1');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('765432109', '312', '1');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('654321098', '702', '1');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('543210987', '39', '39');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('432109876', '34', '34');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('321098765', '46', '46');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('210987654', '31', '31');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('109876543', '86', '86');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('987654321', '91', '91');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('876543210', '82', '82');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('765432109', '65', '65');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('654321098', '62', '62');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('445566778', '44', '44');
-
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('556677889', '81', '81');
 
 
@@ -213,12 +216,6 @@ INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade,
 VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 737 MAX', 210, 2021);
 INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 767-300', 261, 2016);
-
-SELECT * FROM Funcao_Salario;
-
-SELECT * FROM Passaporte;
-
-SELECT * FROM Companhia_Aerea;
 
 -- Inserindo pessoas
 INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
@@ -266,105 +263,160 @@ VALUES ('10111222334', 'Camila', 'Monteiro', 'camila.monteiro@email.com', TO_DAT
 -- Inserindo passageiros
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('12345678901', 'A123456789', 'Brasil', 'Janela', 'Brasileira');
-
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('23456789012', 'B987654321', 'Estados Unidos', 'Corredor', 'Americana');
-
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('34567890123', 'C456789012', 'França', 'Meio', 'Francesa');
-
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('45678901234', 'D112233445', 'Alemanha', 'Janela', 'Alemã');
-
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('56789012345', 'E223344556', 'Argentina', 'Corredor', 'Argentina');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('22334455667', 'F334455667', 'Canadá', 'Corredor', 'Canadense');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('33445566778', 'G556677889', 'Itália', 'Janela', 'Italiano');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('44556677889', 'H667788990', 'Espanha', 'Janela', 'Espanhol');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('88990011223', 'I778899001', 'Japão', 'Meio', 'Japonês');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('10111222334', 'P445566778', 'África do Sul', 'Meio', 'Sul-africano');
+
 
 -- Inserindo tripulantes
 
--- Inserting crew members into the Tripulante table
 INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('12345678901', '12345678000101', NULL, 4, 1001, TO_DATE('2015-03-15', 'YYYY-MM-DD'));
+VALUES ('67890123456', '12345678000101', NULL, 1, 1001, TO_DATE('2015-06-10', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('78901234567', '98765432000199', '67890123456', 2, 1002, TO_DATE('2016-08-15', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('77889900112', '56789012000188', '67890123456', 3, 1003, TO_DATE('2018-03-20', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('11223344556', '34567890000177', '78901234567', 4, 1004, TO_DATE('2019-07-05', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('55667788990', '23456789000166', '77889900112', 5, 1005, TO_DATE('2020-11-12', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('99001122334', '45678901000155', '11223344556', 3, 1006, TO_DATE('2021-01-18', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('66778899001', '67890123000144', '55667788990', 2, 1007, TO_DATE('2021-05-22', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('89012345678', '78901234000133', '99001122334', 4, 1008, TO_DATE('2022-09-30', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('90123456789', '89012345000122', '66778899001', 1, 1009, TO_DATE('2023-02-10', 'YYYY-MM-DD'));
+INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
+VALUES ('01234567890', '90123456000111', '89012345678', 5, 1010, TO_DATE('2023-07-15', 'YYYY-MM-DD'));
 
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('23456789012', '98765432000199', '12345678901', 5, 1002, TO_DATE('2018-07-22', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('34567890123', '56789012000188', '12345678901', 6, 1003, TO_DATE('2019-11-05', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('45678901234', '34567890000177', '23456789012', 7, 1004, TO_DATE('2020-05-12', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('56789012345', '23456789000166', '23456789012', 8, 1005, TO_DATE('2021-09-30', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('67890123456', '45678901000155', '34567890123', 9, 1006, TO_DATE('2022-12-18', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('78901234567', '67890123000144', '34567890123', 10, 1007, TO_DATE('2023-04-25', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('89012345678', '78901234000133', '45678901234', 1, 1008, TO_DATE('2017-06-10', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('90123456789', '89012345000122', '45678901234', 2, 1009, TO_DATE('2016-08-07', 'YYYY-MM-DD'));
-
-INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
-VALUES ('01234567890', '90123456000111', '56789012345', 3, 1010, TO_DATE('2019-10-03', 'YYYY-MM-DD'));
 
 -- Inserindo bagagens
 
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', 1, 12.5)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', 2, 8.3)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (2, '23456789012', 1, 15.2)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', 1, 10.0)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', 2, 5.7)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', 1, 7.9)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', 2, 11.0)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', 1, 18.6)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', 2, 13.2)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', 1, 14.3)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', 2, 9.5)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', 1, 9.8)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', 2, 7.3)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', 1, 12.1)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', 2, 6.8)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', 1, 6.2)
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', 2, 10.7)
+
 -- Inserindo reservas
+
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('1', '12345678901', 'Primeira', 5)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('2', '23456789012', 'Segunda', 12)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('3', '34567890123', 'Terceira', 23)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('4', '45678901234', 'Primeira', 8)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('5', '56789012345', 'Segunda', 15)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('6', '22334455667', 'Terceira', 30)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('7', '33445566778', 'Primeira', 3)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('8', '44556677889', 'Segunda', 18)
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('9', '88990011223', 'Terceira', 25)
 
 -- Inserindo opera
 
--- Inserindo voo_detalhes
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (1, '67890123456')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (2, '78901234567')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (3, '77889900112')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (4, '11223344556')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (5, '55667788990')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (6, '99001122334')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (7, '66778899001')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (8, '89012345678')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (9, '90123456789')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (10, '01234567890')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (11, '67890123456')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (12, '78901234567')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (13, '77889900112')
+
+
+-- Inserindo 
+
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino) VALUES (1, "88990011223", "10", )
 
 -- Inserindo telefone_emergencia
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('12345678901', '11987654321')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('23456789012', '21987654321')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('34567890123', '11999991111')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('45678901234', '21988882222')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('56789012345', '11977773333')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('22334455667', '21966664444')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('33445566778', '11955556666')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('44556677889', '21944447777')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('88990011223', '11933338888')
+INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('10111222334', '21922229999')
+
 
 -- Inserindo necessidades_especiais
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('12345678901', 'Intolerância à lactose');
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('12345678901', 'Mobilidade reduzida');
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('34567890123', 'Cego ou baixa visão');
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('33445566778', 'Glúten-free');
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('88990011223', 'Epilepsia');
+INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('10111222334', 'Idoso com necessidade de assistência');
+
 
 -- Inserindo Voa
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (1, 1, '1');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (2, 2, '2');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (3, 3, '3');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (4, 4, '4');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (5, 5, '5');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (6, 1, '6');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (7, 2, '7');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (8, 3, '8');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (9, 4, '9');
-INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo)
-VALUES (10, 5, '10');
-
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (1, 1, '1');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (2, 2, '2');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (3, 3, '3');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (4, 4, '4');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (5, 5, '5');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (6, 1, '6');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (7, 2, '7');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (8, 3, '8');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (9, 4, '9');
+INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (10, 5, '10');
 
 -- Inserindo Acomoda
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (1, '12345678000101');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (2, '98765432000199');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (3, '56789012000188');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (4, '34567890000177');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (5, '23456789000166');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (1, '45678901000155');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (2, '67890123000144');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (3, '78901234000133');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (4, '89012345000122');
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea)
-VALUES (5, '90123456000111');
+-- Aeroporto 1: Aeroporto de Guarulhos (International Hub)
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '12345678000101');  -- Azul
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '98765432000199');  -- Gol
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '56789012000188');  -- Latam
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '34567890000177');  -- American Airlines
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '23456789000166');  -- Lufthansa
+
+-- Aeroporto 2: Aeroporto Santos Dumont (Domestic Focus)
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '12345678000101');  -- Azul
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '98765432000199');  -- Gol
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '56789012000188');  -- Latam
+
+-- Aeroporto 3: Aeroporto de Confins (Regional)
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (3, '12345678000101');  -- Azul
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (3, '98765432000199');  -- Gol
+
+-- Aeroporto 4: Aeroporto de Salvador (Mixed)
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '12345678000101');  -- Azul
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '98765432000199');  -- Gol
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '56789012000188');  -- Latam
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '45678901000155');  -- Emirates
+
+-- Aeroporto 5: Aeroporto Pinto Martins (Smaller Hub)
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (5, '12345678000101');  -- Azul
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (5, '98765432000199');  -- Gol
