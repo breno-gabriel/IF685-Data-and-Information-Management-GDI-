@@ -50,18 +50,20 @@ CREATE TABLE Funcao_Salario(
 
 --populado
 CREATE TABLE Voo(
-    Codigo_voo VARCHAR2(15) NOT NULL,
+    Codigo_voo NUMBER NOT NULL,
     Categoria VARCHAR2(20) NOT NULL,
     Status_voo VARCHAR2(20) NOT NULL,
     CONSTRAINT Voo_pkey PRIMARY KEY (Codigo_voo),
-    CONSTRAINT Categoria_check CHECK (Categoria IN ('Internacional', 'Nacional')),
-    CONSTRAINT Status_voo_check CHECK (Status_voo IN ('Agendando', 'Em andamento', 'Concluido', 'Cancelado'))
+    CONSTRAINT Categoria_check 
+        CHECK (Categoria IN ('Internacional', 'Nacional')),
+    CONSTRAINT Status_voo_check 
+        CHECK (Status_voo IN ('Agendando', 'Em andamento', 'Concluido', 'Cancelado'))
 );
 
 --populado
 CREATE TABLE Detalhes_Telefone(
     Numero_de_telefone VARCHAR2(9) NOT NULL,
-    DDD VARCHAR2(2) NOT NULL,
+    DDD VARCHAR2(3) NOT NULL,
     Codigo_do_pais VARCHAR2(2) NOT NULL,
     CONSTRAINT Numero_de_telefone_pkey PRIMARY KEY (Numero_de_telefone)
 );
@@ -79,7 +81,8 @@ CREATE TABLE Aeroporto(
     Nome VARCHAR2(50) NOT NULL,
     Cep VARCHAR2(8) NOT NULL,
     CONSTRAINT Aeroporto_pkey PRIMARY KEY (Codigo_Aeroporto),
-    CONSTRAINT Cep_fkey1 FOREIGN KEY (CEP) REFERENCES Endereco(CEP) ON DELETE CASCADE
+    CONSTRAINT Cep_fkey1 FOREIGN KEY (CEP) 
+        REFERENCES Endereco(CEP) ON DELETE CASCADE
 );
 --populado
 CREATE TABLE Aeronave(
@@ -89,7 +92,8 @@ CREATE TABLE Aeronave(
     Capacidade NUMBER NOT NULL,
     Ano_de_fabricacao NUMBER(4) NOT NULL,
     CONSTRAINT Codigo_Aeronave_pkey PRIMARY KEY (Codigo_Aeronave),
-    CONSTRAINT Aeronave_fkey FOREIGN KEY (CNPJ_Companhia_aerea) REFERENCES Companhia_Aerea(CNPJ) ON DELETE CASCADE
+    CONSTRAINT Aeronave_fkey FOREIGN KEY (CNPJ_Companhia_aerea) 
+        REFERENCES Companhia_Aerea(CNPJ) ON DELETE CASCADE
 );
 -- populado
 CREATE TABLE Pessoa(
@@ -101,8 +105,10 @@ CREATE TABLE Pessoa(
     Numero_de_telefone VARCHAR2(9),
     CEP VARCHAR2(8) NOT NULL,
     CONSTRAINT CPF_pkey PRIMARY KEY (CPF),
-    CONSTRAINT Numero_fkey FOREIGN KEY (Numero_de_telefone) REFERENCES Detalhes_Telefone(Numero_de_telefone) ON DELETE CASCADE,
-    CONSTRAINT Cep_fkey2 FOREIGN KEY (CEP) REFERENCES Endereco(CEP) ON DELETE CASCADE
+    CONSTRAINT Numero_fkey FOREIGN KEY (Numero_de_telefone) 
+        REFERENCES Detalhes_Telefone(Numero_de_telefone) ON DELETE CASCADE,
+    CONSTRAINT Cep_fkey2 FOREIGN KEY (CEP) 
+        REFERENCES Endereco(CEP) ON DELETE CASCADE
 );
 
 --populado
@@ -117,7 +123,8 @@ CREATE TABLE Passageiro(
         REFERENCES Passaporte(Numero_do_passaporte) ON DELETE CASCADE,
     CONSTRAINT Cpf_passageiro_fkey2 FOREIGN KEY (Cpf_passageiro)
         REFERENCES Pessoa(CPF) ON DELETE CASCADE,
-    CONSTRAINT Passageiro_check CHECK (Preferencia_de_assento IN ('Janela', 'Meio', 'Corredor'))
+    CONSTRAINT Passageiro_check 
+        CHECK (Preferencia_de_assento IN ('Janela', 'Meio', 'Corredor'))
 );
 -- populado
 CREATE TABLE Tripulante(
@@ -140,24 +147,28 @@ CREATE TABLE Tripulante(
 
 -- populado
 CREATE TABLE Bagagem(
-	Codigo_voo VARCHAR2(15),
+	Codigo_voo NUMBER,
     CPF_Passageiro VARCHAR2(11),
     Numero_Bagagem NUMBER,
     Peso_Bagagem NUMBER,
     CONSTRAINT Bagagem_pkey PRIMARY KEY (Codigo_voo, Cpf_passageiro, Numero_Bagagem),
-    CONSTRAINT Bagagem_fkey1 FOREIGN KEY (Codigo_voo) REFERENCES Voo(Codigo_Voo) ON DELETE CASCADE,
-    CONSTRAINT Bagagem_fkey2 FOREIGN KEY (CPF_Passageiro) REFERENCES Passageiro(CPF_Passageiro) ON DELETE CASCADE
+    CONSTRAINT Bagagem_fkey1 FOREIGN KEY (Codigo_voo) 
+        REFERENCES Voo(Codigo_Voo) ON DELETE CASCADE,
+    CONSTRAINT Bagagem_fkey2 FOREIGN KEY (CPF_Passageiro) 
+        REFERENCES Passageiro(CPF_Passageiro) ON DELETE CASCADE
 );
 
 -- populado
 CREATE TABLE Reserva(
-    Codigo_Voo VARCHAR2(15) NOT NULL,
+    Codigo_Voo NUMBER NOT NULL,
     CPF_Passageiro VARCHAR2(11) NOT NULL,
     Classe VARCHAR2(20) NOT NULL,
     Numero_do_assento NUMBER NOT NULL,
     CONSTRAINT Reserva_pkey PRIMARY KEY (Codigo_Voo, CPF_Passageiro),
-    CONSTRAINT Reserva_fkey1 FOREIGN KEY (Codigo_Voo) REFERENCES Voo(Codigo_voo) ON DELETE CASCADE,
-    CONSTRAINT Reserva_fkey2 FOREIGN KEY (CPF_Passageiro) REFERENCES Passageiro(Cpf_passageiro) ON DELETE CASCADE,
+    CONSTRAINT Reserva_fkey1 FOREIGN KEY (Codigo_Voo) 
+        REFERENCES Voo(Codigo_voo) ON DELETE CASCADE,
+    CONSTRAINT Reserva_fkey2 FOREIGN KEY (CPF_Passageiro) 
+        REFERENCES Passageiro(Cpf_passageiro) ON DELETE CASCADE,
     CONSTRAINT Reserva_check CHECK (Classe IN ('Primeira', 'Segunda', 'Terceira'))
 );
 
@@ -166,20 +177,28 @@ CREATE TABLE Opera(
     Codigo_Aeronave NUMBER NOT NULL,
     CPF_Tripulante VARCHAR2(11) NOT NULL,
     CONSTRAINT Opera_pkey PRIMARY KEY (Codigo_Aeronave, CPF_Tripulante),
-    CONSTRAINT Opera_fkey1 FOREIGN KEY (Codigo_Aeronave) REFERENCES Aeronave(Codigo_Aeronave) ON DELETE CASCADE,
-    CONSTRAINT Opera_fkey2 FOREIGN KEY (CPF_Tripulante) REFERENCES Tripulante(CPF_Tripulante) ON DELETE CASCADE
+    CONSTRAINT Opera_fkey1 FOREIGN KEY (Codigo_Aeronave) 
+        REFERENCES Aeronave(Codigo_Aeronave) ON DELETE CASCADE,
+    CONSTRAINT Opera_fkey2 FOREIGN KEY (CPF_Tripulante) 
+        REFERENCES Tripulante(CPF_Tripulante) ON DELETE CASCADE
 );
 
 
 CREATE TABLE Voo_Detalhes(
-    Codigo_Voo VARCHAR2(15) NOT NULL,
+    Codigo_Voo NUMBER NOT NULL,
     CPF_Passageiro VARCHAR2(11) NOT NULL,
     Portao_de_Embarque VARCHAR2(2) NOT NULL,
-    Origem VARCHAR2(30) NOT NULL,
-    Destino VARCHAR2(30) NOT NULL,
+    Origem NUMBER NOT NULL,
+    Destino NUMBER NOT NULL,
+    Data_decolagem DATE NOT NULL,
+    Data_aterrissagem DATE NOT NULL,
     CONSTRAINT Voo_Detalhes_pkey PRIMARY KEY (Codigo_Voo, CPF_Passageiro),
-    CONSTRAINT Voo_Detalhes_fkey FOREIGN KEY (Codigo_Voo, CPF_Passageiro)
-        REFERENCES Reserva(Codigo_Voo, CPF_Passageiro) ON DELETE CASCADE
+    CONSTRAINT Voo_Detalhes_fkey1 FOREIGN KEY (Codigo_Voo, CPF_Passageiro)
+        REFERENCES Reserva(Codigo_Voo, CPF_Passageiro) ON DELETE CASCADE,
+    CONSTRAINT Voo_Detalhes_fkey2 FOREIGN KEY (Origem)
+        REFERENCES Aeroporto(Codigo_aeroporto) ON DELETE CASCADE,
+    CONSTRAINT Voo_Detalhes_fkey3 FOREIGN KEY (Destino)
+        REFERENCES Aeroporto(Codigo_aeroporto) ON DELETE CASCADE
 );
 
 -- populado
@@ -207,20 +226,23 @@ CREATE TABLE Necessidades_Especiais(
 CREATE TABLE Voa(
     Codigo_Aeronave NUMBER NOT NULL,
     Codigo_Aeroporto NUMBER NOT NULL,
-    Codigo_Voo VARCHAR2(15) NOT NULL,
-    Codigo_Aeroporto_chegada NUMBER NOT NULL,
+    Codigo_Voo NUMBER NOT NULL,
     CONSTRAINT Voa_pkey PRIMARY KEY (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo),
-    CONSTRAINT Voa_fkey1 FOREIGN KEY (Codigo_Aeronave) REFERENCES Aeronave(Codigo_Aeronave) ON DELETE CASCADE,
-    CONSTRAINT Voa_fkey2 FOREIGN KEY (Codigo_Aeroporto) REFERENCES Aeroporto(Codigo_Aeroporto) ON DELETE CASCADE,
-    CONSTRAINT Voa_fkey3 FOREIGN KEY (Codigo_Voo) REFERENCES Voo(Codigo_Voo) ON DELETE CASCADE
+    CONSTRAINT Voa_fkey1 FOREIGN KEY (Codigo_Aeronave) 
+        REFERENCES Aeronave(Codigo_Aeronave) ON DELETE CASCADE,
+    CONSTRAINT Voa_fkey2 FOREIGN KEY (Codigo_Aeroporto) 
+        REFERENCES Aeroporto(Codigo_Aeroporto) ON DELETE CASCADE,
+    CONSTRAINT Voa_fkey3 FOREIGN KEY (Codigo_Voo) 
+        REFERENCES Voo(Codigo_Voo) ON DELETE CASCADE
 );
+
 --populado
 CREATE TABLE Acomoda(
     Codigo_Aeroporto NUMBER NOT NULL,
     CNPJ_Companhia_aerea VARCHAR2 (14),
     CONSTRAINT Acomoda_pkey PRIMARY KEY (Codigo_Aeroporto, CNPJ_Companhia_aerea),
     CONSTRAINT Codigo_Aeroporto_fkey1 FOREIGN KEY (Codigo_Aeroporto) 
-        REFERENCES Aeroporto(Codigo_Aeroporto),
+        REFERENCES Aeroporto(Codigo_Aeroporto) ON DELETE CASCADE,
     CONSTRAINT CNPJ_Companhia_aerea_fkey2 FOREIGN KEY (CNPJ_Companhia_aerea) 
-        REFERENCES Companhia_Aerea(CNPJ)
+        REFERENCES Companhia_Aerea(CNPJ) ON DELETE CASCADE
 );

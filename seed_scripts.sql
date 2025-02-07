@@ -1,9 +1,9 @@
-DROP SEQUENCE aeroporto_sequence
-DROP SEQUENCE voo_sequence
-DROP SEQUENCE aeronave_sequence
-DROP SEQUENCE passaporte_sequence
-DROP SEQUENCE bagagem_sequence
-DROP SEQUENCE funcao_sequence
+DROP SEQUENCE aeroporto_sequence;
+DROP SEQUENCE voo_sequence;
+DROP SEQUENCE aeronave_sequence;
+DROP SEQUENCE passaporte_sequence;
+DROP SEQUENCE bagagem_sequence;
+DROP SEQUENCE funcao_sequence;
 
 CREATE SEQUENCE aeroporto_sequence
  START WITH     1
@@ -26,13 +26,6 @@ CREATE SEQUENCE aeroporto_sequence
  NOCACHE
  NOCYCLE;
 
-CREATE SEQUENCE passaporte_sequence
- START WITH     1
- INCREMENT BY   1
- NOMAXVALUE
- NOCACHE
- NOCYCLE;
-
 CREATE SEQUENCE bagagem_sequence
  START WITH     1
  INCREMENT BY   1
@@ -47,18 +40,13 @@ CREATE SEQUENCE bagagem_sequence
  NOCACHE
  NOCYCLE;
 
---  INSERT INTO Detalhes_Telefone_Emergencia (  Codigo_do_Pais, DDD, Numero_do_Telefone )
---     VALUES ('55', '011','987654321'  );
-
 ---Inserindo as funções e salarios.
-
 
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Piloto', 15000.000);
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Copiloto', 12000.000);
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Comissário de Bordo', 5000.000);
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Engenheiro de Voo', 11000.000);
 INSERT INTO Funcao_Salario (id, Funcao, Salario) VALUES (funcao_sequence.NEXTVAL, 'Enfermeiro de Bordo', 8000.000);
-
 
 --- Inserindo os passaportes.
 INSERT INTO Passaporte (Numero_do_passaporte, Pais_de_emissao, Data_de_emissao, Data_de_validade)
@@ -94,51 +82,106 @@ VALUES ('P445566778', 'África do Sul', TO_DATE('2018-03-27', 'YYYY-MM-DD'), TO_
 
 
 ---Inserindo endereços.
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('01001000', 'Avenida Paulista', 1578, 'São Paulo', 'São Paulo');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('20040002', 'Rua da Assembleia', 98, 'Rio de Janeiro', 'Rio de Janeiro');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('30120040', 'Rua dos Guajajaras', 1450, 'Belo Horizonte', 'Minas Gerais');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('40010010', 'Avenida Sete de Setembro', 400, 'Salvador', 'Bahia');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('80010020', 'Rua XV de Novembro', 230, 'Curitiba', 'Paraná');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('50010030', 'Avenida Guararapes', 150, 'Recife', 'Pernambuco');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('60010040', 'Avenida Beira Mar', 200, 'Fortaleza', 'Ceará');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('70040050', 'Esplanada dos Ministérios', NULL, 'Brasília', 'Distrito Federal');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('80010020', 'Rua das Flores', 300, 'Curitiba', 'Paraná');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('90030070', 'Avenida Borges de Medeiros', 400, 'Porto Alegre', 'Rio Grande do Sul');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('01122000', 'Rua Augusta', 500, 'São Paulo', 'São Paulo');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('20230010', 'Rua do Ouvidor', 250, 'Rio de Janeiro', 'Rio de Janeiro');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('30150080', 'Avenida Afonso Pena', 1200, 'Belo Horizonte', 'Minas Gerais');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('40020030', 'Rua Chile', 350, 'Salvador', 'Bahia');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('80030040', 'Avenida Batel', 678, 'Curitiba', 'Paraná');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('50040050', 'Rua da Aurora', 90, 'Recife', 'Pernambuco');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('60050060', 'Rua Dragão do Mar', 150, 'Fortaleza', 'Ceará');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('70060070', 'Setor Comercial Sul', 100, 'Brasília', 'Distrito Federal');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('90040080', 'Rua Padre Chagas', 120, 'Porto Alegre', 'Rio Grande do Sul');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('68900020', 'Avenida FAB', 250, 'Macapá', 'Amapá');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('65020090', 'Avenida Litorânea', 180, 'São Luís', 'Maranhão');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('57025010', 'Rua do Comércio', 75, 'Maceió', 'Alagoas');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('76801020', 'Avenida Jorge Teixeira', 500, 'Porto Velho', 'Rondônia');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('88010030', 'Rua Bocaiúva', 210, 'Florianópolis', 'Santa Catarina');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('58040040', 'Avenida Epitácio Pessoa', 350, 'João Pessoa', 'Paraíba');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('69050050', 'Rua dos Andradas', 120, 'Manaus', 'Amazonas');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('79060060', 'Rua 14 de Julho', 90, 'Campo Grande', 'Mato Grosso do Sul');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('66970070', 'Rua Manoel Barata', 200, 'Belém', 'Pará');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('76820080', 'Avenida Amazonas', 80, 'Ji-Paraná', 'Rondônia');
-INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) VALUES ('69310090', 'Rua Cecília Brasil', 150, 'Boa Vista', 'Roraima');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('01001000', 'Avenida Paulista', 1578, 'São Paulo', 'São Paulo');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('20040002', 'Rua da Assembleia', 98, 'Rio de Janeiro', 'Rio de Janeiro');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('30120040', 'Rua dos Guajajaras', 1450, 'Belo Horizonte', 'Minas Gerais');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('40010010', 'Avenida Sete de Setembro', 400, 'Salvador', 'Bahia');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('80010020', 'Rua XV de Novembro', 230, 'Curitiba', 'Paraná');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('50010030', 'Avenida Guararapes', 150, 'Recife', 'Pernambuco');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('60010040', 'Avenida Beira Mar', 200, 'Fortaleza', 'Ceará');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('70040050', 'Esplanada dos Ministérios', NULL, 'Brasília', 'Distrito Federal');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('90030070', 'Avenida Borges de Medeiros', 400, 'Porto Alegre', 'Rio Grande do Sul');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('01122000', 'Rua Augusta', 500, 'São Paulo', 'São Paulo');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('20230010', 'Rua do Ouvidor', 250, 'Rio de Janeiro', 'Rio de Janeiro');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('30150080', 'Avenida Afonso Pena', 1200, 'Belo Horizonte', 'Minas Gerais');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('40020030', 'Rua Chile', 350, 'Salvador', 'Bahia');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('80030040', 'Avenida Batel', 678, 'Curitiba', 'Paraná');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('50040050', 'Rua da Aurora', 90, 'Recife', 'Pernambuco');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('60050060', 'Rua Dragão do Mar', 150, 'Fortaleza', 'Ceará');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('70060070', 'Setor Comercial Sul', 100, 'Brasília', 'Distrito Federal');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('90040080', 'Rua Padre Chagas', 120, 'Porto Alegre', 'Rio Grande do Sul');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('68900020', 'Avenida FAB', 250, 'Macapá', 'Amapá');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('65020090', 'Avenida Litorânea', 180, 'São Luís', 'Maranhão');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('57025010', 'Rua do Comércio', 75, 'Maceió', 'Alagoas');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('76801020', 'Avenida Jorge Teixeira', 500, 'Porto Velho', 'Rondônia');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('88010030', 'Rua Bocaiúva', 210, 'Florianópolis', 'Santa Catarina');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('58040040', 'Avenida Epitácio Pessoa', 350, 'João Pessoa', 'Paraíba');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('69050050', 'Rua dos Andradas', 120, 'Manaus', 'Amazonas');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('79060060', 'Rua 14 de Julho', 90, 'Campo Grande', 'Mato Grosso do Sul');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('66970070', 'Rua Manoel Barata', 200, 'Belém', 'Pará');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('76820080', 'Avenida Amazonas', 80, 'Ji-Paraná', 'Rondônia');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('69310090', 'Rua Cecília Brasil', 150, 'Boa Vista', 'Roraima');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('71608900', 'Avenida João de Oliveira', 100, 'Brasília', 'Distrito Federal');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('64030010', 'Avenida Frei Serafim', 500, 'Teresina', 'Piauí');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('13056307', 'Rodovia Santos Dumont', 200, 'Campinas', 'São Paulo');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('83102000', 'Avenida Governador José Richa', 300, 'Curitiba', 'Paraná');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('69049000', 'Avenida Tancredo Neves', 600, 'Manaus', 'Amazonas');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('66115000', 'Rua 14 de Março', 800, 'Belém', 'Pará');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('74672040', 'Avenida T-63', 900, 'Goiânia', 'Goiás');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('59290000', 'Rua 1º de Maio', 1000, 'Natal', 'Rio Grande do Norte');
+INSERT INTO Endereco (CEP, Logradouro, Numero, Cidade, Estado) 
+VALUES ('77015020', 'Avenida Teotônio Segurado', 300, 'Palmas', 'Tocantins');
 
 
 
 ---Inserindo companhias aereas.
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('12345678000101', 'Azul Linhas Aéreas', 160, 12000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('98765432000199', 'Gol Linhas Aéreas', 140, 10000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('56789012000188', 'Latam Airlines Brasil', 200, 15000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('34567890000177', 'American Airlines', 850, 120000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('23456789000166', 'Lufthansa', 750, 110000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('45678901000155', 'Emirates Airlines', 260, 62000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('67890123000144', 'Qatar Airways', 230, 45000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('78901234000133', 'British Airways', 280, 55000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('89012345000122', 'Air France', 300, 75000);
-INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) VALUES ('90123456000111', 'Delta Airlines', 900, 91000);
-
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('12345678000101', 'Azul Linhas Aéreas', 160, 12000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('98765432000199', 'Gol Linhas Aéreas', 140, 10000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('56789012000188', 'Latam Airlines Brasil', 200, 15000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('34567890000177', 'American Airlines', 850, 120000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('23456789000166', 'Lufthansa', 750, 110000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('45678901000155', 'Emirates Airlines', 260, 62000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('67890123000144', 'Qatar Airways', 230, 45000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('78901234000133', 'British Airways', 280, 55000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('89012345000122', 'Air France', 300, 75000);
+INSERT INTO Companhia_Aerea (CNPJ, Razao_social, Frota_total_de_aeronaves, Quantidade_total_de_funcionarios) 
+VALUES ('90123456000111', 'Delta Airlines', 900, 91000);
 
 ---Inserindo Voo.
 INSERT INTO Voo (Codigo_voo, Categoria, Status_voo) VALUES (voo_sequence.NEXTVAL, 'Nacional', 'Agendando');
@@ -151,7 +194,6 @@ INSERT INTO Voo (Codigo_voo, Categoria, Status_voo) VALUES (voo_sequence.NEXTVAL
 INSERT INTO Voo (Codigo_voo, Categoria, Status_voo) VALUES (voo_sequence.NEXTVAL, 'Internacional', 'Cancelado');
 INSERT INTO Voo (Codigo_voo, Categoria, Status_voo) VALUES (voo_sequence.NEXTVAL, 'Nacional', 'Agendando');
 INSERT INTO Voo (Codigo_voo, Categoria, Status_voo) VALUES (voo_sequence.NEXTVAL, 'Internacional', 'Em andamento');
-
 ---Inserindo detalhes telefone.
 
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('998877665', '71', '55');
@@ -171,26 +213,38 @@ INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES (
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('321098765', '46', '46');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('210987654', '31', '31');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('109876543', '86', '86');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('987654321', '91', '91');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('876543210', '82', '82');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('765432109', '65', '65');
-INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('654321098', '62', '62');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('445566778', '44', '44');
 INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('556677889', '81', '81');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('999991111', '12', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('988882222', '23', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('977773333', '34', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('966664444', '45', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('955556666', '56', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('944447777', '22', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('933338888', '81', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('922229999', '81', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('911223344', '31', '55');
+INSERT INTO Detalhes_Telefone (Numero_de_telefone, DDD, Codigo_do_pais) VALUES ('922334455', '41', '55');
 
 
---Inserindo Aeroporto --CEP (fkey)
+--Inserindo Aeroporto --CEP (fkey) (Dando erro)
 INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto de Guarulhos', '01001000');
 INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Santos Dumont', '20040002');
 INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto de Confins', '30120040');
 INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto de Salvador', '80010020');
 INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Pinto Martins', '80010020');
-
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Brasília', '71608900');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Viracopos', '13056307');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Curitiba', '83102000');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Manaus', '69049000');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Belém', '66115000');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Goiânia', '74672040');
+INSERT INTO Aeroporto (Codigo_Aeroporto, Nome, Cep) VALUES (aeroporto_sequence.NEXTVAL, 'Aeroporto Internacional de Natal', '59290000');
 
 
 ---Inserindo aeronaves
 
-INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
+INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao) 
 VALUES (aeronave_sequence.NEXTVAL, '12345678000101', 'Airbus A320', 180, 2018);
 INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '12345678000101', 'Embraer E195', 132, 2020);
@@ -253,12 +307,11 @@ VALUES ('66778899001', 'Gabriela', 'Ramos', 'gabriela.ramos@email.com', TO_DATE(
 INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('77889900112', 'Diego', 'Azevedo', 'diego.azevedo@email.com', TO_DATE('1984-11-23', 'YYYY-MM-DD'), '109876543', '60050060');
 INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
-VALUES ('88990011223', 'Aline', 'Teixeira', 'aline.teixeira@email.com', TO_DATE('1972-06-19', 'YYYY-MM-DD'), '987654321', '70060070');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
-VALUES ('99001122334', 'Rodrigo', 'Campos', 'rodrigo.campos@email.com', TO_DATE('2001-08-31', 'YYYY-MM-DD'), '876543210', '90040080');
-INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
 VALUES ('10111222334', 'Camila', 'Monteiro', 'camila.monteiro@email.com', TO_DATE('1994-04-13', 'YYYY-MM-DD'), '556677889', '68900020');
-
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
+VALUES ('88990011223', 'Lucas', 'Henrique', 'lucas.henrique@gmail.com', TO_DATE('1998-04-16', 'YYYY-MM-DD'), '911223344', '64030010');
+INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
+VALUES ('99001122334', 'Ricardo', 'Bizerra', 'ricardo.bizerra@gmail.com', TO_DATE('1950-04-16', 'YYYY-MM-DD'), '922334455', '77015020');
 
 -- Inserindo passageiros
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
@@ -281,6 +334,8 @@ INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, P
 VALUES ('88990011223', 'I778899001', 'Japão', 'Meio', 'Japonês');
 INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
 VALUES ('10111222334', 'P445566778', 'África do Sul', 'Meio', 'Sul-africano');
+INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, Preferencia_de_assento, Nacionalidade)
+VALUES ('99001122334', 'N334455667', 'Índia', 'Janela', 'Indiano');
 
 
 -- Inserindo tripulantes
@@ -306,72 +361,85 @@ VALUES ('90123456789', '89012345000122', '66778899001', 1, 1009, TO_DATE('2023-0
 INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
 VALUES ('01234567890', '90123456000111', '89012345678', 5, 1010, TO_DATE('2023-07-15', 'YYYY-MM-DD'));
 
-
--- Inserindo bagagens
-
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', 1, 12.5)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', 2, 8.3)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (2, '23456789012', 1, 15.2)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', 1, 10.0)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', 2, 5.7)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', 1, 7.9)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', 2, 11.0)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', 1, 18.6)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', 2, 13.2)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', 1, 14.3)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', 2, 9.5)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', 1, 9.8)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', 2, 7.3)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', 1, 12.1)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', 2, 6.8)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', 1, 6.2)
-INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', 2, 10.7)
+--- Inserindo Bagagem
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', bagagem_sequence.NEXTVAL, 12.5);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (1, '12345678901', bagagem_sequence.NEXTVAL, 8.3);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (2, '23456789012', bagagem_sequence.NEXTVAL, 15.2);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', bagagem_sequence.NEXTVAL, 10.0);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (3, '34567890123', bagagem_sequence.NEXTVAL, 5.7);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', bagagem_sequence.NEXTVAL, 7.9);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (4, '45678901234', bagagem_sequence.NEXTVAL, 11.0);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', bagagem_sequence.NEXTVAL, 18.6);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (5, '56789012345', bagagem_sequence.NEXTVAL, 13.2);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', bagagem_sequence.NEXTVAL, 14.3);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (6, '22334455667', bagagem_sequence.NEXTVAL, 9.5);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', bagagem_sequence.NEXTVAL, 9.8);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (7, '33445566778', bagagem_sequence.NEXTVAL, 7.3);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', bagagem_sequence.NEXTVAL, 12.1);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (8, '44556677889', bagagem_sequence.NEXTVAL, 6.8);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', bagagem_sequence.NEXTVAL, 6.2);
+INSERT INTO Bagagem (Codigo_voo, CPF_Passageiro, Numero_Bagagem, Peso_Bagagem) VALUES (9, '88990011223', bagagem_sequence.NEXTVAL, 10.7);
 
 -- Inserindo reservas
-
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('1', '12345678901', 'Primeira', 5)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('2', '23456789012', 'Segunda', 12)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('3', '34567890123', 'Terceira', 23)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('4', '45678901234', 'Primeira', 8)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('5', '56789012345', 'Segunda', 15)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('6', '22334455667', 'Terceira', 30)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('7', '33445566778', 'Primeira', 3)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('8', '44556677889', 'Segunda', 18)
-INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES ('9', '88990011223', 'Terceira', 25)
-
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (1, '12345678901', 'Primeira', 5);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (2, '23456789012', 'Segunda', 12);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (3, '34567890123', 'Terceira', 23);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (4, '45678901234', 'Primeira', 8);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (5, '56789012345', 'Segunda', 15);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (6, '22334455667', 'Terceira', 30);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (7, '33445566778', 'Primeira', 3);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (8, '44556677889', 'Segunda', 18);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (9, '88990011223', 'Terceira', 25);
+INSERT INTO Reserva (Codigo_Voo, CPF_Passageiro, Classe, Numero_do_assento) VALUES (10, '10111222334', 'Terceira', 40);
 -- Inserindo opera
 
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (1, '67890123456')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (2, '78901234567')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (3, '77889900112')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (4, '11223344556')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (5, '55667788990')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (6, '99001122334')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (7, '66778899001')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (8, '89012345678')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (9, '90123456789')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (10, '01234567890')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (11, '67890123456')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (12, '78901234567')
-INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (13, '77889900112')
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (1, '67890123456');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (2, '78901234567');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (3, '77889900112');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (4, '11223344556');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (5, '55667788990');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (6, '99001122334');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (7, '66778899001');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (8, '89012345678');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (9, '90123456789');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (10, '01234567890');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (11, '67890123456');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (12, '78901234567');
+INSERT INTO Opera (Codigo_Aeronave, CPF_Tripulante) VALUES (13, '77889900112');
 
-
--- Inserindo 
-
-INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino) VALUES (1, "88990011223", "10", )
+-- Inserindo voo_detalhes
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (9, '88990011223', '10', 1, 4, TO_DATE('2025-02-06 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 10:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (3, '34567890123', '12', 6, 2, TO_DATE('2025-02-06 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 11:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (10, '10111222334', '06', 8, 12, TO_DATE('2025-02-06 10:15:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 12:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (8, '44556677889', '07', 10, 10, TO_DATE('2025-02-06 11:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 14:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (2, '23456789012', '01', 9, 5, TO_DATE('2025-02-06 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 14:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (4, '45678901234', '02', 3, 9, TO_DATE('2025-02-06 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 15:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (6, '22334455667', '14', 8, 8, TO_DATE('2025-02-06 14:15:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 16:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (1, '12345678901', '20', 11, 7, TO_DATE('2025-02-06 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 18:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (7, '33445566778', '12', 8, 5, TO_DATE('2025-02-06 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 18:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Voo_Detalhes (Codigo_Voo, CPF_Passageiro, Portao_de_Embarque, Origem, Destino, Data_Decolagem, Data_aterrissagem)
+VALUES (5, '56789012345', '10', 10, 11, TO_DATE('2025-02-06 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2025-02-06 19:30:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 -- Inserindo telefone_emergencia
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('12345678901', '11987654321')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('23456789012', '21987654321')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('34567890123', '11999991111')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('45678901234', '21988882222')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('56789012345', '11977773333')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('22334455667', '21966664444')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('33445566778', '11955556666')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('44556677889', '21944447777')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('88990011223', '11933338888')
-INSERT INTO Telefones_Emergencia (cpf_pessoa, numero_do_telefone) VALUES ('10111222334', '21922229999')
-
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('12345678901', '987654321');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('23456789012', '987654321');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('34567890123', '999991111');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('45678901234', '988882222');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('56789012345', '977773333');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('22334455667', '966664444');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('33445566778', '955556666');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('44556677889', '944447777');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('88990011223', '933338888');
+INSERT INTO Telefones_Emergencia (CPF_pessoa, Numero_de_telefone) VALUES ('10111222334', '922229999');
 
 -- Inserindo necessidades_especiais
 INSERT INTO Necessidades_Especiais (CPF_Passageiro, Necessidade_Especial) VALUES ('12345678901', 'Intolerância à lactose');
@@ -395,28 +463,23 @@ INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (9, 4, '9
 INSERT INTO Voa (Codigo_Aeronave, Codigo_Aeroporto, Codigo_Voo) VALUES (10, 5, '10');
 
 -- Inserindo Acomoda
--- Aeroporto 1: Aeroporto de Guarulhos (International Hub)
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '12345678000101');  -- Azul
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '98765432000199');  -- Gol
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '56789012000188');  -- Latam
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '34567890000177');  -- American Airlines
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (1, '23456789000166');  -- Lufthansa
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '12345678000101');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '98765432000199');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '56789012000188');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '34567890000177');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '23456789000166');  
 
--- Aeroporto 2: Aeroporto Santos Dumont (Domestic Focus)
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '12345678000101');  -- Azul
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '98765432000199');  -- Gol
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (2, '56789012000188');  -- Latam
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '12345678000101');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '98765432000199');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '56789012000188');  
 
--- Aeroporto 3: Aeroporto de Confins (Regional)
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (3, '12345678000101');  -- Azul
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (3, '98765432000199');  -- Gol
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (3, '12345678000101');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (3, '98765432000199');  
 
--- Aeroporto 4: Aeroporto de Salvador (Mixed)
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '12345678000101');  -- Azul
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '98765432000199');  -- Gol
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '56789012000188');  -- Latam
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (4, '45678901000155');  -- Emirates
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '12345678000101');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '98765432000199');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '56789012000188');  
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '45678901000155');  
 
--- Aeroporto 5: Aeroporto Pinto Martins (Smaller Hub)
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (5, '12345678000101');  -- Azul
-INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ) VALUES (5, '98765432000199');  -- Gol
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (5, '12345678000101'); 
+INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (5, '98765432000199'); 
