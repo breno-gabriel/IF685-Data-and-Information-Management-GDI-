@@ -214,11 +214,6 @@ VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 737 MAX', 210, 2021
 INSERT INTO Aeronave (Codigo_Aeronave, CNPJ_Companhia_aerea, Modelo, Capacidade, Ano_de_fabricacao)
 VALUES (aeronave_sequence.NEXTVAL, '90123456000111', 'Boeing 767-300', 261, 2016);
 
-SELECT * FROM Funcao_Salario;
-
-SELECT * FROM Passaporte;
-
-SELECT * FROM Companhia_Aerea;
 
 -- Inserindo pessoas
 INSERT INTO Pessoa (CPF, Nome, Sobrenome, Email, Data_de_nascimento, Numero_de_telefone, CEP)
@@ -280,8 +275,6 @@ INSERT INTO Passageiro (Cpf_passageiro, Numero_do_passaporte, Pais_de_emissao, P
 VALUES ('56789012345', 'E223344556', 'Argentina', 'Corredor', 'Argentina');
 
 -- Inserindo tripulantes
-
--- Inserting crew members into the Tripulante table
 INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID_Funcao, Numero_do_Funcionario, Data_de_contratacao)
 VALUES ('12345678901', '12345678000101', NULL, 4, 1001, TO_DATE('2015-03-15', 'YYYY-MM-DD'));
 
@@ -313,6 +306,8 @@ INSERT INTO Tripulante (CPF_Tripulante, CNPJ_Companhia_aerea, CPF_Supervisor, ID
 VALUES ('01234567890', '90123456000111', '56789012345', 3, 1010, TO_DATE('2019-10-03', 'YYYY-MM-DD'));
 
 -- Inserindo bagagens
+
+
 
 -- Inserindo reservas
 
