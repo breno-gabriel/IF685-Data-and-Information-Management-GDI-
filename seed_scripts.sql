@@ -468,18 +468,15 @@ INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '9876543
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '56789012000188');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '34567890000177');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (1, '23456789000166');  
-
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '12345678000101');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '98765432000199');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (2, '56789012000188');  
-
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (3, '12345678000101');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (3, '98765432000199');  
-
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '12345678000101');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '98765432000199');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '56789012000188');  
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (4, '45678901000155');  
-
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (5, '12345678000101'); 
 INSERT INTO Acomoda (Codigo_Aeroporto, CNPJ_Companhia_aerea) VALUES (5, '98765432000199'); 
+
