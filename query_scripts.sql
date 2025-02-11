@@ -162,9 +162,8 @@ SELECT * FROM Tripulante
 
 
 -- SUBCONSULTA COM ALL
--- Todos os tripulantes que nã
- euq sotolip oãs 
-SELECT p1.nome, fr1.Funcao, p1.Data_de_nascimento   FROM Tripulante tr1
+-- Todos os tripulantes que não
+SELECT p1.nome, fr1.Funcao, p1.Data_de_nascimento FROM Tripulante tr1
     INNER JOIN  Pessoa p1 ON tr1.CPF_Tripulante = p1.CPF
     INNER JOIN  Funcao_Salario fr1 ON fr1.id = tr1.ID_Funcao
     WHERE fr1.Funcao <> 'Piloto' AND p1.Data_de_nascimento < ANY (
@@ -174,9 +173,6 @@ SELECT p1.nome, fr1.Funcao, p1.Data_de_nascimento   FROM Tripulante tr1
     	WHERE fr2.Funcao = 'Piloto'
     );
    
-
-
-
 
 -- ORDER BY
 SELECT Pessoa.nome, Funcao_Salario.Salario from Tripulante
