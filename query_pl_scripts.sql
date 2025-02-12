@@ -6,7 +6,7 @@ DECLARE
         Sobrenome Pessoa.Sobrenome%TYPE
     );
 
-    v_passageiro Passageiro_Info; 
+    v_passageiro Passageiro_Info;
 
 BEGIN
     SELECT Nome, Sobrenome INTO v_passageiro
@@ -26,7 +26,7 @@ BEGIN
     SELECT * INTO v_passageiros(1) FROM Pessoa pe
     JOIN Passageiro p ON pe.CPF = p.Cpf_passageiro
     JOIN Reserva r ON p.Cpf_passageiro = r.CPF_Passageiro
-    WHERE ROWNUM = 1; 
+    WHERE ROWNUM = 1;
 
     DBMS_OUTPUT.PUT_LINE('Passageiro: ' || v_passageiro(1).Nome || ' ' || v_passageiro(1).Sobrenome);
 END;
@@ -34,7 +34,7 @@ END;
 -- Bloco anônimo que utiliza IF ELSIF para categorizar um voo de acordo com a quantidade de reservas ocupadas
 
 DECLARE
-    v_Codigo_Voo Voo.Codigo_voo%TYPE := 1; 
+    v_Codigo_Voo Voo.Codigo_voo%TYPE := 1;
     v_Total_Reservas NUMBER;
     v_Capacidade_Aeronave NUMBER;
     v_Ocupacao FLOAT;
@@ -63,3 +63,57 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('O voo está cheio. ');
     END IF;
 END;
+
+-- USO DE RECORD
+-- USO DE ESTRUTURA DE DADOS DO TIPO TABLE
+-- BLOCO ANÔNIMO
+-- CREATE PROCEDURE
+-- CREATE FUNCTION
+-- %TYPE
+-- %ROWTYPE
+-- IF ELSIF
+-- CASE WHEN
+-- LOOP EXIT WHEN
+-- WHILE LOOP
+-- FOR IN LOOP
+-- SELECT … INTO
+-- CURSOR (OPEN, FETCH e CLOSE)
+-- EXCEPTION WHEN
+-- USO DE PARÂMETROS (IN, OUT ou IN OUT)
+-- CREATE OR REPLACE PACKAGE
+-- CREATE OR REPLACE PACKAGE BODY
+-- CREATE OR REPLACE TRIGGER (COMANDO)
+CREATE TABLE log_reservas(
+	Tipo_de_acao VARCHAR2(15),
+	Hora TIMESTAMP,
+    Codigo_Voo NUMBER,
+    Numero_do_assento NUMBER,
+    CPF_Passageiro VARCHAR2(11),
+    CONSTRAINT Log_reservas_fkey1 FOREIGN KEY (Codigo_Voo)
+        REFERENCES Voo(Codigo_voo) ON DELETE CASCADE,
+    CONSTRAINT Log_reservas_fkey2 FOREIGN KEY (CPF_Passageiro)
+        REFERENCES Passageiro(Cpf_passageiro) ON DELETE CASCADE,
+);
+
+
+CREATE OR REPLACE TRIGGER reservas_alt
+AFTER INSERT OR UPDATE OR DELETE ON Reserva
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO log_provas (tipo_de_acao, hora, Codigo_Voo, Numero_do_assento, CPF_Passageiro)
+        VALUES ('INSERCAO', SYSDATE, :NEW.Codigo_Voo, :NEW.Numero_do_assento, :NEW.CPF_Passageiro);
+
+    ELSIF UPDATING THEN
+        INSERT INTO log_provas (tipo_de_acao, hora, Codigo_Voo, Numero_do_assento, CPF_Passageiro)
+        VALUES ('ATUALIZACAO', SYSDATE, :NEW.Codigo_Voo, :NEW.Numero_do_assento, :NEW.CPF_Passageiro);
+
+    ELSIF DELETING THEN
+        INSERT INTO log_provas (tipo_de_acao, hora, Codigo_Voo, Numero_do_assento, CPF_Passageiro)
+        VALUES ('REMOCAO', SYSDATE, :OLD.Codigo_Voo, :OLD.Numero_do_assento, :OLD.CPF_Passageiro);
+    END IF;
+END;
+
+-- CREATE OR REPLACE TRIGGER (LINHA)
+
+
