@@ -395,10 +395,31 @@ CREATE TABLE Log_Salarios_Tripulantes (
     Funcao VARCHAR2(30),
     Salario_Antigo NUMBER(13, 3),
     Salario_Novo NUMBER(13,3),
-    Usuar
-)
+    Usuario VARCHAR2(50)
+);
 
+-- 2. Criação do Trigger para registrar automaticamente as mudanças salariais
+CREATE OR REPLACE TRIGGER trg_log_salario_tripulante
+BEFORE UPDATE ON Funcao_Salario
+FOR EACH ROW
+BEGIN
+    -- Inserir um registro na tabela de logs
+    INSERT INTO Log_Salarios_Tripulantes (ID_Tripulante, Funcao, Salario_Antigo, Salario_Novo, Usuario)
+    VALUES (:OLD.id, :OLD.Funcao, :OLD.Salario, :NEW.Salario, USER)
+END;
+/
 
+-- 3. Teste da funcionalidade do TRIGGER
+-- 3.1 Verificar o salário atual de um tripulante
+SELECT * FROM Funcao_Salario WHERE id = 1;
+
+-- 3.2 Atualizar o salário de um tripulante (ativando o TRIGGER)
+UPDATE Funcao_Salario
+SET Salario = 18000.000
+WHERE id = 1;
+
+-- 3.3 Consultar os registros da tabela de logs para ver se o TRIGGER funcionou
+SELECT * FROM Log_Salarios_Tripulantes;
 
 --- Esse bloco tenta inserir um registro na tabela Endereco. Se ocorrer uma exceção, como um valor duplicado (DUP_VAL_ON_INDEX), ou qualquer outra exceção (OTHERS), uma mensagem de erro será exibida
 
