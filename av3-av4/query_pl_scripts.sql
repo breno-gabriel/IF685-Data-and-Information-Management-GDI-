@@ -395,7 +395,7 @@ CREATE TABLE Log_Salarios_Tripulantes (
     Funcao VARCHAR2(30),
     Salario_Antigo NUMBER(13, 3),
     Salario_Novo NUMBER(13,3),
-    Usuari
+    Usuar
 )
 
 
