@@ -169,7 +169,8 @@ CREATE TABLE Reserva(
         REFERENCES Voo(Codigo_voo) ON DELETE CASCADE,
     CONSTRAINT Reserva_fkey2 FOREIGN KEY (CPF_Passageiro) 
         REFERENCES Passageiro(Cpf_passageiro) ON DELETE CASCADE,
-    CONSTRAINT Reserva_check CHECK (Classe IN ('Primeira', 'Segunda', 'Terceira'))
+    CONSTRAINT Reserva_check CHECK (Classe IN ('Primeira', 'Segunda', 'Terceira')),
+    CONSTRAINT Assento_unico UNIQUE  (Codigo_Voo, Numero_do_assento)
 );
 
 -- opera
