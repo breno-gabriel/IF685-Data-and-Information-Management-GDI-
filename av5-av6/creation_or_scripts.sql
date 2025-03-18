@@ -1,40 +1,29 @@
--- Eliminando as tabelas, caso existam
-DROP TABLE tb_pessoas;
-DROP TABLE tb_tripulantes;
-DROP TABLE tb_passageiros;
-DROP TABLE tb_aeronaves;
-DROP TABLE tb_companhia_aerea;
-DROP TABLE tb_aeroportos;
-DROP TABLE tb_voos;
-DROP TABLE tb_opera;
-DROP TABLE tb_acomoda;
-DROP TABLE tb_reservas;
-DROP TABLE tb_voa;
+-- Bloco PL para dropar todas as tabelas
+DECLARE
+  v_count NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_count FROM user_tables;
+  IF v_count > 0 THEN
+    FOR rec IN (SELECT table_name FROM user_tables) LOOP
+      EXECUTE IMMEDIATE 'DROP TABLE ' || rec.table_name || ' CASCADE CONSTRAINTS';
+    END LOOP;
+  END IF;
+END;
+/
 
--- Eliminando os tipos, caso existam
-DROP TYPE tp_endereco;
-DROP TYPE tp_telefone;
-DROP TYPE tp_telefones_emergencia;
-DROP TYPE tp_passaporte;
-DROP TYPE tp_necessidades_especiais;
-DROP TYPE tp_necessidade_especial;
-DROP TYPE tp_bagagem;
-DROP TYPE tp_nt_bagagem;
-DROP TYPE tp_pessoa;
-DROP TYPE tp_tripulante;
-DROP TYPE tp_ref_tripulante;
-DROP TYPE tp_nt_tripulante;
-DROP TYPE tp_passageiro;
-DROP TYPE tp_ref_passageiro;
-DROP TYPE tp_aeronave;
-DROP TYPE tp_ref_aeronave;
-DROP TYPE tp_nt_aeronave;
-DROP TYPE tp_companhia_aerea;
-DROP TYPE tp_ref_companhia_aerea;
-DROP TYPE tp_aeroporto;
-DROP TYPE tp_ref_aeroporto;
-DROP TYPE tp_voo;
-DROP TYPE tp_ref_voo;
+-- Bloco PL para dropar todos os tipos
+DECLARE
+  v_count NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_count FROM user_types;
+  IF v_count > 0 THEN
+    FOR rec IN (SELECT type_name FROM user_types) LOOP
+      EXECUTE IMMEDIATE 'DROP TYPE ' || rec.type_name || ' FORCE';
+    END LOOP;
+  END IF;
+END;
+/
+
 
 -- Tipos
 
