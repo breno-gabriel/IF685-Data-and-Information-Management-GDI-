@@ -183,7 +183,7 @@ CREATE OR REPLACE TYPE tp_ref_companhia_aerea AS OBJECT(
 );
 /
 
-CREATE TABLE tb_companhia_aerea OF tp_companhia_aerea (
+CREATE TABLE tb_companhias_aereas OF tp_companhia_aerea (
     cnpj NOT NULL,
     razao_social NOT NULL,
     frota_total_aeronaves NOT NULL,
@@ -272,7 +272,7 @@ CREATE TABLE tb_reservas (
     destino NUMBER NOT NULL, -- codigo do aeroporto de destino
     CONSTRAINT pk_reservas PRIMARY KEY (voo_codigo, passageiro_CPF),
     CONSTRAINT chk_classe CHECK (classe IN ('Econômica', 'Executiva', 'Primeira Classe')),
-    CONSTRAINT chk_status_reserva CHECK (status_reserva IN ('Confirmada', 'Cancelada', 'Em espera')),
+    CONSTRAINT chk_status_reserva CHECK (status_reserva IN ('Confirmada', 'Cancelada', 'Em espera'))
 ) NESTED TABLE bagagem STORE AS nt_bagagens;
 /
 
