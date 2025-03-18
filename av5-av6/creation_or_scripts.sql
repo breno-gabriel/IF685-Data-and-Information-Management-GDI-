@@ -24,7 +24,6 @@ BEGIN
 END;
 /
 
-
 -- Tipos
 
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
@@ -96,6 +95,38 @@ CREATE TABLE tb_pessoas OF tp_pessoa (
 );
 /
 
+CREATE OR REPLACE TYPE BODY tp_pessoa AS
+    -- Constructor function
+    CONSTRUCTOR FUNCTION tp_pessoa(
+        p_cpf VARCHAR2,
+        p_nome VARCHAR2,
+        p_sobrenome VARCHAR2,
+        p_email VARCHAR2,
+        p_data_nascimento DATE
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        self.cpf := p_cpf;
+        self.nome := p_nome;
+        self.sobrenome := p_sobrenome;
+        self.email := p_email;
+        self.data_nascimento := p_data_nascimento;
+        RETURN;
+    END;
+
+    -- Member function to get full name
+    MEMBER FUNCTION get_nome_completo RETURN VARCHAR2 IS
+    BEGIN
+        RETURN self.nome || ' ' || self.sobrenome;
+    END;
+
+    -- Member function to get age
+    MEMBER FUNCTION get_idade RETURN NUMBER IS
+    BEGIN
+        RETURN FLOOR(MONTHS_BETWEEN(SYSDATE, self.data_nascimento) / 12);
+    END;
+END;
+/
+
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     funcao VARCHAR2(30),
     salario NUMBER(13, 3),
@@ -103,6 +134,41 @@ CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     data_contratacao DATE,
     supervisionados tp_nt_tripulante
 );
+/
+
+CREATE OR REPLACE TYPE BODY tp_tripulante AS
+    -- Member function to get total supervisionados
+    MEMBER FUNCTION get_total_supervisionados RETURN NUMBER IS
+    BEGIN
+        IF self.supervisionados IS NULL THEN
+            RETURN 0;
+        END IF;
+        RETURN self.supervisionados.COUNT;
+    END;
+
+    -- Member procedure to add supervisionado
+    MEMBER PROCEDURE add_supervisionado(p_ref_tripulante REF tp_tripulante) IS
+        v_ref tp_ref_tripulante := tp_ref_tripulante(p_ref_tripulante);
+    BEGIN
+        IF self.supervisionados IS NULL THEN
+            self.supervisionados := tp_nt_tripulante();
+        END IF;
+        self.supervisionados.extend;
+        self.supervisionados(self.supervisionados.last) := v_ref;
+    END;
+
+    -- Order member function to compare salaries
+    ORDER MEMBER FUNCTION compare_salary(p_tripulante IN tp_tripulante) RETURN INTEGER IS
+    BEGIN
+        IF self.salario < p_tripulante.salario THEN
+            RETURN -1;
+        ELSIF self.salario > p_tripulante.salario THEN
+            RETURN 1;
+        ELSE
+            RETURN 0;
+        END IF;
+    END;
+END;
 /
 
 CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
@@ -128,6 +194,39 @@ CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa (
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30)
 );
+/
+
+CREATE OR REPLACE TYPE BODY tp_passageiro AS
+    -- Override constructor
+    OVERRIDING CONSTRUCTOR FUNCTION tp_passageiro(
+        p_cpf VARCHAR2,
+        p_nome VARCHAR2,
+        p_sobrenome VARCHAR2,
+        p_email VARCHAR2,
+        p_data_nascimento DATE,
+        p_nacionalidade VARCHAR2
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        self.cpf := p_cpf;
+        self.nome := p_nome;
+        self.sobrenome := p_sobrenome;
+        self.email := p_email;
+        self.data_nascimento := p_data_nascimento;
+        self.nacionalidade := p_nacionalidade;
+        RETURN;
+    END;
+
+    -- Member procedure to add necessidade especial
+    MEMBER PROCEDURE add_necessidade_especial(p_necessidade VARCHAR2) IS
+        v_necessidade tp_necessidade_especial := tp_necessidade_especial(p_necessidade);
+    BEGIN
+        IF self.necessidades_especiais IS NULL THEN
+            self.necessidades_especiais := tp_necessidades_especiais();
+        END IF;
+        self.necessidades_especiais.extend;
+        self.necessidades_especiais(self.necessidades_especiais.last) := v_necessidade;
+    END;
+END;
 /
 
 CREATE OR REPLACE TYPE tp_ref_passageiro AS OBJECT(
@@ -176,6 +275,48 @@ CREATE OR REPLACE TYPE tp_companhia_aerea AS OBJECT (
     funcionarios tp_nt_tripulante,
     aeronaves tp_nt_aeronave    
 );
+/
+
+CREATE OR REPLACE TYPE BODY tp_companhia_aerea AS
+    -- Member function to get total funcionarios
+    MEMBER FUNCTION get_total_funcionarios RETURN NUMBER IS
+    BEGIN
+        IF self.funcionarios IS NULL THEN
+            RETURN 0;
+        END IF;
+        RETURN self.funcionarios.COUNT;
+    END;
+
+    -- Member function to get total aeronaves
+    MEMBER FUNCTION get_total_aeronaves RETURN NUMBER IS
+    BEGIN
+        IF self.aeronaves IS NULL THEN
+            RETURN 0;
+        END IF;
+        RETURN self.aeronaves.COUNT;
+    END;
+
+    -- Member procedure to add funcionario
+    MEMBER PROCEDURE add_funcionario(p_ref_tripulante REF tp_tripulante) IS
+        v_ref tp_ref_tripulante := tp_ref_tripulante(p_ref_tripulante);
+    BEGIN
+        IF self.funcionarios IS NULL THEN
+            self.funcionarios := tp_nt_tripulante();
+        END IF;
+        self.funcionarios.extend;
+        self.funcionarios(self.funcionarios.last) := v_ref;
+    END;
+
+    -- Member procedure to add aeronave
+    MEMBER PROCEDURE add_aeronave(p_aeronave tp_aeronave) IS
+    BEGIN
+        IF self.aeronaves IS NULL THEN
+            self.aeronaves := tp_nt_aeronave();
+        END IF;
+        self.aeronaves.extend;
+        self.aeronaves(self.aeronaves.last) := p_aeronave;
+    END;
+END;
 /
 
 CREATE OR REPLACE TYPE tp_ref_companhia_aerea AS OBJECT(
@@ -279,3 +420,77 @@ CREATE TABLE tb_voa(
     CONSTRAINT pk_voa PRIMARY KEY (voo, aeroporto, aeronave)
 );
 /
+
+-- Example of using SCOPE IS
+ALTER TYPE tp_ref_tripulante ADD SCOPE FOR (ref_tripulante) IS tb_tripulantes;
+ALTER TYPE tp_ref_passageiro ADD SCOPE FOR (ref_passageiro) IS tb_passageiros;
+ALTER TYPE tp_ref_companhia_aerea ADD SCOPE FOR (ref_companhia_aerea) IS tb_companhia_aerea;
+
+-- Example of inserting with constructor
+INSERT INTO tb_pessoas 
+VALUES (
+    tp_pessoa(
+        '12345678901',
+        'João',
+        'Silva',
+        'joao@email.com',
+        TO_DATE('1990-01-01', 'YYYY-MM-DD'),
+        tp_endereco('12345678', 'Rua A', 123, 'São Paulo', 'SP'),
+        tp_telefone('123456789', '011', '55'),
+        tp_telefones_emergencia(
+            tp_telefone('987654321', '011', '55')
+        )
+    )
+);
+
+-- Adding missing features
+
+-- 1. NOT INSTANTIABLE type and member
+CREATE OR REPLACE TYPE tp_funcionario AS OBJECT (
+    id NUMBER,
+    cargo VARCHAR2(30)
+) NOT INSTANTIABLE NOT FINAL;
+/
+
+-- 2. MAP MEMBER FUNCTION example
+CREATE OR REPLACE TYPE tp_produto AS OBJECT (
+    codigo NUMBER,
+    preco NUMBER,
+    MAP MEMBER FUNCTION get_order RETURN NUMBER
+);
+/
+
+CREATE OR REPLACE TYPE BODY tp_produto AS
+    MAP MEMBER FUNCTION get_order RETURN NUMBER IS
+    BEGIN
+        RETURN preco;
+    END;
+END;
+/
+
+-- 3. FINAL MEMBER example
+CREATE OR REPLACE TYPE tp_cliente AS OBJECT (
+    id NUMBER,
+    nome VARCHAR2(100),
+    FINAL MEMBER FUNCTION get_id RETURN NUMBER
+);
+/
+
+CREATE OR REPLACE TYPE BODY tp_cliente AS
+    FINAL MEMBER FUNCTION get_id RETURN NUMBER IS
+    BEGIN
+        RETURN self.id;
+    END;
+END;
+/
+
+-- 4. More ALTER TYPE examples
+ALTER TYPE tp_pessoa ADD ATTRIBUTE (
+    data_cadastro DATE
+) CASCADE;
+
+-- 5. WITH ROWID REFERENCES example
+CREATE TABLE tb_historico_voos (
+    id NUMBER PRIMARY KEY,
+    voo_ref REF tp_voo WITH ROWID
+);
