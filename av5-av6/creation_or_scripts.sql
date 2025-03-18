@@ -96,6 +96,14 @@ CREATE TABLE tb_pessoas OF tp_pessoa (
 );
 /
 
+CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
+    ref_tripulante REF tp_tripulante
+);
+/
+
+CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
+/
+
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     funcao VARCHAR2(30),
     salario NUMBER(13, 3),
@@ -103,14 +111,6 @@ CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     data_contratacao DATE,
     supervisionados tp_nt_tripulante
 );
-/
-
-CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
-    ref_tripulante REF tp_tripulante
-);
-/
-
-CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 /
 
 CREATE TABLE tb_tripulantes OF tp_tripulante(
@@ -137,7 +137,6 @@ CREATE OR REPLACE TYPE tp_ref_passageiro AS OBJECT(
 
 CREATE TABLE tb_passageiros OF tp_passageiro (
     passaporte NOT NULL,
-    necessidades_especiais NOT NULL,
     preferencia_assento NOT NULL,
     nacionalidade NOT NULL,
     CONSTRAINT chk_preferencia_assento CHECK (preferencia_assento IN ('Janela', 'Meio', 'Corredor'))
@@ -188,7 +187,6 @@ CREATE TABLE tb_companhia_aerea OF tp_companhia_aerea (
     razao_social NOT NULL,
     frota_total_aeronaves NOT NULL,
     quantidade_total_funcionarios NOT NULL,
-    funcionarios NOT NULL,
     CONSTRAINT pk_companhia_aerea PRIMARY KEY (cnpj)
 ) NESTED TABLE funcionarios STORE AS nt_funcionarios
 NESTED TABLE aeronaves STORE AS nt_aeronaves;
@@ -240,23 +238,23 @@ CREATE TABLE tb_voos OF tp_voo (
 
 -- Relações N:M modeladas como tabelas de junção
 CREATE TABLE tb_opera (
-    tripulante tp_ref_tripulante NOT NULL,
-    aeronave tp_ref_aeronave NOT NULL,
+    tripulante tp_ref_tripulante,
+    aeronave tp_ref_aeronave,
     CONSTRAINT pk_opera PRIMARY KEY (tripulante, aeronave)
 );
 /
 
 CREATE TABLE tb_acomoda (
-    aeroporto tp_ref_aeroporto NOT NULL,
-    companhia_aerea tp_ref_companhia_aerea NOT NULL,
+    aeroporto tp_ref_aeroporto,
+    companhia_aerea tp_ref_companhia_aerea,
     CONSTRAINT pk_acomoda PRIMARY KEY (aeroporto, companhia_aerea)
 );
 /
 
 CREATE TABLE tb_reservas (
-    voo tp_ref_voo NOT NULL,
-    passageiro tp_ref_passageiro NOT NULL,
-    bagagem tp_nt_bagagem NOT NULL,
+    voo tp_ref_voo,
+    passageiro tp_ref_passageiro,
+    bagagem tp_nt_bagagem,
     data_decolagem DATE NOT NULL,
     data_aterrissagem DATE NOT NULL,
     classe VARCHAR2(20) NOT NULL,
