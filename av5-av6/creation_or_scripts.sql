@@ -152,13 +152,14 @@ CREATE OR REPLACE TYPE tp_aeronave AS OBJECT (
 /
 
 CREATE OR REPLACE TYPE tp_nt_aeronave AS TABLE OF tp_aeronave;
+/
 
 CREATE OR REPLACE TYPE tp_ref_aeronave AS OBJECT(
     ref_aeronave REF tp_aeronave
 );
 /
 
-CREATE TABLE tp_aeronaves OF tp_aeronave (
+CREATE TABLE tb_aeronaves OF tp_aeronave (
     codigo NOT NULL,
     modelo NOT NULL,
     capacidade NOT NULL,
@@ -196,7 +197,7 @@ CREATE OR REPLACE TYPE tp_aeroporto AS OBJECT (
     codigo NUMBER,
     nome VARCHAR2(30),
     endereco tp_endereco,
-    pais VARCHAR2(30),
+    pais VARCHAR2(30)
 );
 /
 
@@ -240,20 +241,26 @@ CREATE TABLE tb_voos OF tp_voo (
 CREATE TABLE tb_opera (
     tripulante tp_ref_tripulante,
     aeronave tp_ref_aeronave,
-    CONSTRAINT pk_opera PRIMARY KEY (tripulante, aeronave)
+    tripulante_id NUMBER, -- É necessário esse ID pois tripulante, nem aeronave podem ser chaves primárias
+    aeronave_id NUMBER,   
+    CONSTRAINT pk_opera PRIMARY KEY (tripulante_id, aeronave_id)
 );
 /
 
 CREATE TABLE tb_acomoda (
     aeroporto tp_ref_aeroporto,
     companhia_aerea tp_ref_companhia_aerea,
-    CONSTRAINT pk_acomoda PRIMARY KEY (aeroporto, companhia_aerea)
+    aeroporto_codigo NUMBER,
+    companhia_aerea_cnpj VARCHAR2(14),
+    CONSTRAINT pk_acomoda PRIMARY KEY (aeroporto_codigo, companhia_aerea_cnpj)
 );
 /
 
 CREATE TABLE tb_reservas (
     voo tp_ref_voo,
     passageiro tp_ref_passageiro,
+    voo_codigo NUMBER,
+    passageiro_CPF VARCHAR2(11),
     bagagem tp_nt_bagagem,
     data_decolagem DATE NOT NULL,
     data_aterrissagem DATE NOT NULL,
@@ -263,7 +270,7 @@ CREATE TABLE tb_reservas (
     portao_embarque VARCHAR2(20) NOT NULL,
     origem NUMBER NOT NULL, -- codigo do aeroporto de origem
     destino NUMBER NOT NULL, -- codigo do aeroporto de destino
-    CONSTRAINT pk_reservas PRIMARY KEY (voo, passageiro),
+    CONSTRAINT pk_reservas PRIMARY KEY (voo_codigo, passageiro_CPF),
     CONSTRAINT chk_classe CHECK (classe IN ('Econômica', 'Executiva', 'Primeira Classe')),
     CONSTRAINT chk_status_reserva CHECK (status_reserva IN ('Confirmada', 'Cancelada', 'Em espera')),
 ) NESTED TABLE bagagem STORE AS nt_bagagens;
@@ -274,6 +281,9 @@ CREATE TABLE tb_voa(
     voo tp_ref_voo,
     aeroporto tp_ref_aeroporto,
     aeronave tp_ref_aeronave,
-    CONSTRAINT pk_voa PRIMARY KEY (voo, aeroporto, aeronave)
+    voo_codigo NUMBER,
+    aeroporto_codigo NUMBER,
+    aeronave_codigo NUMBER,
+    CONSTRAINT pk_voa PRIMARY KEY (voo_codigo, aeroporto_codigo, aeronave_codigo)
 );
 /
