@@ -16,8 +16,8 @@ DROP TYPE tp_endereco;
 DROP TYPE tp_telefone;
 DROP TYPE tp_telefones_emergencia;
 DROP TYPE tp_passaporte;
-DROP TYPE tp_necessidade_especial;
 DROP TYPE tp_necessidades_especiais;
+DROP TYPE tp_necessidade_especial;
 DROP TYPE tp_bagagem;
 DROP TYPE tp_nt_bagagem;
 DROP TYPE tp_pessoa;
@@ -43,7 +43,7 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     logradouro VARCHAR2(30),
     numero NUMBER,
     cidade VARCHAR2(20),
-    estado VARCHAR2(20),
+    estado VARCHAR2(20)
 );
 /
 
@@ -91,8 +91,8 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     data_nascimento DATE,
     endereco tp_endereco,
     telefone tp_telefone,
-    telefones tp_telefones_emergencia
-);
+    telefones_emergencia tp_telefones_emergencia
+) NOT FINAL;
 /
 
 CREATE TABLE tb_pessoas OF tp_pessoa (
@@ -102,17 +102,9 @@ CREATE TABLE tb_pessoas OF tp_pessoa (
     email NOT NULL,
     data_nascimento NOT NULL,
     endereco NOT NULL,
-    telefones NOT NULL
+    telefones_emergencia NOT NULL,
     CONSTRAINT pk_pessoa PRIMARY KEY (cpf)
 );
-/
-
-CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
-    ref_tripulante REF tp_tripulante
-);
-/
-
-CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 /
 
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
@@ -122,6 +114,14 @@ CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     data_contratacao DATE,
     supervisionados tp_nt_tripulante
 );
+/
+
+CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
+    ref_tripulante REF tp_tripulante
+);
+/
+
+CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 /
 
 CREATE TABLE tb_tripulantes OF tp_tripulante(
@@ -275,7 +275,7 @@ CREATE TABLE tb_reservas (
     numero_assento NUMBER NOT NULL,
     portao_embarque VARCHAR2(20) NOT NULL,
     origem NUMBER NOT NULL, -- codigo do aeroporto de origem
-    destino NUMBER NOT NULL -- codigo do aeroporto de destino
+    destino NUMBER NOT NULL, -- codigo do aeroporto de destino
     CONSTRAINT pk_reservas PRIMARY KEY (voo, passageiro),
     CONSTRAINT chk_classe CHECK (classe IN ('Econômica', 'Executiva', 'Primeira Classe')),
     CONSTRAINT chk_status_reserva CHECK (status_reserva IN ('Confirmada', 'Cancelada', 'Em espera')),
