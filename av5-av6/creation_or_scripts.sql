@@ -8,6 +8,7 @@ DROP TABLE tb_aeroportos;
 DROP TABLE tb_voos;
 DROP TABLE tb_opera;
 DROP TABLE tb_acomoda;
+DROP TABLE tb_reservas;
 DROP TABLE tb_voa;
 
 -- Eliminando os tipos, caso existam
@@ -263,7 +264,7 @@ CREATE TABLE tb_acomoda (
 );
 /
 
-CREATE TABLE tp_reservas (
+CREATE TABLE tb_reservas (
     voo tp_ref_voo NOT NULL,
     passageiro tp_ref_passageiro NOT NULL,
     bagagem tp_nt_bagagem NOT NULL,
