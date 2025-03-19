@@ -24,7 +24,6 @@ BEGIN
 END;
 /
 
-
 -- Tipos
 
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
