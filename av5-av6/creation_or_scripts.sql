@@ -83,24 +83,6 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
 ) NOT FINAL;
 /
 
-CREATE TABLE tb_pessoas OF tp_pessoa (
-    cpf NOT NULL,
-    nome NOT NULL,
-    sobrenome NOT NULL,
-    email NOT NULL,
-    data_nascimento NOT NULL,
-    endereco NOT NULL,
-    telefones_emergencia NOT NULL,
-    CONSTRAINT pk_pessoa PRIMARY KEY (cpf)
-);
-/
-
-CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
-    ref_tripulante REF tp_tripulante
-);
-/
-
-CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 CREATE OR REPLACE TYPE BODY tp_pessoa AS
     -- Constructor function
     CONSTRUCTOR FUNCTION tp_pessoa(
@@ -132,6 +114,26 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
     END;
 END;
 /
+CREATE TABLE tb_pessoas OF tp_pessoa (
+    cpf NOT NULL,
+    nome NOT NULL,
+    sobrenome NOT NULL,
+    email NOT NULL,
+    data_nascimento NOT NULL,
+    endereco NOT NULL,
+    telefones_emergencia NOT NULL,
+    CONSTRAINT pk_pessoa PRIMARY KEY (cpf)
+);
+/
+
+CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
+    ref_tripulante REF tp_tripulante
+);
+/
+
+CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
+/
+
 
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     funcao VARCHAR2(30),
@@ -175,14 +177,6 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         END IF;
     END;
 END;
-/
-
-CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
-    ref_tripulante REF tp_tripulante
-);
-/
-
-CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 /
 
 CREATE TABLE tb_tripulantes OF tp_tripulante(
@@ -439,23 +433,6 @@ CREATE TABLE tb_voa(
 ALTER TYPE tp_ref_tripulante ADD SCOPE FOR (ref_tripulante) IS tb_tripulantes;
 ALTER TYPE tp_ref_passageiro ADD SCOPE FOR (ref_passageiro) IS tb_passageiros;
 ALTER TYPE tp_ref_companhia_aerea ADD SCOPE FOR (ref_companhia_aerea) IS tb_companhia_aerea;
-
--- Example of inserting with constructor
-INSERT INTO tb_pessoas 
-VALUES (
-    tp_pessoa(
-        '12345678901',
-        'João',
-        'Silva',
-        'joao@email.com',
-        TO_DATE('1990-01-01', 'YYYY-MM-DD'),
-        tp_endereco('12345678', 'Rua A', 123, 'São Paulo', 'SP'),
-        tp_telefone('123456789', '011', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('987654321', '011', '55')
-        )
-    )
-);
 
 -- Adding missing features
 
