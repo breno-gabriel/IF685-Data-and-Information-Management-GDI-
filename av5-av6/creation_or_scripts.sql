@@ -25,10 +25,9 @@ END;
 /
 
 -- Tipos
-
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
-    logradouro VARCHAR2(30),
+    logradouro VARCHAR2(50),
     numero NUMBER,
     cidade VARCHAR2(20),
     estado VARCHAR2(20)
@@ -71,6 +70,7 @@ CREATE OR REPLACE TYPE tp_nt_bagagem AS TABLE OF tp_bagagem;
 /
 
 -- Entidades
+
 CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     cpf VARCHAR2(11),
     nome VARCHAR2(30),
@@ -114,6 +114,7 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
     END;
 END;
 /
+
 CREATE TABLE tb_pessoas OF tp_pessoa (
     cpf NOT NULL,
     nome NOT NULL,
@@ -133,7 +134,6 @@ CREATE OR REPLACE TYPE tp_ref_tripulante AS OBJECT(
 
 CREATE OR REPLACE TYPE tp_nt_tripulante AS TABLE OF tp_ref_tripulante;
 /
-
 
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     funcao VARCHAR2(30),
@@ -246,7 +246,7 @@ CREATE OR REPLACE TYPE tp_aeronave AS OBJECT (
     codigo NUMBER,
     modelo VARCHAR2(20),
     capacidade NUMBER,
-    ano_fabricacao DATE
+    ano_fabricacao NUMBER(4)
 );
 /
 
@@ -336,7 +336,7 @@ NESTED TABLE aeronaves STORE AS nt_aeronaves;
 
 CREATE OR REPLACE TYPE tp_aeroporto AS OBJECT (
     codigo NUMBER,
-    nome VARCHAR2(30),
+    nome VARCHAR2(50),
     endereco tp_endereco,
     pais VARCHAR2(30)
 );
