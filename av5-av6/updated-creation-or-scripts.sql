@@ -164,11 +164,21 @@ END;
 /
 
 ------------------------------
+
+CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
+    passageiro tp_passageiro,
+    necessidade_especial VARCHAR2(100)
+);
+/
+
+CREATE OR REPLACE TYPE tp_nt_necessidades_especiais AS TABLE OF tp_necessidades_especiais;
+
 CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
     pessoa tp_pessoa,
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30),
+    necessidades_especiais tp_nt_necessidades_especiais,
     CONSTRUCTOR FUNCTION tp_passageiro(
         p_cpf VARCHAR2,
         p_nome VARCHAR2,
@@ -183,7 +193,8 @@ CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
         p_data_emissao DATE,
         p_data_validade DATE,
         p_preferencia_assento VARCHAR2,
-        p_nacionalidade VARCHAR2
+        p_nacionalidade VARCHAR2,
+        p_necessidades_especiais tp_nt_necessidades_especiais
     ) RETURN SELF AS RESULT
 );
 /
@@ -203,7 +214,8 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         p_data_emissao DATE,
         p_data_validade DATE,
         p_preferencia_assento VARCHAR2,
-        p_nacionalidade VARCHAR2
+        p_nacionalidade VARCHAR2,
+        p_necessidades_especiais tp_nt_necessidades_especiais
     ) RETURN SELF AS RESULT IS
     BEGIN
         -- Validate CPF length (Brazilian ID)
@@ -247,6 +259,7 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         
         SELF.preferencia_assento := p_preferencia_assento;
         SELF.nacionalidade := p_nacionalidade;
+        SELF.necessidades_especiais := p_necessidades_especiais;
         
         RETURN;
     END;
@@ -403,12 +416,6 @@ CREATE OR REPLACE TYPE tp_bagagem AS object(
     peso_bagagem NUMBER
 );
 / 
-
-CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
-    passageiro tp_passageiro,
-    necessidade_especial VARCHAR2(100)
-);
-/
 
 CREATE OR REPLACE TYPE tp_voa AS object(
     aeronave REF tp_aeronave,
