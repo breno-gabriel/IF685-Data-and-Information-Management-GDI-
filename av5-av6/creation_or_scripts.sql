@@ -1,4 +1,4 @@
-DROP TABLE tripulantes;
+DROP TABLE tb_tripulantes;
 
 
 -- Bloco PL para dropar todos os tipos
@@ -225,45 +225,73 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         RETURN;
     END;
 END;
+/ 
+-- (10) NOT INSTANTIABLE member 
+CREATE OR REPLACE TYPE tp_funcao_salario AS OBJECT (
+    id NUMBER,
+    funcao VARCHAR2(30),
+    salario NUMBER(13, 3),
+    
+   
+    NOT INSTANTIABLE MEMBER FUNCTION calcular_salario RETURN NUMBER
+) NOT FINAL NOT INSTANTIABLE;
 /
 
+CREATE OR REPLACE TYPE tp_funcao_salario_base UNDER tp_funcao_salario (
+    -- Override the abstract method
+    OVERRIDING MEMBER FUNCTION calcular_salario RETURN NUMBER
+);
+/
 
+CREATE OR REPLACE TYPE BODY tp_funcao_salario_base AS
+    OVERRIDING MEMBER FUNCTION calcular_salario RETURN NUMBER IS
+    BEGIN
+        RETURN salario; 
+    END calcular_salario;
+END;
+/
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     companhia_aerea tp_companhia_aerea,
     supervisor REF tp_tripulante,
-    id_funcao NUMBER,
+    funcao_salario tp_funcao_salario_base, -- Using the concrete subtype
     numero_funcionario NUMBER,
     data_de_contratacao DATE,
     
-    OVERRIDING MEMBER PROCEDURE display_info
+    OVERRIDING MEMBER PROCEDURE display_info,
+  
+    MEMBER FUNCTION calcular_salario RETURN NUMBER
 );
+/
+
+-- (12) ALTER TYPE
+ALTER TYPE tp_tripulante
+ADD ATTRIBUTE (nivel_seguranca NUMBER) CASCADE;
 /
 -- (8) Overriding Member Function
 CREATE OR REPLACE TYPE BODY tp_tripulante AS
     OVERRIDING MEMBER PROCEDURE display_info IS
-        v_supervisor_nome VARCHAR2(61); -- nome + sobrenome
+        v_supervisor_nome VARCHAR2(61);
     BEGIN
-        -- First display all pessoa information
+        -- Display personal information
         DBMS_OUTPUT.PUT_LINE('=== Informações Pessoais ===');
-        DBMS_OUTPUT.PUT_LINE('CPF: ' || SELF.cpf);
-        DBMS_OUTPUT.PUT_LINE('Nome: ' || SELF.nome || ' ' || SELF.sobrenome);
-        DBMS_OUTPUT.PUT_LINE('Email: ' || SELF.email);
-        DBMS_OUTPUT.PUT_LINE('Data de Nascimento: ' || 
-                            TO_CHAR(SELF.data_de_nascimento, 'DD/MM/YYYY'));
+        DBMS_OUTPUT.PUT_LINE('CPF: ' || cpf);
+        DBMS_OUTPUT.PUT_LINE('Nome: ' || nome || ' ' || sobrenome);
+        DBMS_OUTPUT.PUT_LINE('Email: ' || email);
+        DBMS_OUTPUT.PUT_LINE('Data Nascimento: ' || TO_CHAR(data_de_nascimento, 'DD/MM/YYYY'));
         
-        -- Display tripulante-specific information
+        -- Display professional information
         DBMS_OUTPUT.PUT_LINE('=== Informações Profissionais ===');
-        DBMS_OUTPUT.PUT_LINE('Companhia Aérea: ' || SELF.companhia_aerea.razao_social);
-        DBMS_OUTPUT.PUT_LINE('Número de Funcionário: ' || SELF.numero_funcionario);
-        DBMS_OUTPUT.PUT_LINE('Data de Contratação: ' || 
-                            TO_CHAR(SELF.data_de_contratacao, 'DD/MM/YYYY'));
+        DBMS_OUTPUT.PUT_LINE('Companhia Aérea: ' || companhia_aerea.razao_social);
+        DBMS_OUTPUT.PUT_LINE('Número Funcionário: ' || numero_funcionario);
+        DBMS_OUTPUT.PUT_LINE('Data Contratação: ' || TO_CHAR(data_de_contratacao, 'DD/MM/YYYY'));
+        DBMS_OUTPUT.PUT_LINE('Salário Base: ' || funcao_salario.calcular_salario());
+        DBMS_OUTPUT.PUT_LINE('Nível de Segurança: ' || nivel_seguranca);
         
-        -- Try to get supervisor name if reference exists
+        -- Display supervisor information if exists
         BEGIN
-            IF SELF.supervisor IS NOT NULL THEN
-                SELECT DEREF(SELF.supervisor).nome || ' ' || 
-                       DEREF(SELF.supervisor).sobrenome 
+            IF supervisor IS NOT NULL THEN
+                SELECT DEREF(supervisor).nome || ' ' || DEREF(supervisor).sobrenome 
                 INTO v_supervisor_nome
                 FROM dual;
                 DBMS_OUTPUT.PUT_LINE('Supervisor: ' || v_supervisor_nome);
@@ -272,21 +300,35 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
             END IF;
         EXCEPTION
             WHEN OTHERS THEN
-                DBMS_OUTPUT.PUT_LINE('Supervisor: Erro ao recuperar informação');
+                DBMS_OUTPUT.PUT_LINE('Erro ao recuperar supervisor: ' || SQLERRM);
         END;
         
-        -- Display contact information from parent
+        -- Display contact information
         DBMS_OUTPUT.PUT_LINE('=== Informações de Contato ===');
-        DBMS_OUTPUT.PUT_LINE('Telefone: ' || SELF.telefone.ddd || ' ' || 
-                            SELF.telefone.numero_telefone);
-        DBMS_OUTPUT.PUT_LINE('Endereço: ' || 
-                            SELF.endereco.logradouro || ', ' || 
-                            SELF.endereco.numero || ' - ' || 
-                            SELF.endereco.cidade || '/' || 
-                            SELF.endereco.estado || ' - CEP: ' || 
-                            SELF.endereco.cep);
+        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone.ddd || ' ' || telefone.numero_telefone);
+        DBMS_OUTPUT.PUT_LINE('Endereço: ' || endereco.logradouro || ', ' || 
+                            endereco.numero || ' - ' || endereco.cidade || 
+                            '/' || endereco.estado || ' - CEP: ' || endereco.cep);
     END display_info;
+    
+    MEMBER FUNCTION calcular_salario RETURN NUMBER IS
+        v_salario_base NUMBER;
+        v_bonus NUMBER := 0;
+    BEGIN
+        -- Get base salary from the function/salary object
+        v_salario_base := funcao_salario.calcular_salario();
+        
+        -- Calculate bonus based on hire date (example logic)
+        IF MONTHS_BETWEEN(SYSDATE, data_de_contratacao) > 60 THEN -- 5 years
+            v_bonus := v_salario_base * 0.20; -- 20% bonus
+        ELSIF MONTHS_BETWEEN(SYSDATE, data_de_contratacao) > 24 THEN -- 2 years
+            v_bonus := v_salario_base * 0.10; -- 10% bonus
+        END IF;
+        
+        RETURN v_salario_base + v_bonus;
+    END calcular_salario;
 END;
+
 
 /
 
@@ -318,6 +360,8 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
 END;
 
 /
+
+-- (9) FINAL Member
 CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     voo tp_voo,
     passageiro tp_passageiro,
@@ -326,7 +370,7 @@ CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     destino tp_aeroporto,
     data_decolagem DATE,
     data_aterrissagem DATE
-);
+) FINAL;
 /
 CREATE OR REPLACE TYPE tp_bagagem AS object(
     voo tp_voo,
@@ -370,24 +414,43 @@ CREATE OR REPLACE TYPE tp_opera AS object(
     tripulante tp_tripulante
 );
 /
-CREATE OR REPLACE TYPE tp_funcao_salario AS object(
-    id NUMBER,
-    funcao VARCHAR2(30),
-    salario NUMBER(13, 3)
-);
 
-/
-CREATE TABLE tripulantes OF tp_tripulante;
 
+-- (18) CREATE TABLE OF
+CREATE TABLE tb_tripulantes OF tp_tripulante (
+    -- You can add constraints here if needed
+    CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
+    CONSTRAINT fk_tripulante_supervisor 
+        FOREIGN KEY (supervisor) REFERENCES tb_tripulantes
+) OBJECT IDENTIFIER IS PRIMARY KEY;
+
+
+
+-- (17) INSERT INTO
+-- (15)  REF
 DECLARE
     v_telefone tp_telefone := tp_telefone('987654321', '11', '55');
     v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', '100', 'São Paulo', 'SP');
     v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
     
+    -- Criar objeto de função/salário para o supervisor
+    v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 1,
+        funcao => 'Comandante',
+        salario => 30000.00
+    );
+    
+    -- Criar objeto de função/salário para o tripulante
+    v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 2,
+        funcao => 'Copiloto',
+        salario => 20000.00
+    );
+    
     v_supervisor_ref REF tp_tripulante;
     v_supervisor tp_tripulante;
 BEGIN
-    -- First create the supervisor object
+    -- Primeiro criar o objeto supervisor
     v_supervisor := tp_tripulante(
         cpf => '11122233344',
         nome => 'Carlos',
@@ -397,19 +460,20 @@ BEGIN
         telefone => v_telefone,
         endereco => v_endereco,
         companhia_aerea => v_companhia,
-        supervisor => NULL,
-        id_funcao => 1,
+        supervisor => NULL, -- Supervisor não tem supervisor
+        funcao_salario => v_funcao_supervisor,
         numero_funcionario => 1001,
-        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY')
+        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY'),
+        nivel_seguranca => 1
     );
     
-    -- Insert the supervisor and get REF
-    INSERT INTO tripulantes VALUES (v_supervisor);
-   
-    SELECT REF(P) into v_supervisor_ref FROM tripulantes P;
+    -- Inserir o supervisor e obter sua REF
+    INSERT INTO tb_tripulantes VALUES (v_supervisor);
+    
+    SELECT REF(P) into v_supervisor_ref FROM tb_tripulantes P;
 
-    -- Now create and insert regular tripulante with supervisor reference
-    INSERT INTO tripulantes VALUES (
+    -- Agora criar e inserir o tripulante regular com referência ao supervisor
+    INSERT INTO tb_tripulantes VALUES (
         tp_tripulante(
             cpf => '22233344455',
             nome => 'Ana',
@@ -420,34 +484,23 @@ BEGIN
             endereco => v_endereco,
             companhia_aerea => v_companhia,
             supervisor => v_supervisor_ref,
-            id_funcao => 2,
+            funcao_salario => v_funcao_tripulante,
             numero_funcionario => 2001,
-            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY')
+            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY'),
+            nivel_seguranca => 2
         )
     );
     
     COMMIT;
+    
+    DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
+        ROLLBACK;
 END;
 /
--- Step 3: Test the display_info method
-DECLARE
-    v_supervisor tp_tripulante;
-    v_tripulante tp_tripulante;
-BEGIN
-    -- Retrieve supervisor
-    SELECT VALUE(t) INTO v_supervisor 
-    FROM tripulantes t 
-    WHERE t.numero_funcionario = 1001;
-    
-    -- Retrieve tripulante
-    SELECT VALUE(t) INTO v_tripulante 
-    FROM tripulantes t 
-    WHERE t.numero_funcionario = 2001;
-    
-    -- Display information
-    DBMS_OUTPUT.PUT_LINE('=== Supervisor ===');
-    v_supervisor.display_info();
-    
-    DBMS_OUTPUT.PUT_LINE('=== Tripulante ===');
-    v_tripulante.display_info();
-END;
+
+
+
+
