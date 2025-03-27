@@ -80,7 +80,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     endereco tp_endereco,
     telefone tp_telefone,
     telefones_emergencia tp_telefones_emergencia
-) NOT FINAL;
+) NOT FINAL NOT INSTANTIABLE;
 /
 
 CREATE OR REPLACE TYPE BODY tp_pessoa AS
