@@ -132,7 +132,7 @@ CREATE OR REPLACE TYPE tp_aeroporto AS object(
 
 CREATE OR REPLACE TYPE tp_aeronave AS object(
     codigo_aeronave NUMBER,
-    companhia_aerea tp_companhia_aerea,
+    companhia_aerea REF tp_companhia_aerea,
     modelo VARCHAR2(20),
     capacidade NUMBER,
     ano_fabricacao NUMBER(4),
@@ -295,7 +295,7 @@ END;
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 -- (9) FINAL MEMBER
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
-    companhia_aerea tp_companhia_aerea,
+    companhia_aerea REF tp_companhia_aerea,
     supervisor REF tp_tripulante,
     funcao_salario tp_funcao_salario_base, -- Using the concrete subtype
     numero_funcionario NUMBER,
@@ -398,6 +398,15 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
 END;
 /
 
+CREATE OR REPLACE TYPE tp_bagagem AS object(
+    numero_bagagem NUMBER,
+    peso_bagagem NUMBER
+);
+/ 
+
+CREATE OR REPLACE TYPE tp_bagagem_varray AS VARRAY(3) OF tp_bagagem;
+/
+
 CREATE OR REPLACE TYPE tp_reserva AS object(
     voo tp_voo,
     passageiro tp_passageiro,
@@ -408,15 +417,10 @@ CREATE OR REPLACE TYPE tp_reserva AS object(
     destino REF tp_aeroporto,
     data_decolagem DATE,
     data_aterrissagem DATE
+    bagagens tp_bagagem_varray  
 );
 /
 
-CREATE OR REPLACE TYPE tp_bagagem AS object(
-    reserva REF tp_reserva,
-    numero_bagagem NUMBER,
-    peso_bagagem NUMBER
-);
-/ 
 
 CREATE OR REPLACE TYPE tp_voa AS object(
     aeronave REF tp_aeronave,
@@ -443,7 +447,6 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
-
 
 CREATE TABLE tb_passageiros (
     passageiro tp_passageiro,
