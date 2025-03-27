@@ -1,5 +1,20 @@
-DROP TABLE tb_tripulantes;
-
+-- Bloco PL para dropar todos as tabelas
+DECLARE
+  v_count NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO v_count FROM user_tables;
+  IF v_count > 0 THEN
+    FOR rec IN (SELECT table_name FROM user_tables) LOOP
+      BEGIN
+        EXECUTE IMMEDIATE 'DROP TABLE ' || rec.table_name || ' CASCADE CONSTRAINTS';
+      EXCEPTION
+        WHEN OTHERS THEN
+          DBMS_OUTPUT.PUT_LINE('Erro ao dropar a tabela ' || rec.table_name || ': ' || SQLERRM);
+      END;
+    END LOOP;
+  END IF;
+END;
+/
 
 -- Bloco PL para dropar todos os tipos
 DECLARE
@@ -14,6 +29,7 @@ BEGIN
 END;
 /
 
+-- TYPES
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
     logradouro VARCHAR2(50),
@@ -173,8 +189,7 @@ CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
 CREATE OR REPLACE TYPE tp_nt_necessidades_especiais AS TABLE OF tp_necessidades_especiais;
 /
 
-CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
-    pessoa tp_pessoa,
+CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30),
@@ -408,19 +423,18 @@ CREATE OR REPLACE TYPE tp_bagagem_varray AS VARRAY(3) OF tp_bagagem;
 /
 
 CREATE OR REPLACE TYPE tp_reserva AS object(
-    voo tp_voo,
-    passageiro tp_passageiro,
+    voo REF tp_voo,
+    passageiro REF tp_passageiro,
+    origem REF tp_aeroporto,
+    destino REF tp_aeroporto,
     classe VARCHAR2(20),
     numero_do_assento NUMBER,
     portao_de_embarque VARCHAR2(2),
-    origem REF tp_aeroporto,
-    destino REF tp_aeroporto,
     data_decolagem DATE,
-    data_aterrissagem DATE
+    data_aterrissagem DATE,
     bagagens tp_bagagem_varray  
 );
 /
-
 
 CREATE OR REPLACE TYPE tp_voa AS object(
     aeronave REF tp_aeronave,
@@ -441,82 +455,68 @@ CREATE OR REPLACE TYPE tp_opera AS object(
 );
 /
 
+-- TABLES
 -- (18) CREATE TABLE OF
 -- (16) SCOPE IS
+CREATE TABLE tb_companhias_aereas OF tp_companhia_aerea (
+    CONSTRAINT pk_companhia_aerea PRIMARY KEY (cnpj)
+);
+/
+
+CREATE TABLE tb_aeronaves OF tp_aeronave (
+    CONSTRAINT pk_aeronave PRIMARY KEY (codigo_aeronave),
+    companhia_aerea WITH ROWID REFERENCES tb_companhias_aereas
+);
+/
+
+CREATE TABLE tb_passageiros OF tp_passageiro(
+    CONSTRAINT pk_passageiro PRIMARY KEY (cpf),
+    CONSTRAINT chk_preferencia_assento CHECK (preferencia_assento IN ('Janela', 'Meio', 'Corredor'))
+) NESTED TABLE necessidades_especiais STORE AS tb_nt_necessidades_especiais;
+/
+
 CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
-
-CREATE TABLE tb_passageiros (
-    passageiro tp_passageiro,
-    necessidades tp_nt_necessidades_especiais
-
-) NESTED TABLE necessidades STORE AS necessidades_especiais_nt;
-
-DECLARE
-    -- Create passenger objects
-    v_passageiro1 tp_passageiro;
-    v_passageiro2 tp_passageiro;
-    
-    -- Create special needs collections
-    v_necessidades1 nt_necessidades_especiais := nt_necessidades_especiais();
-    v_necessidades2 nt_necessidades_especiais := nt_necessidades_especiais();
-    
-    -- Common objects
-    v_telefone tp_telefone := tp_telefone('987654321', '11', '55');
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Flores', 123, 'São Paulo', 'SP');
-    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
-        tp_telefone('912345678', '11', '55')
-    );
-BEGIN
-    -- Initialize passenger 1 (with special needs)
-    v_passageiro1 := tp_passageiro(
-        '12345678901', 'João', 'Silva', 'joao@email.com',
-        TO_DATE('15/03/1985', 'DD/MM/YYYY'),
-        v_telefone, v_telefones_emergencia, v_endereco,
-        'BR12345678', 'Brasil', 
-        TO_DATE('01/01/2020', 'DD/MM/YYYY'), TO_DATE('01/01/2030', 'DD/MM/YYYY'),
-        'Janela', 'Brasileiro'
-    );
-    
-    -- Add special needs for passenger 1 (now correctly passing the passageiro object)
-    v_necessidades1.EXTEND(2);
-    v_necessidades1(1) := tp_necessidades_especiais( 'Cadeira de rodas');
-    v_necessidades1(2) := tp_necessidades_especiais('Assistência para embarque');
-    
-    -- Initialize passenger 2 (no special needs)
-    v_passageiro2 := tp_passageiro(
-        '98765432109', 'Maria', 'Santos', 'maria@email.com',
-        TO_DATE('20/05/1990', 'DD/MM/YYYY'),
-        v_telefone, v_telefones_emergencia, v_endereco,
-        'BR98765432', 'Brasil', 
-        TO_DATE('01/01/2021', 'DD/MM/YYYY'), TO_DATE('01/01/2031', 'DD/MM/YYYY'),
-        'Corredor', 'Brasileira'
-    );
-    
-    -- Insert into the table
-    INSERT INTO tb_passageiros ( necessidades)
-    VALUES (v_passageiro1, v_necessidades1);
-    
-    INSERT INTO tb_passageiros ( necessidades)
-    VALUES (v_passageiro2, NULL);
-    
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Passageiros cadastrados com sucesso!');
-END;
 /
 
-SELECT 
-    p.id_passageiro,
-    p.passageiro.pessoa.nome || ' ' || p.passageiro.pessoa.sobrenome AS nome_completo,
-    p.passageiro.passaporte.numero_passaporte AS passaporte,
-    p.passageiro.preferencia_assento AS assento,
-    n.necessidade_especial
-FROM 
-    tb_passageiros p,
-    TABLE(p.necessidades) n
-WHERE 
-    p.necessidades IS NOT NULL
-ORDER BY 
-    p.id_passageiro, n.necessidade_especial;
+CREATE TABLE tb_aeroportos OF tp_aeroporto (
+    CONSTRAINT pk_aeroporto PRIMARY KEY (codigo_aeroporto)
+);
+/
+
+CREATE TABLE tb_voos OF tp_voo (
+    CONSTRAINT pk_voo PRIMARY KEY (codigo_voo),
+    CONSTRAINT chk_status_voo CHECK (status_voo IN ('Agendado', 'Em andamento', 'Concluído', 'Cancelado')),
+    CONSTRAINT chk_categoria CHECK (categoria IN ('Internacional', 'Nacional'))
+);
+/
+
+CREATE TABLE tb_reservas OF tp_reserva (
+    origem WITH ROWID REFERENCES tb_aeroportos,
+    destino WITH ROWID REFERENCES tb_aeroportos,
+    voo WITH ROWID REFERENCES tb_voos,
+    passageiro WITH ROWID REFERENCES tb_passageiros,
+    CONSTRAINT chk_classe CHECK (classe IN ('Primeira Classe', 'Executiva', 'Econômica'))
+);
+/
+
+CREATE TABLE tb_voa OF tp_voa (
+    aeronave WITH ROWID REFERENCES tb_aeronaves,
+    aeroporto WITH ROWID REFERENCES tb_aeroportos,
+    voo WITH ROWID REFERENCES tb_voos
+);
+/
+
+CREATE TABLE tb_acomoda OF tp_acomoda (
+    aeroporto WITH ROWID REFERENCES tb_aeroportos,
+    companhia_aerea WITH ROWID REFERENCES tb_companhias_aereas
+);
+/
+
+CREATE TABLE tb_opera OF tp_opera (
+    aeronave WITH ROWID REFERENCES tb_aeronaves,
+    tripulante WITH ROWID REFERENCES tb_tripulantes
+);
+/
