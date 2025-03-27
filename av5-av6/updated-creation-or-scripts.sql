@@ -164,7 +164,8 @@ END;
 /
 
 ------------------------------
-CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
+CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
+    pessoa tp_pessoa,
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30),
@@ -174,6 +175,9 @@ CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
         p_sobrenome VARCHAR2,
         p_email VARCHAR2,
         p_data_nasc DATE,
+        p_telefone_principal tp_telefone,
+        p_telefones_emergencia tp_telefones_varray,
+        p_endereco tp_endereco,
         p_num_passaporte VARCHAR2,
         p_pais_emissao VARCHAR2,
         p_data_emissao DATE,
@@ -183,7 +187,6 @@ CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
     ) RETURN SELF AS RESULT
 );
 /
-
 -- (7) Constructor Function
 CREATE OR REPLACE TYPE BODY tp_passageiro AS
     CONSTRUCTOR FUNCTION tp_passageiro(
@@ -192,6 +195,9 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         p_sobrenome VARCHAR2,
         p_email VARCHAR2,
         p_data_nasc DATE,
+        p_telefone_principal tp_telefone,
+        p_telefones_emergencia tp_telefones_varray,
+        p_endereco tp_endereco,
         p_num_passaporte VARCHAR2,
         p_pais_emissao VARCHAR2,
         p_data_emissao DATE,
@@ -220,17 +226,18 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
             RAISE_APPLICATION_ERROR(-20004, 'Data de emissão não pode ser posterior à data de validade');
         END IF;
         
-        -- Initialize the inherited attributes
-        SELF.cpf := p_cpf;
-        SELF.nome := p_nome;
-        SELF.sobrenome := p_sobrenome;
-        SELF.email := p_email;
-        SELF.data_de_nascimento := p_data_nasc;
-        SELF.telefone_principal := NULL;  -- telefone (can be set separately)
-        SELF.telefones_emergencia := NULL;   -- endereco (can be set separately)
-        SELF.endereco := NULL;
-
-        -- Initialize the specific attributes
+        -- Initialize the nested objects
+        SELF.pessoa := tp_pessoa(
+            p_cpf,
+            p_nome,
+            p_sobrenome,
+            p_email,
+            p_data_nasc,
+            p_telefone_principal,
+            p_telefones_emergencia,
+            p_endereco
+        );
+        
         SELF.passaporte := tp_passaporte(
             p_num_passaporte,
             p_pais_emissao,
@@ -244,7 +251,7 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         RETURN;
     END;
 END;
-/ 
+/
 
 -- (10) NOT INSTANTIABLE member 
 CREATE OR REPLACE TYPE tp_funcao_salario AS OBJECT (
@@ -326,7 +333,7 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         
         -- Display contact information
         DBMS_OUTPUT.PUT_LINE('=== Informações de Contato ===');
-        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone.ddd || ' ' || telefone.numero_telefone);
+        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone_principal.ddd || ' ' || telefone_principal.numero_telefone);
         DBMS_OUTPUT.PUT_LINE('Endereço: ' || endereco.logradouro || ', ' || 
                             endereco.numero || ' - ' || endereco.cidade || 
                             '/' || endereco.estado || ' - CEP: ' || endereco.cep);
@@ -419,7 +426,8 @@ CREATE OR REPLACE TYPE tp_voa AS object(
 
 CREATE OR REPLACE TYPE tp_acomoda AS object(
     aeroporto tp_aeroporto,
-    companhia_aerea tp_companhia_aerea
+    companhia_aerea tp_companhia_aerea,
+    tipo VARCHAR2(20)
 );
 /
 
@@ -435,4 +443,3 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
-/
