@@ -166,12 +166,12 @@ END;
 ------------------------------
 
 CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
-    passageiro tp_passageiro,
     necessidade_especial VARCHAR2(100)
 );
 /
 
 CREATE OR REPLACE TYPE tp_nt_necessidades_especiais AS TABLE OF tp_necessidades_especiais;
+/
 
 CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
     pessoa tp_pessoa,
@@ -198,6 +198,7 @@ CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
     ) RETURN SELF AS RESULT
 );
 /
+
 -- (7) Constructor Function
 CREATE OR REPLACE TYPE BODY tp_passageiro AS
     CONSTRUCTOR FUNCTION tp_passageiro(
