@@ -42,6 +42,9 @@ CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
     sobrenome VARCHAR2(30)
 );
 /
+
+CREATE OR REPLACE TYPE tp_telefones_varray AS VARRAY(3) OF tp_telefone;
+/
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     cpf VARCHAR2(11),
@@ -49,7 +52,8 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     sobrenome VARCHAR2(30),  -- Fixed: was VARCHAR without length
     email VARCHAR2(30),
     data_de_nascimento DATE,
-    telefone tp_telefone,
+    telefone_principal tp_telefone,
+    telefones_adicionais tp_telefones_varray, 
     endereco tp_endereco,
     MEMBER PROCEDURE display_info,
     MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo
@@ -59,7 +63,6 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
 -- (3) Member Procedure
 -- (4) Member Function
 CREATE OR REPLACE TYPE BODY tp_pessoa AS
-
     MEMBER PROCEDURE display_info IS
     BEGIN
         DBMS_OUTPUT.PUT_LINE('CPF: ' || cpf);
@@ -67,7 +70,25 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
         DBMS_OUTPUT.PUT_LINE('Sobrenome: ' || sobrenome);
         DBMS_OUTPUT.PUT_LINE('Email: ' || email);
         DBMS_OUTPUT.PUT_LINE('Data de Nascimento: ' || TO_CHAR(data_de_nascimento, 'DD/MM/YYYY'));
-        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone.numero_telefone);
+        
+        -- Telefone principal
+        DBMS_OUTPUT.PUT_LINE('Telefone Principal: ' || 
+                            telefone_principal.codigo_pais || ' ' || 
+                            telefone_principal.ddd || ' ' || 
+                            telefone_principal.numero_telefone);
+        
+        -- Telefones adicionais
+        IF telefones_adicionais IS NOT NULL AND telefones_adicionais.COUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Telefones Adicionais:');
+            FOR i IN 1..telefones_adicionais.COUNT LOOP
+                DBMS_OUTPUT.PUT_LINE(i || ': ' || 
+                                    telefones_adicionais(i).codigo_pais || ' ' || 
+                                    telefones_adicionais(i).ddd || ' ' || 
+                                    telefones_adicionais(i).numero_telefone);
+            END LOOP;
+        END IF;
+        
+        -- Endereço
         DBMS_OUTPUT.PUT_LINE('Endereço - CEP: ' || endereco.cep);
         DBMS_OUTPUT.PUT_LINE('Endereço completo: ' || 
                             endereco.logradouro || ', ' || 
@@ -76,12 +97,12 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
                             endereco.estado);
     END display_info;
 
-
     MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo IS
     BEGIN
         RETURN tp_nome_completo(nome, sobrenome);
     END obter_nome_completo;
 END;
+
 -----------------------------------------------------------------------
 /
 
@@ -415,32 +436,32 @@ CREATE OR REPLACE TYPE tp_opera AS object(
 );
 /
 
-
 -- (18) CREATE TABLE OF
+-- (16) SCOPE IS
 CREATE TABLE tb_tripulantes OF tp_tripulante (
-    -- You can add constraints here if needed
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
-    CONSTRAINT fk_tripulante_supervisor 
-        FOREIGN KEY (supervisor) REFERENCES tb_tripulantes
+    supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
+ 
 
 
-
--- (17) INSERT INTO
--- (15)  REF
+-- Insert data with proper REF handling and VARRAY for phones
 DECLARE
-    v_telefone tp_telefone := tp_telefone('987654321', '11', '55');
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', '100', 'São Paulo', 'SP');
+    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+        tp_telefone('912345678', '11', '55'),  -- Celular
+        tp_telefone('32567890', '11', '55')    -- Telefone residencial
+    );
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
     v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
     
-    -- Criar objeto de função/salário para o supervisor
+    -- Salary objects
     v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
         id => 1,
         funcao => 'Comandante',
         salario => 30000.00
     );
     
-    -- Criar objeto de função/salário para o tripulante
     v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
         id => 2,
         funcao => 'Copiloto',
@@ -450,14 +471,15 @@ DECLARE
     v_supervisor_ref REF tp_tripulante;
     v_supervisor tp_tripulante;
 BEGIN
-    -- Primeiro criar o objeto supervisor
+    -- First insert the supervisor
     v_supervisor := tp_tripulante(
         cpf => '11122233344',
         nome => 'Carlos',
         sobrenome => 'Silva',
         email => 'carlos.silva@azul.com',
         data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
-        telefone => v_telefone,
+        telefone_principal => v_telefone_principal,
+        telefones_adicionais => v_telefones_adicionais,
         endereco => v_endereco,
         companhia_aerea => v_companhia,
         supervisor => NULL, -- Supervisor não tem supervisor
@@ -467,12 +489,20 @@ BEGIN
         nivel_seguranca => 1
     );
     
-    -- Inserir o supervisor e obter sua REF
     INSERT INTO tb_tripulantes VALUES (v_supervisor);
     
-    SELECT REF(P) into v_supervisor_ref FROM tb_tripulantes P;
-
-    -- Agora criar e inserir o tripulante regular com referência ao supervisor
+    -- Get the REF to the supervisor
+    SELECT REF(t) INTO v_supervisor_ref 
+    FROM tb_tripulantes t 
+    WHERE t.cpf = '11122233344';
+    
+    -- Different additional phones for the crew member
+    v_telefones_adicionais := tp_telefones_varray(
+        tp_telefone('998877665', '11', '55'),  -- Celular pessoal
+        tp_telefone('32456789', '11', '55')    -- Telefone alternativo
+    );
+    
+    -- Now insert the regular crew member with supervisor reference
     INSERT INTO tb_tripulantes VALUES (
         tp_tripulante(
             cpf => '22233344455',
@@ -480,7 +510,8 @@ BEGIN
             sobrenome => 'Oliveira',
             email => 'ana.oliveira@azul.com',
             data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
-            telefone => v_telefone,
+            telefone_principal => v_telefone_principal,
+            telefones_adicionais => v_telefones_adicionais,
             endereco => v_endereco,
             companhia_aerea => v_companhia,
             supervisor => v_supervisor_ref,
@@ -492,12 +523,32 @@ BEGIN
     );
     
     COMMIT;
-    
     DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
-        ROLLBACK;
+END;
+/
+
+
+DECLARE
+    v_pessoa tp_pessoa;
+    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+        tp_telefone('912345678', '11', '55'),
+        tp_telefone('876543219', '11', '55')
+    );
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
+BEGIN
+    v_pessoa := tp_pessoa(
+        cpf => '12345678901',
+        nome => 'Maria',
+        sobrenome => 'Silva',
+        email => 'maria.silva@email.com',
+        data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
+        telefone_principal => v_telefone_principal,
+        telefones_adicionais => v_telefones_adicionais,
+        endereco => v_endereco
+    );
+    
+    v_pessoa.display_info();
 END;
 /
 
