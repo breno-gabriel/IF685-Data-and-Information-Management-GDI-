@@ -353,10 +353,6 @@ END;
 
 /
 
-
-
-
-
 CREATE OR REPLACE TYPE tp_voo AS object(
     codigo_voo NUMBER,
     categoria VARCHAR2(20),

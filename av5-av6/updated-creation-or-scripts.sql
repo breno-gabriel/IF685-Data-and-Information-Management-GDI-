@@ -13,6 +13,8 @@ BEGIN
   END IF;
 END;
 /
+
+
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
     logradouro VARCHAR2(50),
@@ -28,8 +30,6 @@ CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
 );
 /
 
-
-
 CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     numero_passaporte VARCHAR2(10),
     pais_emissao VARCHAR2(30),
@@ -37,6 +37,7 @@ CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     data_validade DATE
 );
 /
+
 CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
     nome VARCHAR2(30),
     sobrenome VARCHAR2(30)
@@ -45,6 +46,7 @@ CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_telefones_varray AS VARRAY(3) OF tp_telefone;
 /
+
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     cpf VARCHAR2(11),
@@ -133,6 +135,7 @@ CREATE OR REPLACE TYPE tp_aeroporto AS object(
     endereco tp_endereco
 );
 /
+
 CREATE OR REPLACE TYPE tp_aeronave AS object(
     codigo_aeronave NUMBER,
     companhia_aerea tp_companhia_aerea,
@@ -142,6 +145,7 @@ CREATE OR REPLACE TYPE tp_aeronave AS object(
     ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER
 );
 /
+
 -- (5) Order Member Function
 CREATE OR REPLACE TYPE BODY tp_aeronave AS
     ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER IS
@@ -164,6 +168,7 @@ CREATE OR REPLACE TYPE BODY tp_aeronave AS
     END comparar_aeronave;
 END;
 /
+
 ------------------------------
 CREATE OR REPLACE TYPE tp_passageiro AS object(
     pessoa tp_pessoa,
@@ -247,6 +252,7 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
     END;
 END;
 / 
+
 -- (10) NOT INSTANTIABLE member 
 CREATE OR REPLACE TYPE tp_funcao_salario AS OBJECT (
     id NUMBER,
@@ -271,6 +277,7 @@ CREATE OR REPLACE TYPE BODY tp_funcao_salario_base AS
     END calcular_salario;
 END;
 /
+
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     companhia_aerea tp_companhia_aerea,
@@ -349,13 +356,7 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         RETURN v_salario_base + v_bonus;
     END calcular_salario;
 END;
-
-
 /
-
-
-
-
 
 CREATE OR REPLACE TYPE tp_voo AS object(
     codigo_voo NUMBER,
@@ -364,6 +365,7 @@ CREATE OR REPLACE TYPE tp_voo AS object(
     MAP MEMBER FUNCTION status_priority RETURN NUMBER
 );
 /
+
 -- (6) Map Member Function
 CREATE OR REPLACE TYPE BODY tp_voo AS
     MAP MEMBER FUNCTION status_priority RETURN NUMBER IS
@@ -393,27 +395,27 @@ CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     data_aterrissagem DATE
 ) FINAL;
 /
+
 CREATE OR REPLACE TYPE tp_bagagem AS object(
     voo tp_voo,
     passageiro tp_passageiro,
     numero_bagagem NUMBER,
     peso_bagagem NUMBER
 );
-/   
+/ 
+
 CREATE OR REPLACE TYPE tp_reserva AS object(
     voo tp_voo,
     passageiro tp_passageiro,
     classe VARCHAR2(20),
     numero_do_assento NUMBER
 );
-
 /
 
 CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
     passageiro tp_passageiro,
     necessidade_especial VARCHAR2(100)
 );
-
 /
 
 CREATE OR REPLACE TYPE tp_voa AS object(
