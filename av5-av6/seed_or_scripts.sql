@@ -8,23 +8,21 @@ INSERT INTO tb_companhias_aereas VALUES (tp_companhia_aerea('55443322110099', 'A
 /
 
 -- Inserindo Aeronaves
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(1,'Boeing 737',180,2015));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(2,'Airbus A320',150,2018));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(3,'Embraer E195',120,2019));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(4,'Boeing 737-800',189,2015));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(5,'Boeing 777-300',350,2017));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(6,'Airbus A350',325,2021));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(7,'Boeing 747-8',410,2014));
-INSERT INTO tb_aeronaves VALUES (tp_aeronave(8,'Airbus A320neo',195,2020));
-/
-
--- Inserindo Companhias Aéreas
-INSERT INTO tb_companhia_aerea VALUES (tp_companhia_aerea('12345678901234','LATAM Airlines Brasil',150,20000,
-tp_nt_tripulante(),tp_nt_aeronave()));
-INSERT INTO tb_companhia_aerea VALUES (tp_companhia_aerea('98765432109876','Gol Linhas Aéreas',120,15000,
-tp_nt_tripulante(),tp_nt_aeronave()));
-INSERT INTO tb_companhia_aerea VALUES (tp_companhia_aerea('45678901234567','Azul Linhas Aéreas',130, 18000,
-tp_nt_tripulante(),tp_nt_aeronave()));
+-- Companhia Aérea A (12345678901234)
+INSERT INTO tb_aeronaves VALUES (1, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234'), 'Boeing 737-800', 189, 2018);
+INSERT INTO tb_aeronaves VALUES (2, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234'), 'Airbus A320-200', 180, 2020);
+-- Companhia Aérea B (98765432109876)
+INSERT INTO tb_aeronaves VALUES (3, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876'), 'Boeing 777-300ER', 396, 2015);
+INSERT INTO tb_aeronaves VALUES (4, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876'), 'Airbus A350-900', 315, 2019);
+-- Companhia Aérea C (11223344556677)
+INSERT INTO tb_aeronaves VALUES (5, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677'), 'Embraer E195-E2', 146, 2021);
+INSERT INTO tb_aeronaves VALUES (6, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677'), 'Boeing 787-9', 290, 2017);
+-- Companhia Aérea D (88990011223344)
+INSERT INTO tb_aeronaves VALUES (7, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '88990011223344'), 'Airbus A330-200', 247, 2016);
+INSERT INTO tb_aeronaves VALUES (8, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '88990011223344'), 'Boeing 767-300ER', 218, 2014);
+-- Companhia Aérea E (55443322110099)
+INSERT INTO tb_aeronaves VALUES (9, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '55443322110099'), 'ATR 72-600', 78, 2022);
+INSERT INTO tb_aeronaves VALUES (10, (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '55443322110099'), 'Airbus A319-100', 156, 2019);
 /
 
 -- Inserindo Aeroportos
