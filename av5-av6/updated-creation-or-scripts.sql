@@ -164,8 +164,7 @@ END;
 /
 
 ------------------------------
-CREATE OR REPLACE TYPE tp_passageiro AS object(
-    pessoa tp_pessoa,
+CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30),
@@ -183,8 +182,8 @@ CREATE OR REPLACE TYPE tp_passageiro AS object(
         p_nacionalidade VARCHAR2
     ) RETURN SELF AS RESULT
 );
-
 /
+
 -- (7) Constructor Function
 CREATE OR REPLACE TYPE BODY tp_passageiro AS
     CONSTRUCTOR FUNCTION tp_passageiro(
@@ -221,17 +220,17 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
             RAISE_APPLICATION_ERROR(-20004, 'Data de emissão não pode ser posterior à data de validade');
         END IF;
         
-        -- Initialize the nested objects
-        SELF.pessoa := tp_pessoa(
-            p_cpf,
-            p_nome,
-            p_sobrenome,
-            p_email,
-            p_data_nasc,
-            NULL,  -- telefone (can be set separately)
-            NULL   -- endereco (can be set separately)
-        );
-        
+        -- Initialize the inherited attributes
+        SELF.cpf := p_cpf;
+        SELF.nome := p_nome;
+        SELF.sobrenome := p_sobrenome;
+        SELF.email := p_email;
+        SELF.data_de_nascimento := p_data_nasc;
+        SELF.telefone_principal := NULL;  -- telefone (can be set separately)
+        SELF.telefones_emergencia := NULL;   -- endereco (can be set separately)
+        SELF.endereco := NULL;
+
+        -- Initialize the specific attributes
         SELF.passaporte := tp_passaporte(
             p_num_passaporte,
             p_pais_emissao,
@@ -436,4 +435,4 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
- 
+/
