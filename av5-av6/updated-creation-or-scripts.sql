@@ -279,6 +279,7 @@ END;
 /
 
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
+-- (9) FINAL MEMBER
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     companhia_aerea tp_companhia_aerea,
     supervisor REF tp_tripulante,
@@ -383,33 +384,25 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
 END;
 /
 
--- (9) FINAL Member
-CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
-    voo tp_voo,
-    passageiro tp_passageiro,
-    portao_de_embarque VARCHAR2(2),
-    origem tp_aeroporto,
-    destino tp_aeroporto,
-    data_decolagem DATE,
-    data_aterrissagem DATE
-) FINAL;
-/
-
-CREATE OR REPLACE TYPE tp_bagagem AS object(
-    voo tp_voo,
-    passageiro tp_passageiro,
-    numero_bagagem NUMBER,
-    peso_bagagem NUMBER
-);
-/ 
-
 CREATE OR REPLACE TYPE tp_reserva AS object(
     voo tp_voo,
     passageiro tp_passageiro,
     classe VARCHAR2(20),
-    numero_do_assento NUMBER
+    numero_do_assento NUMBER,
+    portao_de_embarque VARCHAR2(2),
+    origem REF tp_aeroporto,
+    destino REF tp_aeroporto,
+    data_decolagem DATE,
+    data_aterrissagem DATE
 );
 /
+
+CREATE OR REPLACE TYPE tp_bagagem AS object(
+    reserva REF tp_reserva,
+    numero_bagagem NUMBER,
+    peso_bagagem NUMBER
+);
+/ 
 
 CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
     passageiro tp_passageiro,
