@@ -1,7 +1,7 @@
 DECLARE
     v_pessoa tp_pessoa;
     v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
         tp_telefone('912345678', '11', '55'),
         tp_telefone('876543219', '11', '55')
     );
@@ -14,7 +14,7 @@ BEGIN
         email => 'maria.silva@email.com',
         data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
         telefone_principal => v_telefone_principal,
-        telefones_adicionais => v_telefones_adicionais,
+        telefones_emergencia => v_telefones_emergencia,
         endereco => v_endereco
     );
     

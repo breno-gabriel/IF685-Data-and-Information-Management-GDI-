@@ -13,6 +13,7 @@ BEGIN
   END IF;
 END;
 /
+
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
     logradouro VARCHAR2(50),
@@ -21,14 +22,13 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     estado VARCHAR2(20) 
 );
 / 
+
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
     numero_telefone VARCHAR2(9),
     ddd VARCHAR2(3),
     codigo_pais VARCHAR2(2)
 );
 /
-
-
 
 CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     numero_passaporte VARCHAR2(10),
@@ -37,6 +37,7 @@ CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     data_validade DATE
 );
 /
+
 CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
     nome VARCHAR2(30),
     sobrenome VARCHAR2(30)
@@ -45,6 +46,7 @@ CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_telefones_varray AS VARRAY(3) OF tp_telefone;
 /
+
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     cpf VARCHAR2(11),
@@ -53,7 +55,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     email VARCHAR2(30),
     data_de_nascimento DATE,
     telefone_principal tp_telefone,
-    telefones_adicionais tp_telefones_varray, 
+    telefones_emergencia tp_telefones_varray, 
     endereco tp_endereco,
     MEMBER PROCEDURE display_info,
     MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo
@@ -78,13 +80,13 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
                             telefone_principal.numero_telefone);
         
         -- Telefones adicionais
-        IF telefones_adicionais IS NOT NULL AND telefones_adicionais.COUNT > 0 THEN
-            DBMS_OUTPUT.PUT_LINE('Telefones Adicionais:');
-            FOR i IN 1..telefones_adicionais.COUNT LOOP
+        IF telefones_emergencia IS NOT NULL AND telefones_emergencia.COUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Telefones de emergência:');
+            FOR i IN 1..telefones_emergencia.COUNT LOOP
                 DBMS_OUTPUT.PUT_LINE(i || ': ' || 
-                                    telefones_adicionais(i).codigo_pais || ' ' || 
-                                    telefones_adicionais(i).ddd || ' ' || 
-                                    telefones_adicionais(i).numero_telefone);
+                                    telefones_emergencia(i).codigo_pais || ' ' || 
+                                    telefones_emergencia(i).ddd || ' ' || 
+                                    telefones_emergencia(i).numero_telefone);
             END LOOP;
         END IF;
         
@@ -104,12 +106,6 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
 END;
 
 -----------------------------------------------------------------------
-/
-
-CREATE OR REPLACE TYPE tp_telefones_emergencia AS object(
-    pessoa  tp_pessoa,
-    telefones_emergencia tp_telefone
-);
 /
 
 CREATE OR REPLACE TYPE tp_companhia_aerea AS object(
@@ -133,6 +129,7 @@ CREATE OR REPLACE TYPE tp_aeroporto AS object(
     endereco tp_endereco
 );
 /
+
 CREATE OR REPLACE TYPE tp_aeronave AS object(
     codigo_aeronave NUMBER,
     companhia_aerea tp_companhia_aerea,
@@ -142,6 +139,7 @@ CREATE OR REPLACE TYPE tp_aeronave AS object(
     ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER
 );
 /
+
 -- (5) Order Member Function
 CREATE OR REPLACE TYPE BODY tp_aeronave AS
     ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER IS
@@ -164,8 +162,9 @@ CREATE OR REPLACE TYPE BODY tp_aeronave AS
     END comparar_aeronave;
 END;
 /
+
 ------------------------------
-CREATE OR REPLACE TYPE tp_passageiro AS object(
+CREATE OR REPLACE TYPE tp_passageiro AS OBJECT(
     pessoa tp_pessoa,
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
@@ -176,6 +175,9 @@ CREATE OR REPLACE TYPE tp_passageiro AS object(
         p_sobrenome VARCHAR2,
         p_email VARCHAR2,
         p_data_nasc DATE,
+        p_telefone_principal tp_telefone,
+        p_telefones_emergencia tp_telefones_varray,
+        p_endereco tp_endereco,
         p_num_passaporte VARCHAR2,
         p_pais_emissao VARCHAR2,
         p_data_emissao DATE,
@@ -184,7 +186,6 @@ CREATE OR REPLACE TYPE tp_passageiro AS object(
         p_nacionalidade VARCHAR2
     ) RETURN SELF AS RESULT
 );
-
 /
 -- (7) Constructor Function
 CREATE OR REPLACE TYPE BODY tp_passageiro AS
@@ -194,6 +195,9 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         p_sobrenome VARCHAR2,
         p_email VARCHAR2,
         p_data_nasc DATE,
+        p_telefone_principal tp_telefone,
+        p_telefones_emergencia tp_telefones_varray,
+        p_endereco tp_endereco,
         p_num_passaporte VARCHAR2,
         p_pais_emissao VARCHAR2,
         p_data_emissao DATE,
@@ -229,8 +233,9 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
             p_sobrenome,
             p_email,
             p_data_nasc,
-            NULL,  -- telefone (can be set separately)
-            NULL   -- endereco (can be set separately)
+            p_telefone_principal,
+            p_telefones_emergencia,
+            p_endereco
         );
         
         SELF.passaporte := tp_passaporte(
@@ -246,7 +251,8 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
         RETURN;
     END;
 END;
-/ 
+/
+
 -- (10) NOT INSTANTIABLE member 
 CREATE OR REPLACE TYPE tp_funcao_salario AS OBJECT (
     id NUMBER,
@@ -271,6 +277,7 @@ CREATE OR REPLACE TYPE BODY tp_funcao_salario_base AS
     END calcular_salario;
 END;
 /
+
 -- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
 CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     companhia_aerea tp_companhia_aerea,
@@ -282,7 +289,7 @@ CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     OVERRIDING MEMBER PROCEDURE display_info,
   
     MEMBER FUNCTION calcular_salario RETURN NUMBER
-);
+) FINAL;
 /
 
 -- (12) ALTER TYPE
@@ -326,7 +333,7 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         
         -- Display contact information
         DBMS_OUTPUT.PUT_LINE('=== Informações de Contato ===');
-        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone.ddd || ' ' || telefone.numero_telefone);
+        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone_principal.ddd || ' ' || telefone_principal.numero_telefone);
         DBMS_OUTPUT.PUT_LINE('Endereço: ' || endereco.logradouro || ', ' || 
                             endereco.numero || ' - ' || endereco.cidade || 
                             '/' || endereco.estado || ' - CEP: ' || endereco.cep);
@@ -349,8 +356,6 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         RETURN v_salario_base + v_bonus;
     END calcular_salario;
 END;
-
-
 /
 
 CREATE OR REPLACE TYPE tp_voo AS object(
@@ -360,6 +365,7 @@ CREATE OR REPLACE TYPE tp_voo AS object(
     MAP MEMBER FUNCTION status_priority RETURN NUMBER
 );
 /
+
 -- (6) Map Member Function
 CREATE OR REPLACE TYPE BODY tp_voo AS
     MAP MEMBER FUNCTION status_priority RETURN NUMBER IS
@@ -375,7 +381,6 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
         RETURN v_priority * 1000000 + self.codigo_voo;
     END status_priority;
 END;
-
 /
 
 -- (9) FINAL Member
@@ -389,27 +394,27 @@ CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     data_aterrissagem DATE
 ) FINAL;
 /
+
 CREATE OR REPLACE TYPE tp_bagagem AS object(
     voo tp_voo,
     passageiro tp_passageiro,
     numero_bagagem NUMBER,
     peso_bagagem NUMBER
 );
-/   
+/ 
+
 CREATE OR REPLACE TYPE tp_reserva AS object(
     voo tp_voo,
     passageiro tp_passageiro,
     classe VARCHAR2(20),
     numero_do_assento NUMBER
 );
-
 /
 
 CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
     passageiro tp_passageiro,
     necessidade_especial VARCHAR2(100)
 );
-
 /
 
 CREATE OR REPLACE TYPE tp_voa AS object(
@@ -432,9 +437,6 @@ CREATE OR REPLACE TYPE tp_opera AS object(
 );
 /
 
-
-
-
 -- (18) CREATE TABLE OF
 -- (16) SCOPE IS
 CREATE TABLE tb_tripulantes OF tp_tripulante (
@@ -447,7 +449,7 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
 -- Insert data with proper REF handling and VARRAY for phones
 DECLARE
     v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
         tp_telefone('912345678', '11', '55'),  -- Celular
         tp_telefone('32567890', '11', '55')    -- Telefone residencial
     );
@@ -478,7 +480,7 @@ BEGIN
         email => 'carlos.silva@azul.com',
         data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
         telefone_principal => v_telefone_principal,
-        telefones_adicionais => v_telefones_adicionais,
+        telefones_emergencia => v_telefones_emergencia,
         endereco => v_endereco,
         companhia_aerea => v_companhia,
         supervisor => NULL, -- Supervisor não tem supervisor
@@ -496,7 +498,7 @@ BEGIN
     WHERE t.cpf = '11122233344';
     
     -- Different additional phones for the crew member
-    v_telefones_adicionais := tp_telefones_varray(
+    v_telefones_emergencia := tp_telefones_varray(
         tp_telefone('998877665', '11', '55'),  -- Celular pessoal
         tp_telefone('32456789', '11', '55')    -- Telefone alternativo
     );
@@ -510,7 +512,7 @@ BEGIN
             email => 'ana.oliveira@azul.com',
             data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
             telefone_principal => v_telefone_principal,
-            telefones_adicionais => v_telefones_adicionais,
+            telefones_emergencia => v_telefones_emergencia,
             endereco => v_endereco,
             companhia_aerea => v_companhia,
             supervisor => v_supervisor_ref,
@@ -530,7 +532,7 @@ END;
 DECLARE
     v_pessoa tp_pessoa;
     v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
         tp_telefone('912345678', '11', '55'),
         tp_telefone('876543219', '11', '55')
     );
@@ -543,7 +545,7 @@ BEGIN
         email => 'maria.silva@email.com',
         data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
         telefone_principal => v_telefone_principal,
-        telefones_adicionais => v_telefones_adicionais,
+        telefones_emergencia => v_telefones_emergencia,
         endereco => v_endereco
     );
     
@@ -551,6 +553,28 @@ BEGIN
 END;
 /
 
-
-
-
+DECLARE
+  v_pessoa  tp_pessoa;
+  v_nome    tp_nome_completo;
+  v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(); -- Empty varray for emergency phones
+BEGIN
+  -- Initialize the pessoa object with all required parameters
+  v_pessoa := tp_pessoa(
+    cpf => '12345678901',
+    nome => 'João',
+    sobrenome => 'Silva',
+    email => 'joao.silva@email.com',
+    data_de_nascimento => TO_DATE('15/03/1985', 'DD/MM/YYYY'),
+    telefone_principal => tp_telefone('987654321', '011', '55'),
+    telefones_emergencia => v_telefones_emergencia, -- Now passing the required varray
+    endereco => tp_endereco('01234567', 'Rua das Flores', 123, 'São Paulo', 'SP')
+  );
+  
+  -- Get the full name
+  v_nome := v_pessoa.obter_nome_completo();
+  DBMS_OUTPUT.PUT_LINE('Nome completo: ' || v_nome.nome || ' ' || v_nome.sobrenome);
+  
+  -- Display all information
+  v_pessoa.display_info();
+END;
+/
