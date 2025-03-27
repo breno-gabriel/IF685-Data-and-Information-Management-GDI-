@@ -412,7 +412,7 @@ CREATE OR REPLACE TYPE tp_reserva AS object(
 /
 
 CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
-    passageiro tp_passageiro,
+
     necessidade_especial VARCHAR2(100)
 );
 /
@@ -443,112 +443,82 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
- 
 
 
--- Insert data with proper REF handling and VARRAY for phones
+CREATE OR REPLACE TYPE nt_necessidades_especiais AS TABLE OF tp_necessidades_especiais;
+/
+
+
+CREATE TABLE tb_passageiros (
+    passageiro tp_passageiro,
+    necessidades nt_necessidades_especiais
+
+) NESTED TABLE necessidades STORE AS necessidades_especiais_nt;
+
+
 DECLARE
-    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    -- Create passenger objects
+    v_passageiro1 tp_passageiro;
+    v_passageiro2 tp_passageiro;
+    
+    -- Create special needs collections
+    v_necessidades1 nt_necessidades_especiais := nt_necessidades_especiais();
+    v_necessidades2 nt_necessidades_especiais := nt_necessidades_especiais();
+    
+    -- Common objects
+    v_telefone tp_telefone := tp_telefone('987654321', '11', '55');
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Flores', 123, 'São Paulo', 'SP');
     v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
-        tp_telefone('912345678', '11', '55'),  -- Celular
-        tp_telefone('32567890', '11', '55')    -- Telefone residencial
+        tp_telefone('912345678', '11', '55')
     );
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
-    v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
-    
-    -- Salary objects
-    v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
-        id => 1,
-        funcao => 'Comandante',
-        salario => 30000.00
-    );
-    
-    v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
-        id => 2,
-        funcao => 'Copiloto',
-        salario => 20000.00
-    );
-    
-    v_supervisor_ref REF tp_tripulante;
-    v_supervisor tp_tripulante;
 BEGIN
-    -- First insert the supervisor
-    v_supervisor := tp_tripulante(
-        cpf => '11122233344',
-        nome => 'Carlos',
-        sobrenome => 'Silva',
-        email => 'carlos.silva@azul.com',
-        data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
-        telefone_principal => v_telefone_principal,
-        telefones_emergencia => v_telefones_emergencia,
-        endereco => v_endereco,
-        companhia_aerea => v_companhia,
-        supervisor => NULL, -- Supervisor não tem supervisor
-        funcao_salario => v_funcao_supervisor,
-        numero_funcionario => 1001,
-        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY'),
-        nivel_seguranca => 1
+    -- Initialize passenger 1 (with special needs)
+    v_passageiro1 := tp_passageiro(
+        '12345678901', 'João', 'Silva', 'joao@email.com',
+        TO_DATE('15/03/1985', 'DD/MM/YYYY'),
+        v_telefone, v_telefones_emergencia, v_endereco,
+        'BR12345678', 'Brasil', 
+        TO_DATE('01/01/2020', 'DD/MM/YYYY'), TO_DATE('01/01/2030', 'DD/MM/YYYY'),
+        'Janela', 'Brasileiro'
     );
     
-    INSERT INTO tb_tripulantes VALUES (v_supervisor);
+    -- Add special needs for passenger 1 (now correctly passing the passageiro object)
+    v_necessidades1.EXTEND(2);
+    v_necessidades1(1) := tp_necessidades_especiais( 'Cadeira de rodas');
+    v_necessidades1(2) := tp_necessidades_especiais('Assistência para embarque');
     
-    -- Get the REF to the supervisor
-    SELECT REF(t) INTO v_supervisor_ref 
-    FROM tb_tripulantes t 
-    WHERE t.cpf = '11122233344';
-    
-    -- Different additional phones for the crew member
-    v_telefones_emergencia := tp_telefones_varray(
-        tp_telefone('998877665', '11', '55'),  -- Celular pessoal
-        tp_telefone('32456789', '11', '55')    -- Telefone alternativo
+    -- Initialize passenger 2 (no special needs)
+    v_passageiro2 := tp_passageiro(
+        '98765432109', 'Maria', 'Santos', 'maria@email.com',
+        TO_DATE('20/05/1990', 'DD/MM/YYYY'),
+        v_telefone, v_telefones_emergencia, v_endereco,
+        'BR98765432', 'Brasil', 
+        TO_DATE('01/01/2021', 'DD/MM/YYYY'), TO_DATE('01/01/2031', 'DD/MM/YYYY'),
+        'Corredor', 'Brasileira'
     );
     
-    -- Now insert the regular crew member with supervisor reference
-    INSERT INTO tb_tripulantes VALUES (
-        tp_tripulante(
-            cpf => '22233344455',
-            nome => 'Ana',
-            sobrenome => 'Oliveira',
-            email => 'ana.oliveira@azul.com',
-            data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
-            telefone_principal => v_telefone_principal,
-            telefones_emergencia => v_telefones_emergencia,
-            endereco => v_endereco,
-            companhia_aerea => v_companhia,
-            supervisor => v_supervisor_ref,
-            funcao_salario => v_funcao_tripulante,
-            numero_funcionario => 2001,
-            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY'),
-            nivel_seguranca => 2
-        )
-    );
+    -- Insert into the table
+    INSERT INTO tb_passageiros (passageiro, necessidades)
+    VALUES (v_passageiro1, v_necessidades1);
+    
+    INSERT INTO tb_passageiros (passageiro, necessidades)
+    VALUES (v_passageiro2, NULL);
     
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
+    DBMS_OUTPUT.PUT_LINE('Passageiros cadastrados com sucesso!');
 END;
 /
 
 
-DECLARE
-    v_pessoa tp_pessoa;
-    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
-        tp_telefone('912345678', '11', '55'),
-        tp_telefone('876543219', '11', '55')
-    );
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
-BEGIN
-    v_pessoa := tp_pessoa(
-        cpf => '12345678901',
-        nome => 'Maria',
-        sobrenome => 'Silva',
-        email => 'maria.silva@email.com',
-        data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
-        telefone_principal => v_telefone_principal,
-        telefones_emergencia => v_telefones_emergencia,
-        endereco => v_endereco
-    );
-    
-    v_pessoa.display_info();
-END;
-/
+
+SELECT 
+
+    p.passageiro.pessoa.nome || ' ' || p.passageiro.pessoa.sobrenome AS nome_completo,
+    p.passageiro.passaporte.numero_passaporte AS passaporte,
+    p.passageiro.preferencia_assento AS assento,
+    n.necessidade_especial
+FROM 
+    tb_passageiros p,
+    TABLE(p.necessidades) n
+WHERE 
+    p.necessidades IS NOT NULL
