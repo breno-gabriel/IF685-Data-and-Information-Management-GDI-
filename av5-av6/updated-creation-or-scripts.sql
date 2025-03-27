@@ -164,8 +164,7 @@ END;
 /
 
 ------------------------------
-CREATE OR REPLACE TYPE tp_passageiro AS object(
-    pessoa tp_pessoa,
+CREATE OR REPLACE TYPE tp_passageiro UNDER tp_pessoa(
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
     nacionalidade VARCHAR2(30),
@@ -183,8 +182,8 @@ CREATE OR REPLACE TYPE tp_passageiro AS object(
         p_nacionalidade VARCHAR2
     ) RETURN SELF AS RESULT
 );
-
 /
+
 -- (7) Constructor Function
 CREATE OR REPLACE TYPE BODY tp_passageiro AS
     CONSTRUCTOR FUNCTION tp_passageiro(
@@ -221,17 +220,17 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
             RAISE_APPLICATION_ERROR(-20004, 'Data de emissão não pode ser posterior à data de validade');
         END IF;
         
-        -- Initialize the nested objects
-        SELF.pessoa := tp_pessoa(
-            p_cpf,
-            p_nome,
-            p_sobrenome,
-            p_email,
-            p_data_nasc,
-            NULL,  -- telefone (can be set separately)
-            NULL   -- endereco (can be set separately)
-        );
-        
+        -- Initialize the inherited attributes
+        SELF.cpf := p_cpf;
+        SELF.nome := p_nome;
+        SELF.sobrenome := p_sobrenome;
+        SELF.email := p_email;
+        SELF.data_de_nascimento := p_data_nasc;
+        SELF.telefone_principal := NULL;  -- telefone (can be set separately)
+        SELF.telefones_emergencia := NULL;   -- endereco (can be set separately)
+        SELF.endereco := NULL;
+
+        -- Initialize the specific attributes
         SELF.passaporte := tp_passaporte(
             p_num_passaporte,
             p_pais_emissao,
@@ -420,8 +419,7 @@ CREATE OR REPLACE TYPE tp_voa AS object(
 
 CREATE OR REPLACE TYPE tp_acomoda AS object(
     aeroporto tp_aeroporto,
-    companhia_aerea tp_companhia_aerea,
-    tipo VARCHAR2(20)
+    companhia_aerea tp_companhia_aerea
 );
 /
 
@@ -437,116 +435,4 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
- 
-
-
--- Insert data with proper REF handling and VARRAY for phones
-DECLARE
-    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
-        tp_telefone('912345678', '11', '55'),  -- Celular
-        tp_telefone('32567890', '11', '55')    -- Telefone residencial
-    );
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
-    v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
-    
-    -- Salary objects
-    v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
-        id => 1,
-        funcao => 'Comandante',
-        salario => 30000.00
-    );
-    
-    v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
-        id => 2,
-        funcao => 'Copiloto',
-        salario => 20000.00
-    );
-    
-    v_supervisor_ref REF tp_tripulante;
-    v_supervisor tp_tripulante;
-BEGIN
-    -- First insert the supervisor
-    v_supervisor := tp_tripulante(
-        cpf => '11122233344',
-        nome => 'Carlos',
-        sobrenome => 'Silva',
-        email => 'carlos.silva@azul.com',
-        data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
-        telefone_principal => v_telefone_principal,
-        telefones_emergencia => v_telefones_emergencia,
-        endereco => v_endereco,
-        companhia_aerea => v_companhia,
-        supervisor => NULL, -- Supervisor não tem supervisor
-        funcao_salario => v_funcao_supervisor,
-        numero_funcionario => 1001,
-        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY'),
-        nivel_seguranca => 1
-    );
-    
-    INSERT INTO tb_tripulantes VALUES (v_supervisor);
-    
-    -- Get the REF to the supervisor
-    SELECT REF(t) INTO v_supervisor_ref 
-    FROM tb_tripulantes t 
-    WHERE t.cpf = '11122233344';
-    
-    -- Different additional phones for the crew member
-    v_telefones_emergencia := tp_telefones_varray(
-        tp_telefone('998877665', '11', '55'),  -- Celular pessoal
-        tp_telefone('32456789', '11', '55')    -- Telefone alternativo
-    );
-    
-    -- Now insert the regular crew member with supervisor reference
-    INSERT INTO tb_tripulantes VALUES (
-        tp_tripulante(
-            cpf => '22233344455',
-            nome => 'Ana',
-            sobrenome => 'Oliveira',
-            email => 'ana.oliveira@azul.com',
-            data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
-            telefone_principal => v_telefone_principal,
-            telefones_emergencia => v_telefones_emergencia,
-            endereco => v_endereco,
-            companhia_aerea => v_companhia,
-            supervisor => v_supervisor_ref,
-            funcao_salario => v_funcao_tripulante,
-            numero_funcionario => 2001,
-            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY'),
-            nivel_seguranca => 2
-        )
-    );
-    
-    COMMIT;
-    DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
-END;
 /
-
-
-DECLARE
-    v_pessoa tp_pessoa;
-    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
-        tp_telefone('912345678', '11', '55'),
-        tp_telefone('876543219', '11', '55')
-    );
-    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
-BEGIN
-    v_pessoa := tp_pessoa(
-        cpf => '12345678901',
-        nome => 'Maria',
-        sobrenome => 'Silva',
-        email => 'maria.silva@email.com',
-        data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
-        telefone_principal => v_telefone_principal,
-        telefones_emergencia => v_telefones_emergencia,
-        endereco => v_endereco
-    );
-    
-    v_pessoa.display_info();
-END;
-/
-
-
-
-

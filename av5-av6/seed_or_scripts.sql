@@ -2,132 +2,87 @@
 -- Inserindo Pessoas (incluindo tripulantes e passageiros)
 -- Tripulantes
 
-INSERT INTO tb_tripulantes VALUES (
-    tp_tripulante(
-        '67890123456',
-        'Juliana',
-        'Ferreira',
-        'juliana.ferreira@email.com',
-        TO_DATE('1998-12-18', 'YYYY-MM-DD'),
-        tp_endereco('50010030', 'Avenida Guararapes', 150, 'Recife', 'Pernambuco'),
-        tp_telefone('112233445', '11', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('988776655', '011', '55'),
-            tp_telefone('977665544', '011', '55')
-        ),
-        'Piloto',
-        15000.00,
-        1001,
-        TO_DATE('2015-06-10', 'YYYY-MM-DD'),
-        NULL
-    )
-);
-
-INSERT INTO tb_tripulantes VALUES (
-    tp_tripulante(
-        '78901234567',
-        'Roberto',
-        'Almeida',
-        'roberto.almeida@email.com',
-        TO_DATE('1975-04-25', 'YYYY-MM-DD'),
-        tp_endereco('60010040', 'Avenida Beira Mar', 200, 'Fortaleza', 'Ceará'),
-        tp_telefone('112233445', '21', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('988776635', '011', '55'),
-            tp_telefone('977665549', '011', '55')
-        ),
-        'Piloto',
-        15000.00,
-        1001,
-        TO_DATE('2015-06-10', 'YYYY-MM-DD'),
-        NULL
-    )
-);
-
-INSERT INTO tb_tripulantes VALUES (
-    tp_tripulante(
-        '77889900112',
-        'Diego',
-        'Azevedo',
-        'diego.azevedo@email.com',
-        TO_DATE('1984-11-23', 'YYYY-MM-DD'),
-        tp_endereco('60050060', 'Rua Dragão do Mar', 150, 'Fortaleza', 'Ceará'),
-        tp_telefone('109876543', '86', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('968776635', '011', '55'),
-            tp_telefone('927665549', '011', '55')
-        ),
-        'Copiloto',
-        12000.00,
-        1002,
-        TO_DATE('2018-03-20', 'YYYY-MM-DD'),
-        NULL
-    )
-);
-
-INSERT INTO tb_tripulantes VALUES (
-    tp_tripulante(
-        '11223344556',
-        'André',
-        'Gomes',
-        'andre.gomes@email.com',
-        TO_DATE('1986-01-22', 'YYYY-MM-DD'),
-        tp_endereco('01122000', 'Rua Augusta', 500, 'São Paulo', 'São Paulo'),
-        tp_telefone('765432109', '212', '1'),
-        tp_telefones_emergencia(
-            tp_telefone('968776455', '011', '55'),
-            tp_telefone('927661039', '011', '55')
-        ),
-        'Engenheiro de Voo',
-        11000.00,
-        1004,
-        TO_DATE('2019-07-05', 'YYYY-MM-DD'),
-        NULL
-    )
-);
-
-
--- Passageiros
-INSERT INTO tb_passageiros VALUES (
-    tp_passageiro(
-        '33344455566',
-        'João',
-        'Oliveira',
-        'joao.oliveira@email.com',
-        TO_DATE('1990-03-25', 'YYYY-MM-DD'),
-        tp_endereco('04578002', 'Rua Oscar Freire', 200, 'São Paulo', 'SP'),
-        tp_telefone('999665544', '011', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('988554433', '011', '55')
-        ),
-        tp_passaporte('AB123456', 'Brasil', TO_DATE('2020-01-01', 'YYYY-MM-DD'), TO_DATE('2030-01-01', 'YYYY-MM-DD')),
-        tp_necessidades_especiais(
-            tp_necessidade_especial('Cadeira de rodas')
-        ),
-        'Janela',
-        'Brasileiro'
-    )
-);
-
-INSERT INTO tb_passageiros VALUES (
-    tp_passageiro(
-        '44455566677',
-        'Maria',
-        'Costa',
-        'maria.costa@email.com',
-        TO_DATE('1988-07-12', 'YYYY-MM-DD'),
-        tp_endereco('04578003', 'Alameda Santos', 300, 'São Paulo', 'SP'),
-        tp_telefone('999554433', '011', '55'),
-        tp_telefones_emergencia(
-            tp_telefone('988443322', '011', '55')
-        ),
-        tp_passaporte('CD789012', 'Brasil', TO_DATE('2019-06-01', 'YYYY-MM-DD'), TO_DATE('2029-06-01', 'YYYY-MM-DD')),
-        tp_necessidades_especiais(),
-        'Corredor',
-        'Brasileira'
-    )
-);
-
+-- Insert data with proper REF handling and VARRAY for phones
+DECLARE
+    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
+        tp_telefone('912345678', '11', '55'),  
+        tp_telefone('32567890', '11', '55')    
+    );
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
+    v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
+    
+    -- Salary objects
+    v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 1,
+        funcao => 'Comandante',
+        salario => 30000.00
+    );
+    
+    v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 2,
+        funcao => 'Copiloto',
+        salario => 20000.00
+    );
+    
+    v_supervisor_ref REF tp_tripulante;
+    v_supervisor tp_tripulante;
+BEGIN
+    -- First insert the supervisor
+    v_supervisor := tp_tripulante(
+        cpf => '11122233344',
+        nome => 'Carlos',
+        sobrenome => 'Silva',
+        email => 'carlos.silva@azul.com',
+        data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
+        telefone_principal => v_telefone_principal,
+        telefones_emergencia => v_telefones_emergencia,
+        endereco => v_endereco,
+        companhia_aerea => v_companhia,
+        supervisor => NULL, -- Supervisor sem supervisor
+        funcao_salario => v_funcao_supervisor,
+        numero_funcionario => 1001,
+        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY'),
+        nivel_seguranca => 1
+    );
+    
+    INSERT INTO tb_tripulantes VALUES (v_supervisor);
+    
+    -- Get the REF to the supervisor
+    SELECT REF(t) INTO v_supervisor_ref 
+    FROM tb_tripulantes t 
+    WHERE t.cpf = '11122233344';
+    
+    -- Different additional phones for the crew member
+    v_telefones_emergencia := tp_telefones_varray(
+        tp_telefone('998877665', '11', '55'),  -- Celular pessoal
+        tp_telefone('32456789', '11', '55')    -- Telefone alternativo
+    );
+    
+    -- Now insert the regular crew member with supervisor reference
+    INSERT INTO tb_tripulantes VALUES (
+        tp_tripulante(
+            cpf => '22233344455',
+            nome => 'Ana',
+            sobrenome => 'Oliveira',
+            email => 'ana.oliveira@azul.com',
+            data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
+            telefone_principal => v_telefone_principal,
+            telefones_emergencia => v_telefones_emergencia,
+            endereco => v_endereco,
+            companhia_aerea => v_companhia,
+            supervisor => v_supervisor_ref,
+            funcao_salario => v_funcao_tripulante,
+            numero_funcionario => 2001,
+            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY'),
+            nivel_seguranca => 2
+        )
+    );
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
+END;
+/
 -- Inserindo Aeronaves
 INSERT INTO tb_aeronaves VALUES (tp_aeronave(1,'Boeing 737',180,2015));
 INSERT INTO tb_aeronaves VALUES (tp_aeronave(2,'Airbus A320',150,2018));
