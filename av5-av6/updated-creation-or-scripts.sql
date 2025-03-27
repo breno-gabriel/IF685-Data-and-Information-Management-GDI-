@@ -14,7 +14,6 @@ BEGIN
 END;
 /
 
-
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
     logradouro VARCHAR2(50),
@@ -23,6 +22,7 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     estado VARCHAR2(20) 
 );
 / 
+
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
     numero_telefone VARCHAR2(9),
     ddd VARCHAR2(3),
@@ -55,7 +55,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     email VARCHAR2(30),
     data_de_nascimento DATE,
     telefone_principal tp_telefone,
-    telefones_adicionais tp_telefones_varray, 
+    telefones_emergencia tp_telefones_varray, 
     endereco tp_endereco,
     MEMBER PROCEDURE display_info,
     MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo
@@ -80,13 +80,13 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
                             telefone_principal.numero_telefone);
         
         -- Telefones adicionais
-        IF telefones_adicionais IS NOT NULL AND telefones_adicionais.COUNT > 0 THEN
-            DBMS_OUTPUT.PUT_LINE('Telefones Adicionais:');
-            FOR i IN 1..telefones_adicionais.COUNT LOOP
+        IF telefones_emergencia IS NOT NULL AND telefones_emergencia.COUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Telefones de emergência:');
+            FOR i IN 1..telefones_emergencia.COUNT LOOP
                 DBMS_OUTPUT.PUT_LINE(i || ': ' || 
-                                    telefones_adicionais(i).codigo_pais || ' ' || 
-                                    telefones_adicionais(i).ddd || ' ' || 
-                                    telefones_adicionais(i).numero_telefone);
+                                    telefones_emergencia(i).codigo_pais || ' ' || 
+                                    telefones_emergencia(i).ddd || ' ' || 
+                                    telefones_emergencia(i).numero_telefone);
             END LOOP;
         END IF;
         
@@ -106,12 +106,6 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
 END;
 
 -----------------------------------------------------------------------
-/
-
-CREATE OR REPLACE TYPE tp_telefones_emergencia AS object(
-    pessoa  tp_pessoa,
-    telefones_emergencia tp_telefone
-);
 /
 
 CREATE OR REPLACE TYPE tp_companhia_aerea AS object(
@@ -289,7 +283,7 @@ CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     OVERRIDING MEMBER PROCEDURE display_info,
   
     MEMBER FUNCTION calcular_salario RETURN NUMBER
-);
+) FINAL;
 /
 
 -- (12) ALTER TYPE
@@ -381,7 +375,6 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
         RETURN v_priority * 1000000 + self.codigo_voo;
     END status_priority;
 END;
-
 /
 
 -- (9) FINAL Member
@@ -450,7 +443,7 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
 -- Insert data with proper REF handling and VARRAY for phones
 DECLARE
     v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
         tp_telefone('912345678', '11', '55'),  -- Celular
         tp_telefone('32567890', '11', '55')    -- Telefone residencial
     );
@@ -481,7 +474,7 @@ BEGIN
         email => 'carlos.silva@azul.com',
         data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
         telefone_principal => v_telefone_principal,
-        telefones_adicionais => v_telefones_adicionais,
+        telefones_emergencia => v_telefones_emergencia,
         endereco => v_endereco,
         companhia_aerea => v_companhia,
         supervisor => NULL, -- Supervisor não tem supervisor
@@ -499,7 +492,7 @@ BEGIN
     WHERE t.cpf = '11122233344';
     
     -- Different additional phones for the crew member
-    v_telefones_adicionais := tp_telefones_varray(
+    v_telefones_emergencia := tp_telefones_varray(
         tp_telefone('998877665', '11', '55'),  -- Celular pessoal
         tp_telefone('32456789', '11', '55')    -- Telefone alternativo
     );
@@ -513,7 +506,7 @@ BEGIN
             email => 'ana.oliveira@azul.com',
             data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
             telefone_principal => v_telefone_principal,
-            telefones_adicionais => v_telefones_adicionais,
+            telefones_emergencia => v_telefones_emergencia,
             endereco => v_endereco,
             companhia_aerea => v_companhia,
             supervisor => v_supervisor_ref,
@@ -533,7 +526,7 @@ END;
 DECLARE
     v_pessoa tp_pessoa;
     v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
-    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+    v_telefones_emergencia tp_telefones_varray := tp_telefones_varray(
         tp_telefone('912345678', '11', '55'),
         tp_telefone('876543219', '11', '55')
     );
@@ -546,7 +539,7 @@ BEGIN
         email => 'maria.silva@email.com',
         data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
         telefone_principal => v_telefone_principal,
-        telefones_adicionais => v_telefones_adicionais,
+        telefones_emergencia => v_telefones_emergencia,
         endereco => v_endereco
     );
     
