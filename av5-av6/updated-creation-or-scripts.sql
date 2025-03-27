@@ -418,22 +418,21 @@ CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
 /
 
 CREATE OR REPLACE TYPE tp_voa AS object(
-    aeronave tp_aeronave,
-    aeroporto tp_aeroporto,
-    voo tp_voo
+    aeronave REF tp_aeronave,
+    aeroporto REF tp_aeroporto,
+    voo REF tp_voo
 );
 /
 
 CREATE OR REPLACE TYPE tp_acomoda AS object(
-    aeroporto tp_aeroporto,
-    companhia_aerea tp_companhia_aerea,
-    tipo VARCHAR2(20)
+    aeroporto REF tp_aeroporto,
+    companhia_aerea REF tp_companhia_aerea
 );
 /
 
 CREATE OR REPLACE TYPE tp_opera AS object(
-    aeronave tp_aeronave,
-    tripulante tp_tripulante
+    aeronave REF tp_aeronave,
+    tripulante REF tp_tripulante
 );
 /
 
