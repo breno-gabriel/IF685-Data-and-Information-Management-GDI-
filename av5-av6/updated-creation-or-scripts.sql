@@ -418,20 +418,6 @@ CREATE OR REPLACE TYPE tp_bagagem AS object(
 );
 / 
 
-CREATE OR REPLACE TYPE tp_reserva AS object(
-    voo tp_voo,
-    passageiro tp_passageiro,
-    classe VARCHAR2(20),
-    numero_do_assento NUMBER
-);
-/
-
-CREATE OR REPLACE TYPE tp_necessidades_especiais AS object(
-
-    necessidade_especial VARCHAR2(100)
-);
-/
-
 CREATE OR REPLACE TYPE tp_voa AS object(
     aeronave REF tp_aeronave,
     aeroporto REF tp_aeroporto,
@@ -459,13 +445,9 @@ CREATE TABLE tb_tripulantes OF tp_tripulante (
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
 
 
-CREATE OR REPLACE TYPE nt_necessidades_especiais AS TABLE OF tp_necessidades_especiais;
-/
-
-
 CREATE TABLE tb_passageiros (
     passageiro tp_passageiro,
-    necessidades nt_necessidades_especiais
+    necessidades tp_nt_necessidades_especiais
 
 ) NESTED TABLE necessidades STORE AS necessidades_especiais_nt;
 
