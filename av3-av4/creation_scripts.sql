@@ -20,7 +20,7 @@ DROP TABLE Endereco CASCADE CONSTRAINTS;
 
 
 -- Criando tabelas.
--- populado
+-- populado --tipado
 CREATE TABLE Endereco(
     CEP VARCHAR2(8) NOT NULL,
     Logradouro VARCHAR2(30) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE Endereco(
     CONSTRAINT CEP_pkey PRIMARY KEY (CEP)
 );
 
---populado
+--populado -- tipado
 CREATE TABLE Companhia_Aerea(
     CNPJ VARCHAR2(14) NOT NULL,
     Razao_social VARCHAR2(50) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Companhia_Aerea(
     CONSTRAINT Companhia_Aerea_pkey PRIMARY KEY (CNPJ)
 );
 
--- populado
+-- populado -- tipado
 CREATE TABLE Funcao_Salario(
     id NUMBER NOT NULL,
     Funcao VARCHAR2(30) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE Funcao_Salario(
     CONSTRAINT Funcao_salario_check CHECK (Salario >= 1518)
 );
 
---populado
+--populado --tipado
 CREATE TABLE Voo(
     Codigo_voo NUMBER NOT NULL,
     Categoria VARCHAR2(20) NOT NULL,
@@ -60,14 +60,14 @@ CREATE TABLE Voo(
         CHECK (Status_voo IN ('Agendando', 'Em andamento', 'Concluido', 'Cancelado'))
 );
 
---populado
+--populado --tipado
 CREATE TABLE Detalhes_Telefone(
     Numero_de_telefone VARCHAR2(9) NOT NULL,
     DDD VARCHAR2(3) NOT NULL,
     Codigo_do_pais VARCHAR2(2) NOT NULL,
     CONSTRAINT Numero_de_telefone_pkey PRIMARY KEY (Numero_de_telefone)
 );
--- populado
+-- populado --tipado
 CREATE TABLE Passaporte(
 	Numero_do_passaporte VARCHAR2(10) NOT NULL,
     Pais_de_emissao VARCHAR2(30) NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE Passaporte(
     Data_de_validade DATE NOT NULL,
     CONSTRAINT Passaporte_pkey PRIMARY KEY (Numero_do_passaporte)
 );
---populado
+--populado --tipado
 CREATE TABLE Aeroporto(
     Codigo_Aeroporto NUMBER,
     Nome VARCHAR2(50) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE Aeroporto(
     CONSTRAINT Cep_fkey1 FOREIGN KEY (CEP) 
         REFERENCES Endereco(CEP) ON DELETE CASCADE
 );
---populado
+--populado --tipado
 CREATE TABLE Aeronave(
     Codigo_Aeronave NUMBER NOT NULL,
     CNPJ_Companhia_aerea VARCHAR2(14) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE Aeronave(
     CONSTRAINT Aeronave_fkey FOREIGN KEY (CNPJ_Companhia_aerea) 
         REFERENCES Companhia_Aerea(CNPJ) ON DELETE CASCADE
 );
--- populado
+--populado --tipado
 CREATE TABLE Pessoa(
 	CPF VARCHAR2(11) NOT NULL,
     Nome VARCHAR2(30) NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE Pessoa(
         REFERENCES Endereco(CEP) ON DELETE CASCADE
 );
 
---populado
+--populado  --tipado
 CREATE TABLE Passageiro(
 	Cpf_passageiro VARCHAR2(11) NOT NULL,
     Numero_do_passaporte VARCHAR2(10) NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE Passageiro(
     CONSTRAINT Passageiro_check 
         CHECK (Preferencia_de_assento IN ('Janela', 'Meio', 'Corredor'))
 );
--- populado
+-- populado --tipado
 CREATE TABLE Tripulante(
     CPF_Tripulante VARCHAR2(11),
     CNPJ_Companhia_aerea VARCHAR2(14),
@@ -145,7 +145,7 @@ CREATE TABLE Tripulante(
         REFERENCES Funcao_Salario(id) ON DELETE CASCADE
 );
 
--- populado
+-- populado --tipado
 CREATE TABLE Bagagem(
 	Codigo_voo NUMBER,
     CPF_Passageiro VARCHAR2(11),
@@ -158,7 +158,7 @@ CREATE TABLE Bagagem(
         REFERENCES Passageiro(CPF_Passageiro) ON DELETE CASCADE
 );
 
--- populado
+-- populado --tipado
 CREATE TABLE Reserva(
     Codigo_Voo NUMBER NOT NULL,
     CPF_Passageiro VARCHAR2(11) NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE Reserva(
     CONSTRAINT Assento_unico UNIQUE  (Codigo_Voo, Numero_do_assento)
 );
 
--- opera
+-- opera --tipado
 CREATE TABLE Opera(
     Codigo_Aeronave NUMBER NOT NULL,
     CPF_Tripulante VARCHAR2(11) NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE Opera(
         REFERENCES Tripulante(CPF_Tripulante) ON DELETE CASCADE
 );
 
-
+-- tipado --populado
 CREATE TABLE Voo_Detalhes(
     Codigo_Voo NUMBER NOT NULL,
     CPF_Passageiro VARCHAR2(11) NOT NULL,
@@ -202,7 +202,7 @@ CREATE TABLE Voo_Detalhes(
         REFERENCES Aeroporto(Codigo_aeroporto) ON DELETE CASCADE
 );
 
--- populado
+-- populado -- tipado
 CREATE TABLE Telefones_Emergencia(
     CPF_Pessoa VARCHAR2(11) NOT NULL,
     Numero_de_telefone VARCHAR2(9) NOT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE Telefones_Emergencia(
 );
 
 
--- populado
+-- populado --tipado
 CREATE TABLE Necessidades_Especiais(
     CPF_Passageiro VARCHAR2(11) NOT NULL,
     Necessidade_Especial VARCHAR2(100) NOT NULL,
@@ -223,7 +223,7 @@ CREATE TABLE Necessidades_Especiais(
         REFERENCES Passageiro(CPF_Passageiro) ON DELETE CASCADE
 );
 
---populado
+--populado --tipado
 CREATE TABLE Voa(
     Codigo_Aeronave NUMBER NOT NULL,
     Codigo_Aeroporto NUMBER NOT NULL,
@@ -237,7 +237,7 @@ CREATE TABLE Voa(
         REFERENCES Voo(Codigo_Voo) ON DELETE CASCADE
 );
 
---populado
+--populado --tipado
 CREATE TABLE Acomoda(
     Codigo_Aeroporto NUMBER NOT NULL,
     CNPJ_Companhia_aerea VARCHAR2 (14),
