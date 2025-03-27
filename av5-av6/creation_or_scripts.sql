@@ -550,7 +550,3 @@ BEGIN
     v_pessoa.display_info();
 END;
 /
-
-
-
-

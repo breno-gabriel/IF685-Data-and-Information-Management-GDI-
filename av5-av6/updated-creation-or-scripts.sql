@@ -420,8 +420,7 @@ CREATE OR REPLACE TYPE tp_voa AS object(
 
 CREATE OR REPLACE TYPE tp_acomoda AS object(
     aeroporto tp_aeroporto,
-    companhia_aerea tp_companhia_aerea,
-    tipo VARCHAR2(20)
+    companhia_aerea tp_companhia_aerea
 );
 /
 
@@ -546,7 +545,3 @@ BEGIN
     v_pessoa.display_info();
 END;
 /
-
-
-
-
