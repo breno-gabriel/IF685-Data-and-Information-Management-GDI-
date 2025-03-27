@@ -1,3 +1,4 @@
+DROP TABLE tb_tripulantes;
 
 
 -- Bloco PL para dropar todos os tipos
@@ -17,7 +18,7 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     logradouro VARCHAR2(50),
     numero NUMBER,
     cidade VARCHAR2(20),
-    estado VARCHAR2(20)
+    estado VARCHAR2(20) 
 );
 / 
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
@@ -36,15 +37,73 @@ CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     data_validade DATE
 );
 /
-CREATE OR REPLACE TYPE tp_pessoa AS object(
+CREATE OR REPLACE TYPE tp_nome_completo AS OBJECT (
+    nome VARCHAR2(30),
+    sobrenome VARCHAR2(30)
+);
+/
+
+CREATE OR REPLACE TYPE tp_telefones_varray AS VARRAY(3) OF tp_telefone;
+/
+-- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
+CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     cpf VARCHAR2(11),
     nome VARCHAR2(30),
-    sobrenome VARCHAR(30),
+    sobrenome VARCHAR2(30),  -- Fixed: was VARCHAR without length
     email VARCHAR2(30),
     data_de_nascimento DATE,
-    telefone tp_telefone,
-    endereco tp_endereco
-);
+    telefone_principal tp_telefone,
+    telefones_adicionais tp_telefones_varray, 
+    endereco tp_endereco,
+    MEMBER PROCEDURE display_info,
+    MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo
+) NOT FINAL;
+/
+-------------------------------------------------------------------------------
+-- (3) Member Procedure
+-- (4) Member Function
+CREATE OR REPLACE TYPE BODY tp_pessoa AS
+    MEMBER PROCEDURE display_info IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('CPF: ' || cpf);
+        DBMS_OUTPUT.PUT_LINE('Nome: ' || nome);
+        DBMS_OUTPUT.PUT_LINE('Sobrenome: ' || sobrenome);
+        DBMS_OUTPUT.PUT_LINE('Email: ' || email);
+        DBMS_OUTPUT.PUT_LINE('Data de Nascimento: ' || TO_CHAR(data_de_nascimento, 'DD/MM/YYYY'));
+        
+        -- Telefone principal
+        DBMS_OUTPUT.PUT_LINE('Telefone Principal: ' || 
+                            telefone_principal.codigo_pais || ' ' || 
+                            telefone_principal.ddd || ' ' || 
+                            telefone_principal.numero_telefone);
+        
+        -- Telefones adicionais
+        IF telefones_adicionais IS NOT NULL AND telefones_adicionais.COUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Telefones Adicionais:');
+            FOR i IN 1..telefones_adicionais.COUNT LOOP
+                DBMS_OUTPUT.PUT_LINE(i || ': ' || 
+                                    telefones_adicionais(i).codigo_pais || ' ' || 
+                                    telefones_adicionais(i).ddd || ' ' || 
+                                    telefones_adicionais(i).numero_telefone);
+            END LOOP;
+        END IF;
+        
+        -- Endereço
+        DBMS_OUTPUT.PUT_LINE('Endereço - CEP: ' || endereco.cep);
+        DBMS_OUTPUT.PUT_LINE('Endereço completo: ' || 
+                            endereco.logradouro || ', ' || 
+                            endereco.numero || ' - ' || 
+                            endereco.cidade || '/' || 
+                            endereco.estado);
+    END display_info;
+
+    MEMBER FUNCTION obter_nome_completo RETURN tp_nome_completo IS
+    BEGIN
+        RETURN tp_nome_completo(nome, sobrenome);
+    END obter_nome_completo;
+END;
+
+-----------------------------------------------------------------------
 /
 
 CREATE OR REPLACE TYPE tp_telefones_emergencia AS object(
@@ -79,31 +138,251 @@ CREATE OR REPLACE TYPE tp_aeronave AS object(
     companhia_aerea tp_companhia_aerea,
     modelo VARCHAR2(20),
     capacidade NUMBER,
-    ano_fabricacao NUMBER(4)
+    ano_fabricacao NUMBER(4),
+    ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER
 );
 /
+-- (5) Order Member Function
+CREATE OR REPLACE TYPE BODY tp_aeronave AS
+    ORDER MEMBER FUNCTION comparar_aeronave(p_aeronave tp_aeronave) RETURN NUMBER IS
+    BEGIN
+        -- Primary comparison by capacity
+        IF self.capacidade < p_aeronave.capacidade THEN
+            RETURN -1;
+        ELSIF self.capacidade > p_aeronave.capacidade THEN
+            RETURN 1;
+        ELSE
+            -- Secondary comparison by year of manufacture
+            IF self.ano_fabricacao < p_aeronave.ano_fabricacao THEN
+                RETURN -1;
+            ELSIF self.ano_fabricacao > p_aeronave.ano_fabricacao THEN
+                RETURN 1;
+            ELSE
+                RETURN 0;
+            END IF;
+        END IF;
+    END comparar_aeronave;
+END;
+/
+------------------------------
 CREATE OR REPLACE TYPE tp_passageiro AS object(
     pessoa tp_pessoa,
     passaporte tp_passaporte,
     preferencia_assento VARCHAR2(20),
-    nacionalidade VARCHAR2(30)
+    nacionalidade VARCHAR2(30),
+    CONSTRUCTOR FUNCTION tp_passageiro(
+        p_cpf VARCHAR2,
+        p_nome VARCHAR2,
+        p_sobrenome VARCHAR2,
+        p_email VARCHAR2,
+        p_data_nasc DATE,
+        p_num_passaporte VARCHAR2,
+        p_pais_emissao VARCHAR2,
+        p_data_emissao DATE,
+        p_data_validade DATE,
+        p_preferencia_assento VARCHAR2,
+        p_nacionalidade VARCHAR2
+    ) RETURN SELF AS RESULT
+);
+
+/
+-- (7) Constructor Function
+CREATE OR REPLACE TYPE BODY tp_passageiro AS
+    CONSTRUCTOR FUNCTION tp_passageiro(
+        p_cpf VARCHAR2,
+        p_nome VARCHAR2,
+        p_sobrenome VARCHAR2,
+        p_email VARCHAR2,
+        p_data_nasc DATE,
+        p_num_passaporte VARCHAR2,
+        p_pais_emissao VARCHAR2,
+        p_data_emissao DATE,
+        p_data_validade DATE,
+        p_preferencia_assento VARCHAR2,
+        p_nacionalidade VARCHAR2
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        -- Validate CPF length (Brazilian ID)
+        IF LENGTH(p_cpf) != 11 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'CPF deve conter 11 dígitos');
+        END IF;
+        
+        -- Validate passport number format
+        IF LENGTH(p_num_passaporte) != 10 THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Número de passaporte deve conter 10 caracteres');
+        END IF;
+        
+        -- Validate seat preference
+        IF p_preferencia_assento NOT IN ('Janela', 'Meio', 'Corredor') THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Preferência de assento inválida. Opções: Janela, Meio, Corredor');
+        END IF;
+        
+        -- Validate passport dates
+        IF p_data_emissao > p_data_validade THEN
+            RAISE_APPLICATION_ERROR(-20004, 'Data de emissão não pode ser posterior à data de validade');
+        END IF;
+        
+        -- Initialize the nested objects
+        SELF.pessoa := tp_pessoa(
+            p_cpf,
+            p_nome,
+            p_sobrenome,
+            p_email,
+            p_data_nasc,
+            NULL,  -- telefone (can be set separately)
+            NULL   -- endereco (can be set separately)
+        );
+        
+        SELF.passaporte := tp_passaporte(
+            p_num_passaporte,
+            p_pais_emissao,
+            p_data_emissao,
+            p_data_validade
+        );
+        
+        SELF.preferencia_assento := p_preferencia_assento;
+        SELF.nacionalidade := p_nacionalidade;
+        
+        RETURN;
+    END;
+END;
+/ 
+-- (10) NOT INSTANTIABLE member 
+CREATE OR REPLACE TYPE tp_funcao_salario AS OBJECT (
+    id NUMBER,
+    funcao VARCHAR2(30),
+    salario NUMBER(13, 3),
+    
+   
+    NOT INSTANTIABLE MEMBER FUNCTION calcular_salario RETURN NUMBER
+) NOT FINAL NOT INSTANTIABLE;
+/
+
+CREATE OR REPLACE TYPE tp_funcao_salario_base UNDER tp_funcao_salario (
+    -- Override the abstract method
+    OVERRIDING MEMBER FUNCTION calcular_salario RETURN NUMBER
 );
 /
-CREATE OR REPLACE TYPE tp_tripulante AS object(
-    pessoa tp_pessoa,
+
+CREATE OR REPLACE TYPE BODY tp_funcao_salario_base AS
+    OVERRIDING MEMBER FUNCTION calcular_salario RETURN NUMBER IS
+    BEGIN
+        RETURN salario; 
+    END calcular_salario;
+END;
+/
+-- (11) HERANÇA DE TIPOS (UNDER/NOT FINAL)
+CREATE OR REPLACE TYPE tp_tripulante UNDER tp_pessoa (
     companhia_aerea tp_companhia_aerea,
-        supervisor REF tp_tripulante,
-    id_funcao NUMBER,
+    supervisor REF tp_tripulante,
+    funcao_salario tp_funcao_salario_base, -- Using the concrete subtype
     numero_funcionario NUMBER,
-    data_de_contratacao DATE
+    data_de_contratacao DATE,
+    
+    OVERRIDING MEMBER PROCEDURE display_info,
+  
+    MEMBER FUNCTION calcular_salario RETURN NUMBER
 );
 /
+
+-- (12) ALTER TYPE
+ALTER TYPE tp_tripulante
+ADD ATTRIBUTE (nivel_seguranca NUMBER) CASCADE;
+/
+-- (8) Overriding Member Function
+CREATE OR REPLACE TYPE BODY tp_tripulante AS
+    OVERRIDING MEMBER PROCEDURE display_info IS
+        v_supervisor_nome VARCHAR2(61);
+    BEGIN
+        -- Display personal information
+        DBMS_OUTPUT.PUT_LINE('=== Informações Pessoais ===');
+        DBMS_OUTPUT.PUT_LINE('CPF: ' || cpf);
+        DBMS_OUTPUT.PUT_LINE('Nome: ' || nome || ' ' || sobrenome);
+        DBMS_OUTPUT.PUT_LINE('Email: ' || email);
+        DBMS_OUTPUT.PUT_LINE('Data Nascimento: ' || TO_CHAR(data_de_nascimento, 'DD/MM/YYYY'));
+        
+        -- Display professional information
+        DBMS_OUTPUT.PUT_LINE('=== Informações Profissionais ===');
+        DBMS_OUTPUT.PUT_LINE('Companhia Aérea: ' || companhia_aerea.razao_social);
+        DBMS_OUTPUT.PUT_LINE('Número Funcionário: ' || numero_funcionario);
+        DBMS_OUTPUT.PUT_LINE('Data Contratação: ' || TO_CHAR(data_de_contratacao, 'DD/MM/YYYY'));
+        DBMS_OUTPUT.PUT_LINE('Salário Base: ' || funcao_salario.calcular_salario());
+        DBMS_OUTPUT.PUT_LINE('Nível de Segurança: ' || nivel_seguranca);
+        
+        -- Display supervisor information if exists
+        BEGIN
+            IF supervisor IS NOT NULL THEN
+                SELECT DEREF(supervisor).nome || ' ' || DEREF(supervisor).sobrenome 
+                INTO v_supervisor_nome
+                FROM dual;
+                DBMS_OUTPUT.PUT_LINE('Supervisor: ' || v_supervisor_nome);
+            ELSE
+                DBMS_OUTPUT.PUT_LINE('Supervisor: Não atribuído');
+            END IF;
+        EXCEPTION
+            WHEN OTHERS THEN
+                DBMS_OUTPUT.PUT_LINE('Erro ao recuperar supervisor: ' || SQLERRM);
+        END;
+        
+        -- Display contact information
+        DBMS_OUTPUT.PUT_LINE('=== Informações de Contato ===');
+        DBMS_OUTPUT.PUT_LINE('Telefone: ' || telefone.ddd || ' ' || telefone.numero_telefone);
+        DBMS_OUTPUT.PUT_LINE('Endereço: ' || endereco.logradouro || ', ' || 
+                            endereco.numero || ' - ' || endereco.cidade || 
+                            '/' || endereco.estado || ' - CEP: ' || endereco.cep);
+    END display_info;
+    
+    MEMBER FUNCTION calcular_salario RETURN NUMBER IS
+        v_salario_base NUMBER;
+        v_bonus NUMBER := 0;
+    BEGIN
+        -- Get base salary from the function/salary object
+        v_salario_base := funcao_salario.calcular_salario();
+        
+        -- Calculate bonus based on hire date (example logic)
+        IF MONTHS_BETWEEN(SYSDATE, data_de_contratacao) > 60 THEN -- 5 years
+            v_bonus := v_salario_base * 0.20; -- 20% bonus
+        ELSIF MONTHS_BETWEEN(SYSDATE, data_de_contratacao) > 24 THEN -- 2 years
+            v_bonus := v_salario_base * 0.10; -- 10% bonus
+        END IF;
+        
+        RETURN v_salario_base + v_bonus;
+    END calcular_salario;
+END;
+
+
+/
+
+
+
+
+
 CREATE OR REPLACE TYPE tp_voo AS object(
     codigo_voo NUMBER,
     categoria VARCHAR2(20),
-    status_voo VARCHAR2(20)
+    status_voo VARCHAR2(20),
+    MAP MEMBER FUNCTION status_priority RETURN NUMBER
 );
 /
+-- (6) Map Member Function
+CREATE OR REPLACE TYPE BODY tp_voo AS
+    MAP MEMBER FUNCTION status_priority RETURN NUMBER IS
+        v_priority NUMBER;
+    BEGIN
+        CASE self.status_voo
+            WHEN 'Agendando' THEN v_priority := 1;
+            WHEN 'Em andamento' THEN v_priority := 2;
+            WHEN 'Concluido' THEN v_priority := 3;
+            WHEN 'Cancelado' THEN v_priority := 4;
+            ELSE v_priority := 5;
+        END CASE;
+        RETURN v_priority * 1000000 + self.codigo_voo;
+    END status_priority;
+END;
+
+/
+
+-- (9) FINAL Member
 CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     voo tp_voo,
     passageiro tp_passageiro,
@@ -112,7 +391,7 @@ CREATE OR REPLACE TYPE tp_voo_detalhes AS object(
     destino tp_aeroporto,
     data_decolagem DATE,
     data_aterrissagem DATE
-);
+) FINAL;
 /
 CREATE OR REPLACE TYPE tp_bagagem AS object(
     voo tp_voo,
@@ -156,10 +435,123 @@ CREATE OR REPLACE TYPE tp_opera AS object(
     tripulante tp_tripulante
 );
 /
-CREATE OR REPLACE TYPE tp_funcao_salario AS object(
-    id NUMBER,
-    funcao VARCHAR2(30),
-    salario NUMBER(13, 3)
-);
+
+-- (18) CREATE TABLE OF
+-- (16) SCOPE IS
+CREATE TABLE tb_tripulantes OF tp_tripulante (
+    CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
+    supervisor SCOPE IS tb_tripulantes
+) OBJECT IDENTIFIER IS PRIMARY KEY;
+ 
+
+
+-- Insert data with proper REF handling and VARRAY for phones
+DECLARE
+    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+        tp_telefone('912345678', '11', '55'),  -- Celular
+        tp_telefone('32567890', '11', '55')    -- Telefone residencial
+    );
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
+    v_companhia tp_companhia_aerea := tp_companhia_aerea('12345678000199', 'Azul Linhas Aéreas', 150, 8000);
+    
+    -- Salary objects
+    v_funcao_supervisor tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 1,
+        funcao => 'Comandante',
+        salario => 30000.00
+    );
+    
+    v_funcao_tripulante tp_funcao_salario_base := tp_funcao_salario_base(
+        id => 2,
+        funcao => 'Copiloto',
+        salario => 20000.00
+    );
+    
+    v_supervisor_ref REF tp_tripulante;
+    v_supervisor tp_tripulante;
+BEGIN
+    -- First insert the supervisor
+    v_supervisor := tp_tripulante(
+        cpf => '11122233344',
+        nome => 'Carlos',
+        sobrenome => 'Silva',
+        email => 'carlos.silva@azul.com',
+        data_de_nascimento => TO_DATE('15/03/1975', 'DD/MM/YYYY'),
+        telefone_principal => v_telefone_principal,
+        telefones_adicionais => v_telefones_adicionais,
+        endereco => v_endereco,
+        companhia_aerea => v_companhia,
+        supervisor => NULL, -- Supervisor não tem supervisor
+        funcao_salario => v_funcao_supervisor,
+        numero_funcionario => 1001,
+        data_de_contratacao => TO_DATE('01/01/2010', 'DD/MM/YYYY'),
+        nivel_seguranca => 1
+    );
+    
+    INSERT INTO tb_tripulantes VALUES (v_supervisor);
+    
+    -- Get the REF to the supervisor
+    SELECT REF(t) INTO v_supervisor_ref 
+    FROM tb_tripulantes t 
+    WHERE t.cpf = '11122233344';
+    
+    -- Different additional phones for the crew member
+    v_telefones_adicionais := tp_telefones_varray(
+        tp_telefone('998877665', '11', '55'),  -- Celular pessoal
+        tp_telefone('32456789', '11', '55')    -- Telefone alternativo
+    );
+    
+    -- Now insert the regular crew member with supervisor reference
+    INSERT INTO tb_tripulantes VALUES (
+        tp_tripulante(
+            cpf => '22233344455',
+            nome => 'Ana',
+            sobrenome => 'Oliveira',
+            email => 'ana.oliveira@azul.com',
+            data_de_nascimento => TO_DATE('20/05/1985', 'DD/MM/YYYY'),
+            telefone_principal => v_telefone_principal,
+            telefones_adicionais => v_telefones_adicionais,
+            endereco => v_endereco,
+            companhia_aerea => v_companhia,
+            supervisor => v_supervisor_ref,
+            funcao_salario => v_funcao_tripulante,
+            numero_funcionario => 2001,
+            data_de_contratacao => TO_DATE('15/06/2015', 'DD/MM/YYYY'),
+            nivel_seguranca => 2
+        )
+    );
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Tripulantes inseridos com sucesso!');
+END;
+/
+
+
+DECLARE
+    v_pessoa tp_pessoa;
+    v_telefone_principal tp_telefone := tp_telefone('987654321', '11', '55');
+    v_telefones_adicionais tp_telefones_varray := tp_telefones_varray(
+        tp_telefone('912345678', '11', '55'),
+        tp_telefone('876543219', '11', '55')
+    );
+    v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
+BEGIN
+    v_pessoa := tp_pessoa(
+        cpf => '12345678901',
+        nome => 'Maria',
+        sobrenome => 'Silva',
+        email => 'maria.silva@email.com',
+        data_de_nascimento => TO_DATE('15/05/1985', 'DD/MM/YYYY'),
+        telefone_principal => v_telefone_principal,
+        telefones_adicionais => v_telefones_adicionais,
+        endereco => v_endereco
+    );
+    
+    v_pessoa.display_info();
+END;
+/
+
+
 
 
