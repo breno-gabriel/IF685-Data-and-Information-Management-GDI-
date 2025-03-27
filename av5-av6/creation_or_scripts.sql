@@ -1,15 +1,4 @@
--- Bloco PL para dropar todas as tabelas
-DECLARE
-  v_count NUMBER;
-BEGIN
-  SELECT COUNT(*) INTO v_count FROM user_tables;
-  IF v_count > 0 THEN
-    FOR rec IN (SELECT table_name FROM user_tables) LOOP
-      EXECUTE IMMEDIATE 'DROP TABLE ' || rec.table_name || ' CASCADE CONSTRAINTS';
-    END LOOP;
-  END IF;
-END;
-/
+
 
 -- Bloco PL para dropar todos os tipos
 DECLARE
@@ -23,8 +12,6 @@ BEGIN
   END IF;
 END;
 /
-
--- Tipos
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     cep VARCHAR2(8),
     logradouro VARCHAR2(50),
@@ -33,7 +20,6 @@ CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
     estado VARCHAR2(20)
 );
 /
-
 CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
     numero_telefone VARCHAR2(9),
     ddd VARCHAR2(3),
@@ -41,8 +27,7 @@ CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
 );
 /
 
-CREATE OR REPLACE TYPE tp_telefones_emergencia AS VARRAY(5) OF tp_telefone;
-/
+
 
 CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     numero_passaporte VARCHAR2(10),
@@ -51,33 +36,12 @@ CREATE OR REPLACE TYPE tp_passaporte AS OBJECT (
     data_validade DATE
 );
 /
-
-CREATE OR REPLACE TYPE tp_necessidade_especial AS OBJECT(
-    necessidade_especial VARCHAR2(100)
-);
-/
-
-CREATE OR REPLACE TYPE tp_necessidades_especiais AS TABLE OF tp_necessidade_especial; 
-/
-
-CREATE OR REPLACE TYPE tp_bagagem AS OBJECT(
-    numero NUMBER,
-    peso NUMBER
-);
-/
-
-CREATE OR REPLACE TYPE tp_nt_bagagem AS TABLE OF tp_bagagem;
-/
-
--- Entidades
-
-CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
+CREATE OR REPLACE TYPE tp_pessoa AS object(
     cpf VARCHAR2(11),
     nome VARCHAR2(30),
-    sobrenome VARCHAR2(30),
+    sobrenome VARCHAR(30),
     email VARCHAR2(30),
-    data_nascimento DATE,
-    endereco tp_endereco,
+    data_de_nascimento DATE,
     telefone tp_telefone,
     telefones_emergencia tp_telefones_emergencia
 ) NOT FINAL NOT INSTANTIABLE;
@@ -338,150 +302,11 @@ CREATE OR REPLACE TYPE tp_aeroporto AS OBJECT (
     codigo NUMBER,
     nome VARCHAR2(50),
     endereco tp_endereco,
-    pais VARCHAR2(30)
+)
+/
+
+CREATE OR REPLACE TYPE tp_telefones_emergencia AS object(
+    pessoa  tp_pessoa,
+    telefones_emergencia tp_telefone,
 );
 /
-
-CREATE OR REPLACE TYPE tp_ref_aeroporto AS OBJECT(
-    ref_aeroporto REF tp_aeroporto
-);
-/
-
-CREATE TABLE tb_aeroportos OF tp_aeroporto (
-    codigo NOT NULL,
-    nome NOT NULL,
-    endereco NOT NULL,
-    pais NOT NULL,
-    CONSTRAINT pk_aeroporto PRIMARY KEY (codigo)
-);
-/
-
-CREATE OR REPLACE TYPE tp_voo AS OBJECT (
-    codigo NUMBER,
-    categoria VARCHAR2(20),
-    status_voo VARCHAR2(20)
-);
-/
-
-CREATE OR REPLACE TYPE tp_ref_voo AS OBJECT(
-    ref_voo REF tp_voo
-);
-/
-
-CREATE TABLE tb_voos OF tp_voo (
-    codigo NOT NULL,
-    categoria NOT NULL,
-    status_voo NOT NULL,
-    CONSTRAINT pk_voo PRIMARY KEY (codigo),
-    CONSTRAINT chk_categoria CHECK (categoria IN ('Internacional', 'Nacional')),
-    CONSTRAINT chk_status_voo CHECK (status_voo IN ('Agendado', 'Em andamento', 'Concluido', 'Cancelado', 'Atrasado'))
-);
-/
-
--- Relações N:M modeladas como tabelas de junção
-CREATE TABLE tb_opera (
-    tripulante tp_ref_tripulante,
-    aeronave tp_ref_aeronave,
-    tripulante_id NUMBER, -- É necessário esse ID pois tripulante, nem aeronave podem ser chaves primárias
-    aeronave_id NUMBER,   
-    CONSTRAINT pk_opera PRIMARY KEY (tripulante_id, aeronave_id)
-);
-/
-
-CREATE TABLE tb_acomoda (
-    aeroporto tp_ref_aeroporto,
-    companhia_aerea tp_ref_companhia_aerea,
-    aeroporto_codigo NUMBER,
-    companhia_aerea_cnpj VARCHAR2(14),
-    CONSTRAINT pk_acomoda PRIMARY KEY (aeroporto_codigo, companhia_aerea_cnpj)
-);
-/
-
-CREATE TABLE tb_reservas (
-    voo tp_ref_voo,
-    passageiro tp_ref_passageiro,
-    voo_codigo NUMBER,
-    passageiro_CPF VARCHAR2(11),
-    bagagem tp_nt_bagagem,
-    data_decolagem DATE NOT NULL,
-    data_aterrissagem DATE NOT NULL,
-    classe VARCHAR2(20) NOT NULL,
-    status_reserva VARCHAR2(20) NOT NULL,
-    numero_assento NUMBER NOT NULL,
-    portao_embarque VARCHAR2(20) NOT NULL,
-    origem NUMBER NOT NULL, -- codigo do aeroporto de origem
-    destino NUMBER NOT NULL, -- codigo do aeroporto de destino
-    CONSTRAINT pk_reservas PRIMARY KEY (voo_codigo, passageiro_CPF),
-    CONSTRAINT chk_classe CHECK (classe IN ('Econômica', 'Executiva', 'Primeira Classe')),
-    CONSTRAINT chk_status_reserva CHECK (status_reserva IN ('Confirmada', 'Cancelada', 'Em espera'))
-) NESTED TABLE bagagem STORE AS nt_bagagens;
-/
-
--- Relação N:N:1 
-CREATE TABLE tb_voa(
-    voo tp_ref_voo,
-    aeroporto tp_ref_aeroporto,
-    aeronave tp_ref_aeronave,
-    voo_codigo NUMBER,
-    aeroporto_codigo NUMBER,
-    aeronave_codigo NUMBER,
-    CONSTRAINT pk_voa PRIMARY KEY (voo_codigo, aeroporto_codigo, aeronave_codigo)
-);
-/
-
--- Example of using SCOPE IS
-ALTER TYPE tp_ref_tripulante ADD SCOPE FOR (ref_tripulante) IS tb_tripulantes;
-ALTER TYPE tp_ref_passageiro ADD SCOPE FOR (ref_passageiro) IS tb_passageiros;
-ALTER TYPE tp_ref_companhia_aerea ADD SCOPE FOR (ref_companhia_aerea) IS tb_companhia_aerea;
-
--- Adding missing features
-
--- 1. NOT INSTANTIABLE type and member
-CREATE OR REPLACE TYPE tp_funcionario AS OBJECT (
-    id NUMBER,
-    cargo VARCHAR2(30)
-) NOT INSTANTIABLE NOT FINAL;
-/
-
--- 2. MAP MEMBER FUNCTION example
-CREATE OR REPLACE TYPE tp_produto AS OBJECT (
-    codigo NUMBER,
-    preco NUMBER,
-    MAP MEMBER FUNCTION get_order RETURN NUMBER
-);
-/
-
-CREATE OR REPLACE TYPE BODY tp_produto AS
-    MAP MEMBER FUNCTION get_order RETURN NUMBER IS
-    BEGIN
-        RETURN preco;
-    END;
-END;
-/
-
--- 3. FINAL MEMBER example
-CREATE OR REPLACE TYPE tp_cliente AS OBJECT (
-    id NUMBER,
-    nome VARCHAR2(100),
-    FINAL MEMBER FUNCTION get_id RETURN NUMBER
-);
-/
-
-CREATE OR REPLACE TYPE BODY tp_cliente AS
-    FINAL MEMBER FUNCTION get_id RETURN NUMBER IS
-    BEGIN
-        RETURN self.id;
-    END;
-END;
-/
-
--- 4. More ALTER TYPE examples
-ALTER TYPE tp_pessoa ADD ATTRIBUTE (
-    data_cadastro DATE
-) CASCADE;
-
--- 5. WITH ROWID REFERENCES example
-CREATE TABLE tb_historico_voos (
-    id NUMBER PRIMARY KEY,
-    voo_ref REF tp_voo WITH ROWID
-);
