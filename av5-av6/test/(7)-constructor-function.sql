@@ -6,6 +6,9 @@ DECLARE
         tp_telefone('876543219', '11', '55')
     );
     v_endereco tp_endereco := tp_endereco('01234567', 'Rua das Acácias', 100, 'São Paulo', 'SP');
+    v_necessidades tp_nt_necessidades_especiais := tp_nt_necessidades_especiais(
+        tp_necessidades_especiais('Nenhuma')
+    );
 BEGIN
     -- Create a new passageiro using the constructor with all required parameters
     v_passageiro := tp_passageiro(
@@ -22,11 +25,12 @@ BEGIN
         p_data_emissao => TO_DATE('01/01/2020', 'DD/MM/YYYY'),
         p_data_validade => TO_DATE('01/01/2030', 'DD/MM/YYYY'),
         p_preferencia_assento => 'Janela',
-        p_nacionalidade => 'Brasileira'
+        p_nacionalidade => 'Brasileira',
+        p_necessidades_especiais => v_necessidades
     );
     
     DBMS_OUTPUT.PUT_LINE('Passageiro criado com sucesso:');
-    DBMS_OUTPUT.PUT_LINE('Nome: ' || v_passageiro.pessoa.nome || ' ' || v_passageiro.pessoa.sobrenome);
+    DBMS_OUTPUT.PUT_LINE('Nome: ' || v_passageiro.nome || ' ' || v_passageiro.sobrenome);
     DBMS_OUTPUT.PUT_LINE('Passaporte: ' || v_passageiro.passaporte.numero_passaporte);
     
     -- Test error cases
@@ -45,7 +49,8 @@ BEGIN
             p_data_emissao => SYSDATE,
             p_data_validade => SYSDATE+365,
             p_preferencia_assento => 'CENTRO', -- Assento inválido
-            p_nacionalidade => 'Brasileira'
+            p_nacionalidade => 'Brasileira',
+            p_necessidades_especiais => v_necessidades
         );
     EXCEPTION
         WHEN OTHERS THEN
