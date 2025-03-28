@@ -35,6 +35,13 @@ SELECT
     t.codigo_pais
 FROM tb_passageiros p, TABLE(p.telefones_emergencia) t;
 
+SELECT 
+    p.cpf,
+    p.nome,
+    (SELECT COUNT(*) FROM TABLE(p.necessidades_especiais)) AS qtd_necessidades_especiais
+FROM tb_passageiros p
+WHERE (SELECT COUNT(*) FROM TABLE(p.necessidades_especiais)) > 0;
+
 -- Aeroportos
 
 SELECT 
