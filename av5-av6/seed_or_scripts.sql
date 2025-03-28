@@ -120,6 +120,287 @@ INSERT INTO tb_voos VALUES (tp_voo(105, 'Nacional', 'Agendado'));
 INSERT INTO tb_voos VALUES (tp_voo(106, 'Internacional', 'Em andamento'));
 /
 
+-- Inserindo reservas para os passageiros no voo 101
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '11111111101'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    'Econômica',
+    10,
+    'A1',
+    TO_DATE('2024-12-10 10:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-10 11:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 15.5))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '22222222202'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    'Executiva',
+    5,
+    'B2',
+    TO_DATE('2024-12-10 10:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-10 11:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 20.0), tp_bagagem(2, 10.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '33333333303'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    'Primeira Classe',
+    1,
+    'C3',
+    TO_DATE('2024-12-10 10:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-10 11:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 25.0), tp_bagagem(2, 12.5), tp_bagagem(3, 8.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '44444444404'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    'Econômica',
+    15,
+    'A4',
+    TO_DATE('2024-12-10 10:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-10 11:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 18.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '55555555505'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    'Executiva',
+    8,
+    'B5',
+    TO_DATE('2024-12-10 10:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-10 11:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 22.0), tp_bagagem(2, 11.0))
+);
+/
+
+-- Inserindo reservas para os passageiros no voo 102
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '66666666606'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    'Econômica',
+    20,
+    'D1',
+    TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 18.5))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '77777777707'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    'Executiva',
+    10,
+    'E2',
+    TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 22.0), tp_bagagem(2, 11.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '88888888808'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    'Primeira Classe',
+    5,
+    'F3',
+    TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 28.0), tp_bagagem(2, 15.0), tp_bagagem(3, 10.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '10101010110'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    'Econômica',
+    25,
+    'D4',
+    TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 20.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '11111111111'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    'Executiva',
+    12,
+    'E5',
+    TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 24.0), tp_bagagem(2, 13.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102),
+        (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '12121212112'),
+        (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+        (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+        'Primeira Classe',
+        2,
+        'F6',
+        TO_DATE('2024-12-11 12:00', 'YYYY-MM-DD HH24:MI'),
+        TO_DATE('2024-12-12 18:00', 'YYYY-MM-DD HH24:MI'),
+        tp_bagagem_varray(tp_bagagem(1, 30.0), tp_bagagem(2, 16.0), tp_bagagem(3, 11.0))
+);
+/
+
+-- Inserindo reservas para os passageiros no voo 103
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 103),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '12121212112'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 3),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    'Primeira Classe',
+    1,
+    'A1',
+    TO_DATE('2024-12-12 14:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 15:30', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 25.0), tp_bagagem(2, 12.5), tp_bagagem(3, 8.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 103),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '13131313113'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 3),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    'Econômica',
+    10,
+    'B2',
+    TO_DATE('2024-12-12 14:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 15:30', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 15.5))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 103),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '14141414114'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 3),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    'Executiva',
+    5,
+    'C3',
+    TO_DATE('2024-12-12 14:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 15:30', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 20.0), tp_bagagem(2, 10.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 103),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '15151515115'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 3),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    'Primeira Classe',
+    2,
+    'D4',
+    TO_DATE('2024-12-12 14:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-12 15:30', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 28.0), tp_bagagem(2, 15.0), tp_bagagem(3, 10.0))
+);
+/
+
+-- Inserindo reservas para os passageiros no voo 106
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '19191919119'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Econômica',
+    30,
+    'G1',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 19.5))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '20202020220'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Executiva',
+    15,
+    'H2',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 23.0), tp_bagagem(2, 12.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '21212121221'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Primeira Classe',
+    8,
+    'I3',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 30.0), tp_bagagem(2, 16.0), tp_bagagem(3, 11.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '22222222222'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Econômica',
+    35,
+    'G4',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 21.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '23232323223'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Executiva',
+    18,
+    'H5',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 25.0), tp_bagagem(2, 14.0))
+);
+
+INSERT INTO tb_reservas VALUES (
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106),
+    (SELECT REF(p) FROM tb_passageiros p WHERE p.cpf = '24242424224'),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    'Primeira Classe',
+    10,
+    'I6',
+    TO_DATE('2024-12-13 16:00', 'YYYY-MM-DD HH24:MI'),
+    TO_DATE('2024-12-14 20:00', 'YYYY-MM-DD HH24:MI'),
+    tp_bagagem_varray(tp_bagagem(1, 32.0), tp_bagagem(2, 17.0), tp_bagagem(3, 12.0))
+);
+/
+
 
 -- Insert data with proper REF handling and VARRAY for phones
 DECLARE
