@@ -114,12 +114,10 @@ tp_endereco('918146', 'Airport Boulevard', 600, 'Singapura', 'SI'), 'Singapura')
 -- Inserindo Voos
 INSERT INTO tb_voos VALUES (tp_voo(101, 'Nacional', 'Agendado'));
 INSERT INTO tb_voos VALUES (tp_voo(102, 'Internacional', 'Em andamento'));
-INSERT INTO tb_voos VALUES (tp_voo(103, 'Nacional', 'Concluido'));
+INSERT INTO tb_voos VALUES (tp_voo(103, 'Nacional', 'Concluído'));
 INSERT INTO tb_voos VALUES (tp_voo(104, 'Internacional', 'Cancelado'));
-INSERT INTO tb_voos VALUES (tp_voo(105, 'Nacional', 'Atrasado'));
-INSERT INTO tb_voos VALUES (tp_voo(106, 'Internacional', 'Agendado'));
-INSERT INTO tb_voos VALUES (tp_voo(107, 'Nacional', 'Em andamento'));
-INSERT INTO tb_voos VALUES (tp_voo(108, 'Internacional', 'Concluido'));
+INSERT INTO tb_voos VALUES (tp_voo(105, 'Nacional', 'Agendado'));
+INSERT INTO tb_voos VALUES (tp_voo(106, 'Internacional', 'Em andamento'));
 /
 
 
