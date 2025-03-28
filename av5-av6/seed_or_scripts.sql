@@ -401,6 +401,103 @@ INSERT INTO tb_reservas VALUES (
 );
 /
 
+-- Inserindo acomoda
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 2),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 3),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '88990011223344')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 5),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '55443322110099')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 6),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 7),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 8),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 9),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '88990011223344')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 10),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '55443322110099')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 12),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 13),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 14),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '88990011223344')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 15),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '55443322110099')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 16),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234')
+);
+/
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 1),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '98765432109876')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 4),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '12345678901234')
+);
+
+INSERT INTO tb_acomoda VALUES (
+    (SELECT REF(a) FROM tb_aeroportos a WHERE a.codigo_aeroporto = 11),
+    (SELECT REF(c) FROM tb_companhias_aereas c WHERE c.cnpj = '11223344556677')
+);
+/
 
 -- Insert data with proper REF handling and VARRAY for phones
 DECLARE
