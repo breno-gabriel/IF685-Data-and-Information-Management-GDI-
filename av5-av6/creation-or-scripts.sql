@@ -1,3 +1,22 @@
+
+DROP TABLE tb_companhias_aereas CASCADE CONSTRAINTS;
+DROP TABLE tb_aeronaves CASCADE CONSTRAINTS;
+DROP TABLE tb_pessoas CASCADE CONSTRAINTS;
+DROP TABLE tb_passaportes CASCADE CONSTRAINTS;
+DROP TABLE tb_telefones CASCADE CONSTRAINTS;
+DROP TABLE tb_enderecos CASCADE CONSTRAINTS;
+DROP TABLE tb_nome_completo CASCADE CONSTRAINTS;
+DROP TABLE tb_telefones_varray CASCADE CONSTRAINTS;
+DROP TABLE tb_pessoas CASCADE CONSTRAINTS;
+drop table tb_aeroportos CASCADE CONSTRAINTS;
+DROP TABLE tb_voos CASCADE CONSTRAINTS;
+DROP TABLE tb_reservas CASCADE CONSTRAINTS;
+DROP TABLE tb_voa CASCADE CONSTRAINTS;
+DROP TABLE tb_acomoda CASCADE CONSTRAINTS;
+DROP TABLE tb_opera CASCADE CONSTRAINTS;
+DROP TABLE tb_passageiros CASCADE CONSTRAINTS;
+DROP TABLE tb_tripulantes CASCADE CONSTRAINTS;
+
 -- Bloco PL para dropar todos as tabelas
 DECLARE
   v_count NUMBER;
@@ -255,18 +274,17 @@ CREATE OR REPLACE TYPE BODY tp_passageiro AS
             RAISE_APPLICATION_ERROR(-20004, 'Data de emissão não pode ser posterior à data de validade');
         END IF;
         
-        -- Initialize the nested objects
-        SELF.pessoa := tp_pessoa(
-            p_cpf,
-            p_nome,
-            p_sobrenome,
-            p_email,
-            p_data_nasc,
-            p_telefone_principal,
-            p_telefones_emergencia,
-            p_endereco
-        );
+        -- Initialize inherited attributes directly (not through pessoa component)
+        SELF.cpf := p_cpf;
+        SELF.nome := p_nome;
+        SELF.sobrenome := p_sobrenome;
+        SELF.email := p_email;
+        SELF.data_de_nascimento := p_data_nasc;
+        SELF.telefone_principal := p_telefone_principal;
+        SELF.telefones_emergencia := p_telefones_emergencia;
+        SELF.endereco := p_endereco;
         
+        -- Initialize passenger-specific attributes
         SELF.passaporte := tp_passaporte(
             p_num_passaporte,
             p_pais_emissao,
@@ -331,6 +349,7 @@ ADD ATTRIBUTE (nivel_seguranca NUMBER) CASCADE;
 CREATE OR REPLACE TYPE BODY tp_tripulante AS
     OVERRIDING MEMBER PROCEDURE display_info IS
         v_supervisor_nome VARCHAR2(61);
+        v_companhia_aerea_nome VARCHAR2(61);
     BEGIN
         -- Display personal information
         DBMS_OUTPUT.PUT_LINE('=== Informações Pessoais ===');
@@ -341,7 +360,10 @@ CREATE OR REPLACE TYPE BODY tp_tripulante AS
         
         -- Display professional information
         DBMS_OUTPUT.PUT_LINE('=== Informações Profissionais ===');
-        DBMS_OUTPUT.PUT_LINE('Companhia Aérea: ' || companhia_aerea.razao_social);
+        SELECT DEREF(companhia_aerea).razao_social 
+        INTO v_companhia_aerea_nome  
+        FROM dual;
+        DBMS_OUTPUT.PUT_LINE('Companhia Aérea: ' || v_companhia_aerea_nome);
         DBMS_OUTPUT.PUT_LINE('Número Funcionário: ' || numero_funcionario);
         DBMS_OUTPUT.PUT_LINE('Data Contratação: ' || TO_CHAR(data_de_contratacao, 'DD/MM/YYYY'));
         DBMS_OUTPUT.PUT_LINE('Salário Base: ' || funcao_salario.calcular_salario());
@@ -462,37 +484,37 @@ CREATE OR REPLACE TYPE tp_opera AS object(
 CREATE TABLE tb_companhias_aereas OF tp_companhia_aerea (
     CONSTRAINT pk_companhia_aerea PRIMARY KEY (cnpj)
 );
-/
+
 
 CREATE TABLE tb_aeronaves OF tp_aeronave (
     CONSTRAINT pk_aeronave PRIMARY KEY (codigo_aeronave),
     companhia_aerea WITH ROWID REFERENCES tb_companhias_aereas
 );
-/
+
 
 CREATE TABLE tb_passageiros OF tp_passageiro(
     CONSTRAINT pk_passageiro PRIMARY KEY (cpf),
     CONSTRAINT chk_preferencia_assento CHECK (preferencia_assento IN ('Janela', 'Meio', 'Corredor'))
 ) NESTED TABLE necessidades_especiais STORE AS tb_nt_necessidades_especiais;
-/
+
 
 CREATE TABLE tb_tripulantes OF tp_tripulante (
     CONSTRAINT pk_tripulante PRIMARY KEY (cpf),
     supervisor SCOPE IS tb_tripulantes
 ) OBJECT IDENTIFIER IS PRIMARY KEY;
-/
+
 
 CREATE TABLE tb_aeroportos OF tp_aeroporto (
     CONSTRAINT pk_aeroporto PRIMARY KEY (codigo_aeroporto)
 );
-/
+
 
 CREATE TABLE tb_voos OF tp_voo (
     CONSTRAINT pk_voo PRIMARY KEY (codigo_voo),
     CONSTRAINT chk_status_voo CHECK (status_voo IN ('Agendado', 'Em andamento', 'Concluído', 'Cancelado')),
     CONSTRAINT chk_categoria CHECK (categoria IN ('Internacional', 'Nacional'))
 );
-/
+
 
 CREATE TABLE tb_reservas OF tp_reserva (
     origem WITH ROWID REFERENCES tb_aeroportos,
@@ -501,23 +523,22 @@ CREATE TABLE tb_reservas OF tp_reserva (
     passageiro WITH ROWID REFERENCES tb_passageiros,
     CONSTRAINT chk_classe CHECK (classe IN ('Primeira Classe', 'Executiva', 'Econômica'))
 );
-/
+
 
 CREATE TABLE tb_voa OF tp_voa (
     aeronave WITH ROWID REFERENCES tb_aeronaves,
     aeroporto WITH ROWID REFERENCES tb_aeroportos,
     voo WITH ROWID REFERENCES tb_voos
 );
-/
+
 
 CREATE TABLE tb_acomoda OF tp_acomoda (
     aeroporto WITH ROWID REFERENCES tb_aeroportos,
     companhia_aerea WITH ROWID REFERENCES tb_companhias_aereas
 );
-/
+
 
 CREATE TABLE tb_opera OF tp_opera (
     aeronave WITH ROWID REFERENCES tb_aeronaves,
     tripulante WITH ROWID REFERENCES tb_tripulantes
 );
-/
