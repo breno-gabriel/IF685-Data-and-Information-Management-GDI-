@@ -424,14 +424,14 @@ CREATE OR REPLACE TYPE BODY tp_voo AS
     MAP MEMBER FUNCTION status_priority RETURN NUMBER IS
         v_priority NUMBER;
     BEGIN
-        CASE self.status_voo
-            WHEN 'Agendando' THEN v_priority := 1;
-            WHEN 'Em andamento' THEN v_priority := 2;
-            WHEN 'Concluido' THEN v_priority := 3;
-            WHEN 'Cancelado' THEN v_priority := 4;
-            ELSE v_priority := 5;
+        CASE UPPER(TRIM(self.status_voo))
+            WHEN 'AGENDADO' THEN v_priority := 1;
+            WHEN 'EM ANDAMENTO' THEN v_priority := 2;
+            WHEN 'CONCLUÍDO' THEN v_priority := 3;
+            WHEN 'CANCELADO' THEN v_priority := 4;
+            ELSE v_priority := 5; -- Adiciona um valor padrão para outros status
         END CASE;
-        RETURN v_priority * 1000000 + self.codigo_voo;
+        RETURN v_priority;
     END status_priority;
 END;
 /
