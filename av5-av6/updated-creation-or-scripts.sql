@@ -142,7 +142,8 @@ CREATE OR REPLACE TYPE tp_passaporte AS object(
 CREATE OR REPLACE TYPE tp_aeroporto AS object(
     codigo_aeroporto NUMBER,
     nome VARCHAR2(50),
-    endereco tp_endereco
+    endereco tp_endereco,
+    pais VARCHAR2(30)
 );
 /
 
