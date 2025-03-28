@@ -56,6 +56,7 @@ ORDER BY v.status_priority();
 -- Voa
 -- Conta o número de voos com categoria 'Nacional' a partir da tabela tb_voa
 SELECT count(*) from tb_voa v where DEREF(v.voo).categoria = 'Nacional';
+
 -- Opera
 -- Esta consulta lista o cpf, nome e função dos tripulantes que estão operando na aeronave com código 1.
 SELECT
