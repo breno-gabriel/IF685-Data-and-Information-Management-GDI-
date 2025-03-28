@@ -499,6 +499,95 @@ INSERT INTO tb_acomoda VALUES (
 );
 /
 
+-- Inserindo opera
+-- Inserindo operações para cada aeronave com um piloto e um copiloto da mesma companhia aérea
+-- Azul Linhas Aéreas (12345678901234) - Boeing 737-800
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 1),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '11122233344') -- Piloto Carlos Silva
+);
+
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 1),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '55566677788') -- Copiloto Ana Oliveira
+);
+
+-- American Airlines (98765432109876) - Airbus A350-900
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 4),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '22233344455') -- Piloto John Smith
+);
+
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 4),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '66677788899') -- Copiloto Emily Johnson
+);
+
+-- Linhas Aéreas Nacionais (11223344556677) - Embraer E195-E2
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 5),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '33344455566') -- Piloto Ricardo Santos
+);
+
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 5),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '77788899900') -- Copiloto Juliana Costa
+);
+
+-- Companhia Aérea Delta (88990011223344) - Boeing 767-300ER
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 8),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '44455566677') -- Piloto Michael Brown
+);
+
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 8),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '99900011122') -- Copiloto Olivia White
+);
+
+-- Airlines do Brasil (55443322110099) - ATR 72-600
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 9),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '66677788833') -- Piloto Isabela Gomes
+);
+
+INSERT INTO tb_opera VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 9),
+    (SELECT REF(t) FROM tb_tripulantes t WHERE t.cpf = '77788899944') -- Copiloto William Taylor
+);
+/
+
+-- Inserindo voa
+-- Inserindo dados na tabela tb_voa, relacionando aeronaves, aeroportos e voos
+-- Voo 101: Boeing 737-800 para o Aeroporto Santos Dumont
+INSERT INTO tb_voa VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 1),
+    (SELECT REF(ar) FROM tb_aeroportos ar WHERE ar.codigo_aeroporto = 2),
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 101)
+);
+
+-- Voo 102: Airbus A350-900 para o Aeroporto Internacional de Narita
+INSERT INTO tb_voa VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 4),
+    (SELECT REF(ar) FROM tb_aeroportos ar WHERE ar.codigo_aeroporto = 13),
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 102)
+);
+
+-- Voo 103: Embraer E195-E2 para o Aeroporto de Guarulhos
+INSERT INTO tb_voa VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 5),
+    (SELECT REF(ar) FROM tb_aeroportos ar WHERE ar.codigo_aeroporto = 4),
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 103)
+);
+
+-- Voo 106: Boeing 767-300ER para o Aeroporto Internacional de Heathrow
+INSERT INTO tb_voa VALUES (
+    (SELECT REF(a) FROM tb_aeronaves a WHERE a.codigo_aeronave = 8),
+    (SELECT REF(ar) FROM tb_aeroportos ar WHERE ar.codigo_aeroporto = 14),
+    (SELECT REF(v) FROM tb_voos v WHERE v.codigo_voo = 106)
+);
+/
+
 -- Insert data with proper REF handling and VARRAY for phones
 DECLARE
     -- Create passenger objects
