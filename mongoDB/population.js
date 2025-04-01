@@ -92,26 +92,6 @@ db.empresas.insertMany([
     {
 
         "_id" : 5, 
-        "CNPJ": "18907824000105", 
-        "Razão Social": "Visagio", 
-        "descrição": "A Visagio é uma plataforma de transformação e desenvolvimento de negócios que permite que gente boa e do bem realize feitos grandiosos",
-        "endereço": {
-
-            "rua": "Rua Subida do Curupá",
-            "bairro": "Nova Descoberta", 
-            "cidade":"Recife", 
-            "estado": 'Pernanbuco', 
-            'uf': 'PE', 
-            "cep": "52190275"
-
-        },
-        "setor": "tecnologia"
-
-    }, 
-
-    {
-
-        "_id" : 6, 
         "CNPJ": "36402535000136", 
         "Razão Social": "dippolum consultoria", 
         "descrição": "Empresa Júnior da UFPE Sinônimo de tecnologia transformando realidades Soluções em automação, IoT, impressão 3D e prototipação",
@@ -131,7 +111,7 @@ db.empresas.insertMany([
 
     {
 
-        "_id" : 7, 
+        "_id" : 6, 
         "CNPJ": "77830477000129", 
         "Razão Social": "Mauriceia Alimentos", 
         "descrição": "Nascemos em 1988, mas nossa história começou anos antes, numa pequena criação de aves em Nazaré da Mata, Pernambuco. Cada experiência, conhecimento e aptidão adquiridos nos levaram à busca por um espaço maior. E, em pouco tempo, tivemos que expandir para uma fábrica em Carpina, onde construímos uma fábrica de rações, granja de matrizes, incubatório e abatedouro. De lá pra cá, não paramos de crescer. Hoje, temos agroindústrias de larga produção em Pernambuco, Paraíba e Bahia.",
@@ -151,7 +131,7 @@ db.empresas.insertMany([
 
     {
 
-        "_id" : 8, 
+        "_id" : 7, 
         "CNPJ": "86346320000113", 
         "Razão Social": "Alpargatas", 
         "descrição": "We are a global company, founded and based in Brazil for over 115 years. We are committed to delight the world with amazing brands, that convey lightness and joy to the everyday lives of our consumers. We own Havaianas brand, world leader in open shoes, known for the iconic flip-flops that represent Brazilianness, comfort and style. We have 49.2% of Rothy’s a north-american sustainable footwear Brand.",
@@ -167,31 +147,11 @@ db.empresas.insertMany([
         }, 
         "setor": "calçados e têxtil"
 
-    }, 
+    },  
 
     {
 
-        "_id" : 9, 
-        "CNPJ": "28935720000168", 
-        "Razão Social": "Bradesco", 
-        "descrição": "Valorizamos muito o que temos de “humano”. Nossa trajetória só obteve tanto sucesso ao longo destes mais de 80 anos graças às pessoas que construíram e constroem, dia após dia, o trabalho do Bradesco. Isso é vir em primeiro.",
-        "endereço": {
-
-            "rua": "Rua João Antonio Tavares",
-            "bairro": "Santo Antônio", 
-            "cidade":"Carpina", 
-            "estado": '`Pernanbuco`', 
-            'uf': 'PE', 
-            "cep": "55816355"
-
-        }, 
-        "setor": "financeiro"
-
-    }, 
-
-    {
-
-        "_id" : 10, 
+        "_id" : 8, 
         "CNPJ": "87314842000104", 
         "Razão Social": "Confeitaria Colombo", 
         "descrição": "Café centenário decorado com fabulosos espelhos, renomado por suas iguarias e doces confeitados.",
