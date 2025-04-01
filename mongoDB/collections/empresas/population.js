@@ -1,4 +1,4 @@
-db.empresas.insertMany([
+db.collection("empresas").insertMany([
   {
     _id: 1,
     CNPJ: "12345678000101",

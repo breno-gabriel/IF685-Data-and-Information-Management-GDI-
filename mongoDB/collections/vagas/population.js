@@ -1,10 +1,10 @@
-db.vagas.insertMany([
+await db.collection("vagas").insertMany([
   {
     _id: 1,
     titulo: "Desenvolvimento frontend",
     descrição:
       "Estamos em busca de um Desenvolvedor Frontend apaixonado por tecnologia e inovação para se juntar ao nosso time! Se você tem experiência com desenvolvimento de interfaces modernas, foco em usabilidade e performance, e gosta de trabalhar em equipe, essa vaga é para você!",
-    empresa: db.empresa.findOne({ "Razão Social": "Viitra inovações" }),
+    empresa_id: viitra ? viitra._id : null,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -25,15 +25,14 @@ db.vagas.insertMany([
     tipo: "CLT",
     salário: 4000.0,
     localização: "Recife",
-    data_publicação: "2025-04-01",
+    data_publicação: new Date("2025-04-01"),
   },
-
   {
     _id: 2,
     titulo: "Cientista de Dados",
-    descricao:
+    descrição:
       "Estamos em busca de um Cientista de Dados talentoso para integrar nosso time! Se você tem paixão por análise de dados, modelagem preditiva e deseja trabalhar com grandes volumes de informação para gerar insights estratégicos, essa vaga é para você!",
-    empresa: db.empresa.findOne({ "Razão Social": "Neurotech" }),
+    empresa_id: neurotech ? neurotech._id : null,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -46,23 +45,21 @@ db.vagas.insertMany([
       "Experiência com Python e bibliotecas como Pandas, NumPy e Scikit-learn",
       "Conhecimento em SQL e manipulação de bancos de dados",
       "Experiência com Machine Learning e modelos preditivos",
-      "Familiaridade com ferramentas de visualização de dados (Tableau, Power BI, Matplotlib, Seaborn)",
+      "Familiaridade com ferramentas de visualização de dados",
       "Conhecimento em engenharia de dados e ETL",
-      "Capacidade de traduzir dados em insights acionáveis",
       "Diferencial: experiência com Big Data e frameworks como Spark",
     ],
     tipo: "PJ",
     salário: 6500.0,
     localização: "Recife",
-    data_publicação: "2025-03-20",
+    data_publicação: new Date("2025-03-20"),
   },
-
   {
     _id: 3,
     titulo: "Auxiliar de Serviços Gerais",
-    descricao:
+    descrição:
       "Estamos em busca de um Auxiliar de Serviços Gerais para atuar na limpeza e organização de nosso ambiente de trabalho. Se você é proativo, comprometido e gosta de trabalhar em equipe, essa vaga é para você!",
-    empresa: db.empresa.findOne({ "Razão Social": "Alpargatas" }),
+    empresa_id: alpargatas ? alpargatas._id : null,
     beneficios: [
       "Vale transporte",
       "Vale alimentação ou refeição",
@@ -80,15 +77,14 @@ db.vagas.insertMany([
     tipo: "CLT",
     salário: 2000.0,
     localização: "Carpina",
-    data_publicação: "2025-03-25",
+    data_publicação: new Date("2025-03-25"),
   },
-
   {
     _id: 4,
-    titulo: "Engenheeiro de Software",
-    descricao:
+    titulo: "Engenheiro de Software",
+    descrição:
       "Estamos em busca de um Engenheiro de Software talentoso para integrar nosso time! Se você tem experiência no desenvolvimento de software escalável, arquitetura de sistemas e boas práticas de engenharia, essa vaga é para você!",
-    empresa: db.empresa.findOne({ "Razão Social": "Tracking Trade" }),
+    empresa_id: trackingTrade ? trackingTrade._id : null,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -104,20 +100,18 @@ db.vagas.insertMany([
       "Familiaridade com desenvolvimento de APIs REST e GraphQL",
       "Conhecimento em práticas ágeis (Scrum, Kanban)",
       "Experiência com ferramentas de CI/CD",
-      "Diferencial: conhecimento em Cloud Computing (AWS, GCP ou Azure)",
     ],
     tipo: "CLT",
     salário: 5000.0,
     localização: "São Paulo",
-    data_publicação: "2025-03-25",
+    data_publicação: new Date("2025-03-25"),
   },
-
   {
     _id: 5,
-    titulo: "Motorista de Carga Viva",
-    descricao:
-      "Estamos em busca de uma Cozinheira dedicada para integrar nossa equipe. A pessoa selecionada será responsável pela preparação de pratos com qualidade, seguindo as normas de higiene e segurança alimentar. Buscamos uma pessoa que tenha paixão pela cozinha, seja organizada, e tenha atenção aos detalhes na execução dos pratos",
-    empresa: db.empresa.findOne({ "Razão Social": "Mauriceia Alimentos" }),
+    titulo: "Cozinheiro(a)",
+    descrição:
+      "Estamos em busca de uma Cozinheira dedicada para integrar nossa equipe. A pessoa selecionada será responsável pela preparação de pratos com qualidade, seguindo as normas de higiene e segurança alimentar.",
+    empresa_id: mauriceia ? mauriceia._id : null,
     beneficios: [
       "Salário competitivo",
       "Vale alimentação",
@@ -127,24 +121,23 @@ db.vagas.insertMany([
       "Possibilidade de crescimento profissional",
     ],
     requisitos: [
-      "Experiência prévia como cozinheira (preferencialmente em restaurantes ou refeitórios)",
-      "Conhecimento das normas de higiene e segurança alimentar.",
-      "Capacidade de trabalhar em equipe e sob pressão.",
-      "Comprometimento e responsabilidade.",
-      "Disponibilidade para trabalhar em turnos ou horários flexíveis.",
+      "Experiência prévia como cozinheira",
+      "Conhecimento das normas de higiene e segurança alimentar",
+      "Capacidade de trabalhar em equipe e sob pressão",
+      "Comprometimento e responsabilidade",
+      "Disponibilidade para trabalhar em turnos ou horários flexíveis",
     ],
     tipo: "CLT",
     salário: 3200.0,
     localização: "Recife",
-    data_publicação: "2025-03-25",
+    data_publicação: new Date("2025-03-25"),
   },
-
   {
     _id: 6,
-    titulo: "Cozinheiro(a)",
-    descricao:
-      "Estamos em busca de um Motorista de Carga Viva para atuar no transporte de animais vivos de forma segura e responsável. Se você tem experiência na função, é comprometido e zela pela integridade da carga, essa vaga é para você!",
-    empresa: db.empresa.findOne({ "Razão Social": "Confeitaria Colombo" }),
+    titulo: "Motorista de Carga Viva",
+    descrição:
+      "Estamos em busca de um Motorista de Carga Viva para atuar no transporte de animais vivos de forma segura e responsável.",
+    empresa_id: colombo ? colombo._id : null,
     beneficios: [
       "Salário competitivo",
       "Vale alimentação",
@@ -154,16 +147,15 @@ db.vagas.insertMany([
       "Possibilidade de crescimento profissional",
     ],
     requisitos: [
-      "Manter o veículo em boas condições e verificar as necessidades de manutenção",
-      "Garantir o bem-estar dos animais durante o transporte, assegurando o cumprimento das normas de segurança",
-      "Manter o veículo em boas condições e verificar as necessidades de manutenção",
-      "Preencher relatórios de entrega, acompanhando o estado dos animais e registrando qualquer ocorrência",
-      "Manter comunicação constante com a equipe logística e os responsáveis pelos animais.",
       "CNH categoria D ou E",
+      "Experiência com transporte de carga viva",
+      "Conhecimento das normas de transporte de animais",
+      "Disponibilidade para viagens",
+      "Comprometimento com o bem-estar animal",
     ],
     tipo: "CLT",
     salário: 3200.0,
     localização: "Recife",
-    data_publicação: "2025-03-25",
+    data_publicação: new Date("2025-03-25"),
   },
 ]);

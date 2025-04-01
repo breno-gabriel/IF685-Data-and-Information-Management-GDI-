@@ -1,4 +1,4 @@
-db.candidatos.insertMany([
+db.collection("candidatos").insertMany([
   {
     _id: 1,
     nome: "Breno Gabriel de Melo Lima",
