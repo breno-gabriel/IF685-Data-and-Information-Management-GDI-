@@ -1,3 +1,23 @@
+const viitra = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Viitra inovações" });
+const neurotech = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Neurotech" });
+const alpargatas = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Alpargatas" });
+const trackingTrade = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Tracking trade" });
+const mauriceia = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Mauriceia Alimentos" });
+const colombo = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Confeitaria Colombo" });
+
+// Drop the existing vagas collection
 db.collection("empresas").insertMany([
   {
     _id: 1,

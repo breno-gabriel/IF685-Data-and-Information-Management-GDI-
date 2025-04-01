@@ -16,35 +16,6 @@ async function run() {
 
     const db = client.db("gdi-project");
 
-    // First, let's get the company IDs
-    const viitra = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Viitra inovações" });
-    const neurotech = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Neurotech" });
-    const alpargatas = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Alpargatas" });
-    const trackingTrade = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Tracking trade" });
-    const mauriceia = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Mauriceia Alimentos" });
-    const colombo = await db
-      .collection("empresas")
-      .findOne({ "Razão Social": "Confeitaria Colombo" });
-
-    // Drop the existing vagas collection
-    await db
-      .collection("vagas")
-      .drop()
-      .catch((err) => {
-        // Ignore error if collection doesn't exist
-        if (err.code !== 26) throw err;
-      });
-
     // List all collections to verify
     const collections = await db.listCollections().toArray();
     console.log(
