@@ -1042,6 +1042,400 @@ db.candidatos.insertMany([
         ], 
         "processos seletivos": []
 
+    }, 
+
+    {
+        "_id": 21, 
+        "nome": "Beatriz Alencar Dias", 
+        "email": "beatriz.dias@exemplo.com", 
+        "telefone": "81 9 94445566", 
+        "curriculo": "Curriculo Beatriz Alencar Dias.pdf", 
+        "habilidades": [
+
+            "Preparo e decoração de bolos e doces",
+            "Conhecimento em técnicas de confeitaria (pasta americana, glacê real, chocolate)",
+            "Criatividade e desenvolvimento de novos sabores e designs",
+            "Habilidade em atendimento ao cliente e personalização de pedidos",
+            "Controle de qualidade e segurança alimentar",
+            "Gestão de tempo e organização na produção"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Dona benta", 
+                "cargo": "Confeiteira", 
+                "inicio": "2020-02-29",
+                "fim": "2024-07-27"
+    
+            },
+
+            {
+
+            "empresa": "Essen Delicatessen", 
+            "cargo": "Confeiteira", 
+            "inicio": "2020-05-20",
+            "fim": "2018-02-21"
+
+        }
+
+        ], 
+        "formação": [], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 22, 
+        "nome": "Júlia Fernanda Peixoto", 
+        "email": "julia.peixoto@exemplo.com", 
+        "telefone": "81 9 95556677", 
+        "curriculo": "Curriculo Júlia Fernanda Peixoto.pdf", 
+        "habilidades": [
+
+            "Preparo e organização de alimentos",
+            "Auxílio no corte, picagem e preparação de ingredientes",
+            "Conhecimento em técnicas de cocção e utensílios de cozinha",
+            "Manutenção da higiene e organização da cozinha",
+            "Capacidade de seguir receitas e instruções dos chefs",
+            "Trabalho em equipe e rapidez na execução das tarefas"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Restaurante Les Présidents", 
+                "cargo": "Cozinheira", 
+                "inicio": "2020-02-29",
+                "fim": "2024-07-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal Rural de Pernambuco", 
+                "curso": "Gastronomia", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2023-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 23, 
+        "nome": "Leonardo Oliveira Castro", 
+        "email": " leonardo.castro@exemplo.com", 
+        "telefone": "81 9 91112233", 
+        "curriculo": "Curriculo Leonardo Oliveira Castro.pdf", 
+        "habilidades": [
+
+            "Organização e gestão de agendas e compromissos",
+            "Redação e elaboração de documentos administrativos",
+            "Atendimento telefônico e atendimento ao cliente",
+            "Controle e arquivamento de documentos",
+            "Domínio de ferramentas de escritório (Word, Excel, PowerPoint)",
+            "Gestão de fluxo de trabalho e apoio à equipe"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "ABC Consiltoria", 
+                "cargo": "Assistente admnistrativo", 
+                "inicio": "2019-04-10",
+                "fim": "2017-09-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal Rural de Pernambuco", 
+                "curso": "Adminstração", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2023-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 24, 
+        "nome": "Felipe Andrade Monteiro", 
+        "email": " felipe.monteiro@exemplo.com", 
+        "telefone": "81 9 92223344", 
+        "curriculo": "Curriculo Felipe Andrade Monteiro.pdf", 
+        "habilidades": [
+
+            "Habilidade na condução de diferentes tipos de veículos",
+            "Conhecimento das leis de trânsito e normas de segurança",
+            "Manutenção preventiva e cuidados com o veículo",
+            "Planejamento de rotas e controle de tempo",
+            "Capacidade de lidar com situações de trânsito e imprevistos",
+            "Boa comunicação e atendimento ao cliente"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Usina Petribu", 
+                "cargo": "Motorista", 
+                "inicio": "2019-04-10",
+                "fim": "2016-03-27"
+    
+            }
+
+        ], 
+        "formação": [], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 25, 
+        "nome": "Carlos Eduardo Nogueira", 
+        "email": "carlos.nogueira@exemplo.com", 
+        "telefone": "81 9 93334455", 
+        "curriculo": "Curriculo Carlos Eduardo Nogueira.pdf", 
+        "habilidades": [
+
+            "Preparo e organização de ingredientes",
+            "Higienização de alimentos e utensílios",
+            "Apoio na montagem de pratos",
+            "Conhecimento básico em técnicas de cocção",
+            "Manutenção da limpeza e organização da cozinha",
+            "Trabalho em equipe e agilidade no serviço"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Para lanches", 
+                "cargo": "Assistente admnistrativo", 
+                "inicio": "2025-02-10",
+                "fim": "2022-09-27"
+    
+            }
+
+        ], 
+        "formação": [],
+
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 26, 
+        "nome": "Luana Santos Melo", 
+        "email": " luana.melo@exemplo.com", 
+        "telefone": "81 9 96667788", 
+        "curriculo": "Curriculo Luana Santos Melo.pdf", 
+        "habilidades": [
+
+            "Diagnóstico e tratamento de doenças em animais",
+            "Realização de exames clínicos e laboratoriais",
+            "Cirurgias e procedimentos veterinários",
+            "Atendimento e orientação a tutores sobre cuidados com os animais",
+            "Conhecimento em nutrição e bem-estar animal",
+            "Habilidade em manejo de diferentes espécies"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Friboi", 
+                "cargo": "Medica Veterinária", 
+                "inicio": "2019-04-10",
+                "fim": "2017-09-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal Rural de Pernambuco", 
+                "curso": "Zootecnia", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2023-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 27, 
+        "nome": "Isadora Carvalho Ramos", 
+        "email": "isadora.ramos@exemplo.com", 
+        "telefone": "81 9 97778899", 
+        "curriculo": "Curriculo Isadora Carvalho Ramos.pdf", 
+        "habilidades": [
+            
+            "Diagnóstico e tratamento de doenças em animais",
+            "Realização de exames clínicos e laboratoriais",
+            "Cirurgias e procedimentos veterinários",
+            "Atendimento e orientação a tutores sobre cuidados com os animais",
+            "Conhecimento em nutrição e bem-estar animal",
+            "Habilidade em manejo de diferentes espécies"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Friboi", 
+                "cargo": "Medica Veterinária", 
+                "inicio": "2019-04-10",
+                "fim": "2017-09-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal Rural de Pernambuco", 
+                "curso": "Medicina Veterinária", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2025-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 28, 
+        "nome": "Ricardo Augusto Barros", 
+        "email": "ricardo.barros@exemplo.com", 
+        "telefone": "81 9 98889900", 
+        "curriculo": "Curriculo Ricardo Augusto Barros.pdf", 
+        "habilidades": [
+            
+            "Limpeza e conservação de ambientes",
+            "Organização de materiais e suprimentos",
+            "Manutenção básica de instalações",
+            "Manuseio seguro de produtos de limpeza",
+            "Trabalho em equipe e proatividade",
+            "Cumprimento de normas de segurança e higiene"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "VeraCruz", 
+                "cargo": "Serviços gerais", 
+                "inicio": "2019-04-10",
+                "fim": "2017-09-27"
+    
+            }
+
+        ], 
+        "formação": [], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 29, 
+        "nome": "Gabriela Lopes Freitas", 
+        "email": " gabriela.freitas@exemplo.com", 
+        "telefone": "81 9 99001122", 
+        "curriculo": "Curriculo Gabriela Lopes Freitas.pdf", 
+        "habilidades": [
+            
+            "Análise e manipulação de grandes volumes de dados",
+            "Conhecimento em estatística e aprendizado de máquina",
+            "Programação em Python, R e SQL",
+            "Criação e otimização de modelos preditivos",
+            "Visualização de dados e storytelling com ferramentas como Power BI e Tableau",
+            "Trabalho com Big Data e computação em nuvem (AWS, GCP, Azure)"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Citi", 
+                "cargo": "Especialista de dados", 
+                "inicio": "2019-04-10",
+                "fim": "2017-09-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal de Pernambuco", 
+                "curso": "Estatistica", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2022-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 27, 
+        "nome": "Vitor Hugo Pimentel", 
+        "email": "vitor.pimentel@exemplo.com", 
+        "telefone": "81 9 90011223", 
+        "curriculo": "Curriculo Vitor Hugo Pimentel.pdf", 
+        "habilidades": [
+            
+            "Análise e manipulação de grandes volumes de dados",
+            "Conhecimento em estatística e aprendizado de máquina",
+            "Programação em Python, R e SQL",
+            "Criação e otimização de modelos preditivos",
+            "Visualização de dados e storytelling com ferramentas como Power BI e Tableau",
+            "Trabalho com Big Data e computação em nuvem (AWS, GCP, Azure)"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Extreme Digital Solutions", 
+                "cargo": "Ciência de dados", 
+                "inicio": "2022-11-10",
+                "fim": "2034-09-27"
+    
+            }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2025-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
     }
 
 ])
