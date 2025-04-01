@@ -629,6 +629,419 @@ db.candidatos.insertMany([
         ], 
         "processos seletivos": []
 
+    }, 
+
+    {
+        "_id": 11, 
+        "nome": "João Victor Almeida Costa", 
+        "email": "joao.almeida@email.com", 
+        "telefone": "81 9 87654321", 
+        "curriculo": "Curriculo João Victor Almeida Costa.pdf", 
+        "habilidades": [
+
+            "Habilidade em negociação e persuasão",
+            "Conhecimento em técnicas de vendas",
+            "Atendimento ao cliente e pós-venda",
+            "Capacidade de identificar necessidades do cliente",
+            "Gestão de relacionamento e networking",
+            "Uso de CRM e análise de métricas de vendas"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "ABC Consultorias", 
+            "cargo": "Consultor de Vendas", 
+            "inicio": "2017-04-14",
+            "fim": "2025-11-22"
+
+        }, 
+
+        {
+
+            "empresa": "Citi", 
+            "cargo": "Especialista em produtos", 
+            "inicio": "2014-08-19",
+            "fim": "2015-11-28"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Pontifica Universidade Católica", 
+                "curso": "Ciências Contabeis", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2019-07-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 12, 
+        "nome": "Mariana Ferreira Rocha", 
+        "email": " mariana.rocha@email.com", 
+        "telefone": "81 9 92108765", 
+        "curriculo": "Mariana Ferreira Rocha.pdf", 
+        "habilidades": [
+
+            "Comunicação e atendimento ao cliente",
+            "Habilidade em negociação e persuasão",
+            "Conhecimento em técnicas de vendas",
+            "Capacidade de identificar necessidades do cliente",
+            "Gestão de relacionamento e fidelização",
+            "Uso de CRM e análise de métricas de vendas"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "ABC Consultoria", 
+            "cargo": "Consultora de marketing", 
+            "inicio": "2019-02-29",
+            "fim": "2024-11-26"
+
+        }, 
+
+        {
+
+            "empresa": "Poli Junior", 
+            "cargo": "Especialista em produtos", 
+            "inicio": "2016-08-19",
+            "fim": "2017-11-28"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Pontifica Universidade Católica", 
+                "curso": "Design", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2019-07-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 13, 
+        "nome": "Alex Pereira Costa", 
+        "email": " alex.costa@email.com", 
+        "telefone": "81 9 87650123", 
+        "curriculo": "alex.costa@email.com.pdf", 
+        "habilidades": [
+
+            "Limpeza e organização de ambientes",
+            "Manutenção e conservação de espaços",
+            "Habilidade no manuseio de produtos de limpeza",
+            "Agilidade e atenção aos detalhes",
+            "Trabalho em equipe",
+            "Noções de segurança no trabalho"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "MobiBrasil", 
+            "cargo": "Auxiliar de seviços gerais", 
+            "inicio": "2021-02-29",
+            "fim": "2023-11-26"
+
+        }
+    
+        ], 
+
+        "formação": [],
+
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 14, 
+        "nome": "Eduardo Silva Santos", 
+        "email": " mariana.rocha@email.com", 
+        "telefone": "81 9 92108765", 
+        "curriculo": "Curriculo Eduardo Silva Santos.pdf", 
+        "habilidades": [
+
+            "Habilidade na condução de veículos de carga refrigerada",
+            "Conhecimento em normas de transporte de produtos perecíveis",
+            "Planejamento de rotas e logística de entregas",
+            "Noções de manutenção preventiva do veículo",
+            "Cumprimento de prazos e segurança no trânsito",
+            "Boa comunicação e atendimento ao cliente"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Friboi", 
+            "cargo": "Transporte de carga", 
+            "inicio": "2014-02-29",
+            "fim": "2024-07-26"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Grau Técnico", 
+                "curso": "Técnico em egurança em logistica de entrega", 
+                "tipo": "Técnico",
+                "data de conclusão": "2013-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 15, 
+        "nome": "Rodrigo Alves Costa", 
+        "email": " rodrigo.costa@exemplo.com", 
+        "telefone": "81 9 92345678", 
+        "curriculo": "Curriculo Rodrigo Alves Costa.pdf", 
+        "habilidades": [
+
+            "Experiência na condução de veículos de transporte de animais",
+            "Conhecimento em bem-estar animal e manuseio adequado",
+            "Planejamento de rotas para minimizar o estresse dos animais",
+            "Habilidade em carga, descarga e acomodação segura dos animais",
+            "Cumprimento das normas sanitárias e regulatórias do transporte",
+            "Noções de manutenção preventiva do veículo"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "KiGranja", 
+            "cargo": "Transporte de carga viva", 
+            "inicio": "2018-02-29",
+            "fim": "2023-07-26"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Grau Técnico", 
+                "curso": "Técnico em egurança em logistica de entrega", 
+                "tipo": "Técnico",
+                "data de conclusão": "2012-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 16, 
+        "nome": "Patrícia Rocha Mendes", 
+        "email": "patricia.mendes@exemplo.com", 
+        "telefone": "81 9 5678901", 
+        "curriculo": "Curriculo Patrícia Rocha Mendes.pdf", 
+        "habilidades": [
+
+            "Atendimento ao cliente com cordialidade",
+            "Habilidade em comunicação e escuta ativa",
+            "Organização e agilidade no serviço",
+            "Resolução de problemas e atendimento de reclamações",
+            "Trabalho em equipe",
+            "Conhecimento básico em informática e sistemas de atendimento"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Clinica saude visão", 
+            "cargo": "Secretária", 
+            "inicio": "2018-02-29",
+            "fim": "2023-07-26"
+
+        }
+
+        ], 
+        "formação": [], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 17, 
+        "nome": "Marcos Vinícius Oliveira", 
+        "email": " marcos.oliveira@exemplo.com", 
+        "telefone": "81 9 93456789", 
+        "curriculo": "Curriculo Marcos Vinícius Oliveira.pdf", 
+        "habilidades": [
+
+            "Atendimento e suporte ao cliente",
+            "Diagnóstico e resolução de problemas técnicos",
+            "Conhecimento em hardware e software",
+            "Instalação e configuração de sistemas operacionais e redes",
+            "Habilidade em troubleshooting",
+            "Boa comunicação e paciência para lidar com usuários"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "NutriBrasil", 
+            "cargo": "Suporte técnico", 
+            "inicio": "2020-02-29",
+            "fim": "2024-07-27"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Grau Técnico", 
+                "curso": "Técnico informática", 
+                "tipo": "Técnico",
+                "data de conclusão": "2019-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 18, 
+        "nome": "Aline Santos Barbosa", 
+        "email": "aline.barbosa@exemplo.com", 
+        "telefone": "81 9 97890123", 
+        "curriculo": "Curriculo Aline Santos Barbosa.pdf", 
+        "habilidades": [
+
+            "Gestão de cronogramas e prazos",
+            "Liderança e coordenação de equipes",
+            "Metodologias ágeis (Scrum, Kanban) e tradicionais (PMBOK)",
+            "Planejamento estratégico e definição de metas",
+            "Gerenciamento de riscos e resolução de problemas",
+            "Comunicação eficaz e negociação com stakeholders"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Voxa Lab", 
+            "cargo": "Gestora de projetos", 
+            "inicio": "2020-02-29",
+            "fim": "2024-07-27"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2025-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 19, 
+        "nome": "Rafaela Martins Cunha", 
+        "email": "rafaela.cunha@exemplo.com", 
+        "telefone": "81 9 98901234", 
+        "curriculo": "Curriculo Rafaela Martins Cunha.pdf", 
+        "habilidades": [
+
+            "Modelagem e arquitetura de dados",
+            "Manipulação e processamento de grandes volumes de dados",
+            "Conhecimento em bancos de dados SQL e NoSQL",
+            "Desenvolvimento de pipelines de dados (ETL/ELT)",
+            "Programação em Python, SQL e ferramentas de Big Data",
+            "Gestão e segurança de dados em ambientes na nuvem (AWS, GCP, Azure)"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Voxa Lab", 
+            "cargo": "Engenheira de dados", 
+            "inicio": "2020-02-29",
+            "fim": "2024-07-27"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal de Pernambuco", 
+                "curso": "Engenharia da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2024-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 20, 
+        "nome": "Daniel Costa Ribeiro", 
+        "email": "daniel.ribeiro@exemplo.com", 
+        "telefone": "81 9 9012345", 
+        "curriculo": "Curriculo Daniel Costa Ribeiro.pdf", 
+        "habilidades": [
+
+            "Desenvolvimento de software em linguagens como Java, Python, C++",
+            "Conhecimento em frameworks e bibliotecas (React, Angular, Spring, Django)",
+            "Gestão de versionamento de código com Git e GitHub",
+            "Desenvolvimento de APIs RESTful e GraphQL",
+            "Testes automatizados e controle de qualidade de código",
+            "Metodologias ágeis (Scrum, Kanban) e práticas de DevOps"
+
+          ], 
+        "experiência": [
+
+            {
+
+                "empresa": "Tracking Trade", 
+                "cargo": "Engenheiro de software", 
+                "inicio": "2020-02-29",
+                "fim": "2024-07-27"
+    
+            },
+
+            {
+
+            "empresa": "Viitra inovações", 
+            "cargo": "Engenheiro de software", 
+            "inicio": "2020-05-20",
+            "fim": "2018-02-21"
+
+        }
+
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Fdereal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2025-04-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
     }
 
 ])
