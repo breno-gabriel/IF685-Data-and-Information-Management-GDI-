@@ -218,7 +218,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -267,7 +267,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -307,7 +307,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -347,7 +347,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Engenharia"
 
     }, 
 
@@ -387,7 +387,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Cozinha"
 
     }, 
 
@@ -427,7 +427,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Animais"
 
     }, 
 
@@ -467,7 +467,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Atendimento"
 
     }, 
 
@@ -507,7 +507,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -529,8 +529,8 @@ db.candidatos.insertMany([
           ], 
         "experiência": [{
 
-            "empresa": "Planalto Net", 
-            "cargo": "Técnico de TI", 
+            "empresa": "ABC Consultoria", 
+            "cargo": "Coordenadora de marketing", 
             "inicio": "2023-04-14",
             "fim": "2024-11-22"
 
@@ -547,7 +547,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Design"
 
     }, 
 
@@ -587,7 +587,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -636,7 +636,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Contabilidades"
 
     }, 
 
@@ -685,7 +685,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Design"
 
     }, 
 
@@ -718,7 +718,8 @@ db.candidatos.insertMany([
 
         "formação": [],
 
-        "processos seletivos": []
+        "categoria": "Assitente"
+
 
     }, 
 
@@ -758,7 +759,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Motorista"
 
     }, 
 
@@ -798,7 +799,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Motorista"
 
     }, 
 
@@ -829,7 +830,7 @@ db.candidatos.insertMany([
 
         ], 
         "formação": [], 
-        "processos seletivos": []
+        "categoria": "Assitente"
 
     }, 
 
@@ -869,7 +870,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -909,7 +910,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -949,7 +950,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -1000,7 +1001,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -1042,7 +1043,7 @@ db.candidatos.insertMany([
 
         ], 
         "formação": [], 
-        "processos seletivos": []
+        "categoria": "Alimentos"
 
     }, 
 
@@ -1084,7 +1085,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -1126,7 +1127,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Adminstração"
 
     }, 
 
@@ -1159,7 +1160,7 @@ db.candidatos.insertMany([
 
         ], 
         "formação": [], 
-        "processos seletivos": []
+        "categoria": "Motorista"
 
     }, 
 
@@ -1184,7 +1185,7 @@ db.candidatos.insertMany([
             {
 
                 "empresa": "Para lanches", 
-                "cargo": "Assistente admnistrativo", 
+                "cargo": "Assistente de cozinha", 
                 "inicio": "2025-02-10",
                 "fim": "2022-09-27"
     
@@ -1193,7 +1194,7 @@ db.candidatos.insertMany([
         ], 
         "formação": [],
 
-        "processos seletivos": []
+        "categoria": "Alimentação"
 
     }, 
 
@@ -1235,7 +1236,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Medicina Veterinária"
 
     }, 
 
@@ -1277,7 +1278,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Médicina Veterinária"
 
     }, 
 
@@ -1310,7 +1311,7 @@ db.candidatos.insertMany([
 
         ], 
         "formação": [], 
-        "processos seletivos": []
+        "categoria": "Assistente"
 
     }, 
 
@@ -1352,7 +1353,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }, 
 
@@ -1394,7 +1395,7 @@ db.candidatos.insertMany([
             }
 
         ], 
-        "processos seletivos": []
+        "categoria": "Tecnologia"
 
     }
 
@@ -1518,7 +1519,7 @@ db.vagas.insertMany([
         "_id": 5, 
         "titulo": "Motorista de Carga Viva",
         "descricao": "Estamos em busca de uma Cozinheira dedicada para integrar nossa equipe. A pessoa selecionada será responsável pela preparação de pratos com qualidade, seguindo as normas de higiene e segurança alimentar. Buscamos uma pessoa que tenha paixão pela cozinha, seja organizada, e tenha atenção aos detalhes na execução dos pratos",
-        "empresa": db.empresa.findOne({"Razão Social": "Mauriceia"}), 
+        "empresa": db.empresa.findOne({"Razão Social": "Mauriceia Alimentos"}), 
         "beneficios": [
             "Salário competitivo",
             "Vale alimentação",
