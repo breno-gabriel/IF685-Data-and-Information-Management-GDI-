@@ -5,6 +5,8 @@ db.createCollection('vagas');
 db.createCollection('processos_seletivos');
 db.createCollection('candidatos');
 
+// Inserindo algumas empresas. 
+
 db.empresas.insertMany([
 
     {
@@ -22,7 +24,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "50751500"
 
-        }
+        }, 
+        "setor": "tecnologia"
 
     }, 
 
@@ -41,7 +44,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "51011635"
 
-        }
+        }, 
+        "setor": "tecnologia"
 
     }, 
 
@@ -60,7 +64,8 @@ db.empresas.insertMany([
             'uf': 'SP', 
             "cep": "07991160"
 
-        }
+        }, 
+        "setor": "tecnologia"
 
     }, 
 
@@ -79,7 +84,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "50781510"
 
-        }
+        }, 
+        "setor": "tecnologia"
 
     }, 
 
@@ -98,7 +104,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "52190275"
 
-        }
+        },
+        "setor": "tecnologia"
 
     }, 
 
@@ -117,7 +124,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "52131241"
 
-        }
+        }, 
+        "setor": "consultoria"
 
     }, 
 
@@ -136,7 +144,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "55800970"
 
-        }
+        }, 
+        "setor": "alimenticio"
 
     }, 
 
@@ -155,7 +164,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "55818520"
 
-        }
+        }, 
+        "setor": "calçados e têxtil"
 
     }, 
 
@@ -174,7 +184,8 @@ db.empresas.insertMany([
             'uf': 'PE', 
             "cep": "55816355"
 
-        }
+        }, 
+        "setor": "financeiro"
 
     }, 
 
@@ -193,7 +204,230 @@ db.empresas.insertMany([
             'uf': 'RJ', 
             "cep": "23587620"
 
+        }, 
+        "setor": "alimenticio"
+
+    }
+
+])
+
+// Inserindo alguns candidatos. 
+
+db.candidatos.insertMany([
+
+    {
+        "_id": 1, 
+        "nome": "Breno Gabriel de Melo Lima", 
+        "email": "bgml@cin.ufpe.br", 
+        "telefone": "81 9 16349746", 
+        "curriculo": "Curriculo Breno Gabriel de Melo Lima.pdf", 
+        "habilidades": ["React", "NestJs", "Typescript", "SQL", "MongoDB", "Proatividade", "boa comunicação"], 
+        "experiência": [{
+
+            "empresa": "Google", 
+            "cargo": "Engenheiro de Software Sênior", 
+            "inicio": "2022-06-01",
+            "fim": "2025-02-19"
+
+        }, 
+        
+        {
+
+            "empresa": "Rei do Pitaco", 
+            "cargo": "Engenheiro de Software Pleno", 
+            "inicio": "2022-01-01",
+            "fim": "2023-06-01"
+
         }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Federal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Mestrado",
+                "data de conclusão": "2027-06-20"
+            },
+
+            {
+                "instituição": "Universidade Federal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2025-06-20"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 2, 
+        "nome": "Lucas Henrique do Nascimento", 
+        "email": "lhns3@cin.ufpe.br", 
+        "telefone": "81 9 19470912", 
+        "curriculo": "Curriculo Lucas Henrique do Nascimento.pdf", 
+        "habilidades": ["LangChain", "LLM", "Python", "SQL", "MongoDB", "Proatividade", "boa comunicação", "Ai Agents"], 
+        "experiência": [{
+
+            "empresa": "Google", 
+            "cargo": "Engenheiro de IA Sênior", 
+            "inicio": "2025-01-01",
+            "fim": "2023-06-01"
+
+        }, 
+        
+        {
+
+            "empresa": "Neurotech", 
+            "cargo": "Pesquisador de Inteligência Artificial", 
+            "inicio": "2023-06-01",
+            "fim": "2021-03-10"
+
+        }, 
+
+        {
+
+            "empresa": "Sidi", 
+            "cargo": "Cientista de dados", 
+            "inicio": "2021-03-10",
+            "fim": "2018-03-28"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Federal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2027-06-20"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 3, 
+        "nome": "Pedro Baptista Santos Melo", 
+        "email": "pbsm@cin.ufpe.br", 
+        "telefone": "81 9 59101558", 
+        "curriculo": "Curriculo Pedro Baptista Santos Melo.pdf", 
+        "habilidades": ["React", "Next", "Typescript", "Tailwind", "ShadCn", "Proatividade", "boa comunicação", "Pensamento fora da caixa"], 
+        "experiência": [{
+
+            "empresa": "Loomi", 
+            "cargo": "Engenheiro de frontend", 
+            "inicio": "2023-01-01",
+            "fim": "2024-06-01"
+
+        }, 
+        
+        {
+
+            "empresa": "Tracking Tread", 
+            "cargo": "Desenvolvedor de frontend", 
+            "inicio": "2019-05-12",
+            "fim": "2023-01-01"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Federal de Pernambuco", 
+                "curso": "Ciência da Computação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2027-06-20"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 4, 
+        "nome": "Gabriel Oliveira Santos", 
+        "email": "gabrielSantos2022@gmail.com", 
+        "telefone": "81 9 01294448", 
+        "curriculo": "Curriculo Gabriel Oliveira Santos.pdf", 
+        "habilidades": [
+
+            "Desenvolvimento de novos produtos",
+            "Controle de qualidade",
+            "Segurança alimentar",
+            "Microbiologia de alimentos",
+            "Gestão de processos industriais",
+            "Tecnologia de alimentos"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Vitarella", 
+            "cargo": "Engenheiro de alimentos", 
+            "inicio": "2021-04-11",
+            "fim": "2022-08-25"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade de Pernambuco", 
+                "curso": "Engenheria de alimentos", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2019-12-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 5, 
+        "nome": "Mariana Ferreira Rocha", 
+        "email": "mariana.rocha@email.com", 
+        "telefone": "81 9 11025656", 
+        "curriculo": "Curriculo Mariana Ferreira Rocha.pdf", 
+        "habilidades": [
+
+            "Desenvolvimento de novos produtos",
+            "Controle de qualidade",
+            "Segurança alimentar",
+            "Microbiologia de alimentos",
+            "Gestão de processos industriais",
+            "Tecnologia de alimentos"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Essen Delicatessen", 
+            "cargo": "chefe de cozinha", 
+            "inicio": "2021-04-11",
+            "fim": "2015-02-25"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Instituo Ana Maria Braga", 
+                "curso": "Tecnolgia em Gastrônomia", 
+                "tipo": "Tecnólogo",
+                "data de conclusão": "2014-06-12"
+            }
+
+        ], 
+        "processos seletivos": []
 
     }
 
