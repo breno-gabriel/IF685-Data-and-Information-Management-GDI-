@@ -17,6 +17,25 @@ async function run() {
     const db = client.db("gdi-project");
 
     // List all collections to verify
+
+    const vagas = await db
+      .collection("vagas")
+      .aggregate([
+        {
+          $group: {
+            _id: "$localização",
+            total_vagas: { $sum: 1 },
+            média_salarial: { $avg: "$salário" },
+            menor_salário: { $min: "$salário" },
+            maior_salário: { $max: "$salário" },
+          },
+        },
+        {
+          $sort: { total_vagas: -1 },
+        },
+      ])
+      .toArray();
+    console.log("Vagas:", vagas);
     const collections = await db.listCollections().toArray();
     console.log(
       "Available collections:",
