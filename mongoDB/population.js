@@ -429,6 +429,206 @@ db.candidatos.insertMany([
         ], 
         "processos seletivos": []
 
+    }, 
+
+    {
+        "_id": 6, 
+        "nome": "Pedro Henrique Lima Barbosa", 
+        "email": "pedro.lima@email.com", 
+        "telefone": "81 9 12309487", 
+        "curriculo": "Curriculo Pedro Henrique Lima Barbosa.pdf", 
+        "habilidades": [
+
+            "Diagnóstico e tratamento de doenças animais",
+            "Cirurgia veterinária",
+            "Atendimento clínico e emergencial",
+            "Medicina preventiva e vacinação",
+            "Manejo e bem-estar animal",
+            "Interpretação de exames laboratoriais"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Perdigão", 
+            "cargo": "Médico Veterinário", 
+            "inicio": "2021-04-11",
+            "fim": "2015-02-25"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Federal Rural de Pernambuco", 
+                "curso": "Medicina Veterinária", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2010-12-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 7, 
+        "nome": "Ana Beatriz Carvalho Dias", 
+        "email": "ana.carvalho@email.com", 
+        "telefone": "81 9 135790864", 
+        "curriculo": "Curriculo Ana Beatriz Carvalho Dias.pdf", 
+        "habilidades": [
+
+            "Atendimento ao cliente",
+            "Agilidade e organização",
+            "Conhecimento do cardápio e sugestões de pratos",
+            "Habilidade em anotar e entregar pedidos corretamente",
+            "Trabalho em equipe",
+            "Boas práticas de higiene e manipulação de alimentos"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Panela cheia", 
+            "cargo": "Garçonete", 
+            "inicio": "2024-02-11",
+            "fim": "2022-07-25"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Escola Tecnica Estadual Maria Ramos de Barros", 
+                "curso": "Técnico em Admnistração", 
+                "tipo": "Curso técnico",
+                "data de conclusão": "2023-12-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 8, 
+        "nome": "Lucas Gabriel Martins Pinto", 
+        "email": "lucas.martins@email.com", 
+        "telefone": "81 9 12345678", 
+        "curriculo": "Curriculo Lucas Gabriel Martins Pinto.pdf", 
+        "habilidades": [
+
+            "Atendimento e suporte ao cliente",
+            "Resolução de problemas técnicos",
+            "Conhecimento em hardware e software",
+            "Instalação e configuração de sistemas",
+            "Habilidade em troubleshooting",
+            "Comunicação clara e didática"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Planalto Net", 
+            "cargo": "Técnico de TI", 
+            "inicio": "2023-04-14",
+            "fim": "2024-11-22"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Escola Tecnica Estadual Maria Ramos de Barros", 
+                "curso": "Técnico em Redes de computadores", 
+                "tipo": "Curso técnico",
+                "data de conclusão": "2023-12-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 9, 
+        "nome": "Camila Oliveira Nunes", 
+        "email": "camila.oliveira@email.com", 
+        "telefone": "81 9 10293847", 
+        "curriculo": "Curriculo Camila Oliveira Nunes.pdf", 
+        "habilidades": [
+
+            "Domínio de softwares de design (Photoshop, Illustrator, Figma)",
+            "Criação de identidades visuais",
+            "UX/UI Design",
+            "Tipografia e teoria das cores",
+            "Edição de imagens e ilustração",
+            "Criatividade e pensamento visual"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Planalto Net", 
+            "cargo": "Técnico de TI", 
+            "inicio": "2023-04-14",
+            "fim": "2024-11-22"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade Federal de Alagoas", 
+                "curso": "Design", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2028-07-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
+    }, 
+
+    {
+        "_id": 10, 
+        "nome": "Thiago Souza Ribeiro", 
+        "email": "thiago.souza@email.com", 
+        "telefone": "81 9 24680011", 
+        "curriculo": "Curriculo Thiago Souza Ribeiro.pdf", 
+        "habilidades": [
+
+            "Desenvolvimento front-end (HTML, CSS, JavaScript, React)",
+            "Desenvolvimento back-end (Node.js, NestJS, FastAPI, Java, Python)",
+            "Bancos de dados relacionais e NoSQL (MySQL, PostgreSQL, MongoDB)",
+            "Consumo e criação de APIs REST e GraphQL",
+            "Versionamento de código com Git e GitHub",
+            "Arquitetura de software e boas práticas de desenvolvimento"
+
+          ], 
+        "experiência": [{
+
+            "empresa": "Viitra inovações", 
+            "cargo": "Desenvolvedor fullstack", 
+            "inicio": "2023-04-14",
+            "fim": "2024-11-22"
+
+        }
+    
+        ], 
+        "formação": [
+
+            {
+                "instituição": "Universidade de Pernambuco", 
+                "curso": "Sistema de informação", 
+                "tipo": "Bacharelado",
+                "data de conclusão": "2028-07-01"
+            }
+
+        ], 
+        "processos seletivos": []
+
     }
 
 ])
