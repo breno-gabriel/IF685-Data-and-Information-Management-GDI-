@@ -17,6 +17,7 @@ const colombo = await db
   .collection("empresas")
   .findOne({ "Razão Social": "Confeitaria Colombo" });
 
+db.collection("empresas").drop();
 // Drop the existing vagas collection
 db.collection("empresas").insertMany([
   {

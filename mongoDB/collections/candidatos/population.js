@@ -1,3 +1,5 @@
+db.collection("candidatos").drop();
+
 db.collection("candidatos").insertMany([
   {
     _id: 1,

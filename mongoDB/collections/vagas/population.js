@@ -1,3 +1,5 @@
+db.collection("vagas").drop();
+
 await db.collection("vagas").insertMany([
   {
     _id: 1,
