@@ -18,32 +18,8 @@ async function run() {
 
     // List all collections to verify
 
-    const candidatos = await db
-      .collection("vagas")
-      .aggregate([
-        {
-          $lookup: {
-            from: "empresas",
-            localField: "empresa_id",
-            foreignField: "_id",
-            as: "empresa_info",
-          },
-        },
-        { $unwind: "$empresa_info" },
-        {
-          $group: {
-            _id: "$empresa_info.Razão Social",
-            total_vagas: { $sum: 1 },
-            média_salarial: { $avg: "$salário" },
-            menor_salário: { $min: "$salário" },
-            maior_salário: { $max: "$salário" },
-          },
-        },
-        { $sort: { total_vagas: -1 } },
-      ])
-      .toArray();
+    await db.collection("vagas").rename("oportunidades");
 
-    console.log("Candidatos:", candidatos);
     const collections = await db.listCollections().toArray();
     console.log(
       "Available collections:",
