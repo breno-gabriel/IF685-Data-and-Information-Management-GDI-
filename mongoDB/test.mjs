@@ -16,17 +16,14 @@ async function run() {
 
     const db = client.db("gdi-project");
 
-    // List all collections to verify
-
-    const result = await db.collection("vagas").distinct("titulo");
-
-    console.log("result:", result);
-
-    const collections = await db.listCollections().toArray();
-    console.log(
-      "Available collections:",
-      collections.map((c) => c.name)
+    await db.collection("candidatos").updateOne(
+      { _id: 1 }, // Filtra o candidato pelo ID
+      { $addToSet: { habilidades: "Python" } }
     );
+
+    const result = await db.collection("candidatos").findOne({ _id: 1 });
+
+    console.log(result);
   } catch (error) {
     console.error("Error:", error);
   } finally {
