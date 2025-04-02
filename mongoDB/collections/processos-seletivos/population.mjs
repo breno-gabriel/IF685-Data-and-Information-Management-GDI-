@@ -21,6 +21,7 @@ async function criarProcessoSeletivo() {
   const vagasCollection = db.collection("vagas");
   const candidatosCollection = db.collection("candidatos");
   const processoCollection = db.collection("processos_seletivos");
+  await db.collection("processos_seletivos").drop();
 
   // Buscar vagas e candidatos existentes no banco
   // Buscar vagas e candidatos existentes no banco
@@ -105,8 +106,8 @@ async function criarProcessoSeletivo() {
   });
 
   // // Inserir os processos no MongoDB
-  console.log(processos);
 
+  await processoCollection.insertMany(processos);
   console.log("Processos seletivos inseridos com sucesso!");
 }
 
