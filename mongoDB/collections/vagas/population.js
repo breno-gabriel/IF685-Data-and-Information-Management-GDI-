@@ -17,6 +17,13 @@ const mauriceia = await db
 const colombo = await db
   .collection("empresas")
   .findOne({ "Razão Social": "Confeitaria Colombo" });
+const dipolo = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "dippolum consultoria" });
+const avanade = await db
+  .collection("empresas")
+  .findOne({ "Razão Social": "Avanade" });
+
 await db.collection("vagas").insertMany([
   {
     _id: 1,
@@ -758,7 +765,7 @@ await db.collection("vagas").insertMany([
     data_publicação: new Date("2025-05-08"),
   },
   {
-    _id: 41,
+    _id: 31,
     titulo: "Gerente de Loja",
     descrição:
       "Estamos procurando um Gerente de Loja para liderar nossa equipe e garantir a excelência no atendimento aos nossos clientes. Se você é apaixonado por pessoas e tem experiência em gestão de equipes, essa vaga é para você!",
@@ -783,7 +790,7 @@ await db.collection("vagas").insertMany([
     data_publicação: new Date("2025-05-09"),
   },
   {
-    _id: 42,
+    _id: 32,
     titulo: "Confeiteiro(a) Sênior",
     descrição:
       "Estamos em busca de um Confeiteiro(a) Sênior para criar e preparar nossas deliciosas sobremesas. Se você é apaixonado por confeitaria e tem experiência na área, essa vaga é para você!",
@@ -806,5 +813,66 @@ await db.collection("vagas").insertMany([
     salário: 3800.0,
     localização: "Recife",
     data_publicação: new Date("2025-05-10"),
+  },
+  {
+    _id: 33,
+    empresa: dippolum._id,
+    titulo: "Desenvolvedor(a) Full Stack",
+    descrição: "Desenvolvimento de aplicações web e mobile, utilizando tecnologias como Node.js, React e React Native.",
+    habilidades: ["Node.js", "React", "React Native", "JavaScript", "SQL", "NoSQL"],
+    categoria: "Desenvolvimento",
+    salário: 6000,
+    localização: "Recife, PE",
+  },
+  {
+    _id: 34,
+    empresa: dippolum._id,
+    titulo: "Especialista em IoT",
+    descrição: "Desenvolvimento de soluções de Internet das Coisas, desde o hardware até o software, utilizando plataformas como Arduino e Raspberry Pi.",
+    habilidades: ["Arduino", "Raspberry Pi", "C/C++", "Python", "Sensores", "Comunicação sem fio"],
+    categoria: "IoT",
+    salário: 7000,
+    localização: "Recife, PE",
+  },
+  {
+    _id: 35,
+    empresa: dippolum._id,
+    titulo: "Designer de Interfaces (UI/UX)",
+    descrição: "Criação de interfaces intuitivas e agradáveis para aplicações web e mobile, com foco na experiência do usuário.",
+    habilidades: ["UI", "UX", "Figma", "Adobe XD", "Design responsivo", "Testes de usabilidade"],
+    categoria: "Design",
+    salário: 5500,
+    localização: "Recife, PE",
+  },
+  // Vagas para Avanade
+  {
+    _id: 36,
+    empresa: avanade._id,
+    titulo: "Consultor(a) Microsoft Dynamics 365",
+    descrição: "Implementação e customização de soluções Microsoft Dynamics 365 para clientes de diversos setores.",
+    habilidades: ["Microsoft Dynamics 365", "CRM", "ERP", "Consultoria", "Análise de requisitos", "Treinamento"],
+    categoria: "Consultoria",
+    salário: 8000,
+    localização: "Recife, PE",
+  },
+  {
+    _id: 37,
+    empresa: avanade._id,
+    titulo: "Engenheiro(a) de Dados",
+    descrição: "Desenvolvimento de pipelines de dados, modelagem de dados e implementação de soluções de Big Data na plataforma Azure.",
+    habilidades: ["Azure", "Big Data", "SQL", "Python", "ETL", "Data Warehousing"],
+    categoria: "Dados",
+    salário: 9000,
+    localização: "Recife, PE",
+  },
+  {
+    _id: 38,
+    empresa: avanade._id,
+    titulo: "Analista de Segurança da Informação",
+    descrição: "Implementação de políticas de segurança, monitoramento de sistemas e resposta a incidentes de segurança.",
+    habilidades: ["Segurança da informação", "Firewall", "IDS/IPS", "Testes de penetração", "Normas ISO 27001", "LGPD"],
+    categoria: "Segurança",
+    salário: 7500,
+    localização: "Recife, PE",
   },
 ]);
