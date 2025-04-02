@@ -30,7 +30,7 @@ await db.collection("vagas").insertMany([
     titulo: "Desenvolvimento frontend",
     descrição:
       "Estamos em busca de um Desenvolvedor Frontend apaixonado por tecnologia e inovação para se juntar ao nosso time! Se você tem experiência com desenvolvimento de interfaces modernas, foco em usabilidade e performance, e gosta de trabalhar em equipe, essa vaga é para você!",
-    empresa_id: viitra ? viitra._id : null,
+    empresa: viitra,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -58,7 +58,7 @@ await db.collection("vagas").insertMany([
     titulo: "Cientista de Dados",
     descrição:
       "Estamos em busca de um Cientista de Dados talentoso para integrar nosso time! Se você tem paixão por análise de dados, modelagem preditiva e deseja trabalhar com grandes volumes de informação para gerar insights estratégicos, essa vaga é para você!",
-    empresa_id: neurotech ? neurotech._id : null,
+    empresa: neurotech,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -85,7 +85,7 @@ await db.collection("vagas").insertMany([
     titulo: "Auxiliar de Serviços Gerais",
     descrição:
       "Estamos em busca de um Auxiliar de Serviços Gerais para atuar na limpeza e organização de nosso ambiente de trabalho. Se você é proativo, comprometido e gosta de trabalhar em equipe, essa vaga é para você!",
-    empresa_id: alpargatas ? alpargatas._id : null,
+    empresa: alpargatas,
     beneficios: [
       "Vale transporte",
       "Vale alimentação ou refeição",
@@ -110,7 +110,7 @@ await db.collection("vagas").insertMany([
     titulo: "Engenheiro de Software",
     descrição:
       "Estamos em busca de um Engenheiro de Software talentoso para integrar nosso time! Se você tem experiência no desenvolvimento de software escalável, arquitetura de sistemas e boas práticas de engenharia, essa vaga é para você!",
-    empresa_id: trackingTrade ? trackingTrade._id : null,
+    empresa: trackingTrade,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação ou refeição",
@@ -137,7 +137,7 @@ await db.collection("vagas").insertMany([
     titulo: "Cozinheiro(a)",
     descrição:
       "Estamos em busca de uma Cozinheira dedicada para integrar nossa equipe. A pessoa selecionada será responsável pela preparação de pratos com qualidade, seguindo as normas de higiene e segurança alimentar.",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Salário competitivo",
       "Vale alimentação",
@@ -163,7 +163,7 @@ await db.collection("vagas").insertMany([
     titulo: "Motorista de Carga Viva",
     descrição:
       "Estamos em busca de um Motorista de Carga Viva para atuar no transporte de animais vivos de forma segura e responsável.",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Salário competitivo",
       "Vale alimentação",
@@ -189,7 +189,7 @@ await db.collection("vagas").insertMany([
     titulo: "Gerente de Projetos",
     descrição:
       "Estamos buscando um Gerente de Projetos experiente para liderar nossos projetos de desenvolvimento de software. Se você é organizado, comunicativo e apaixonado por tecnologia, essa vaga é para você!",
-    empresa_id: viitra ? viitra._id : null,
+    empresa: viitra,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -213,7 +213,7 @@ await db.collection("vagas").insertMany([
     titulo: "Assistente Administrativo",
     descrição:
       "Estamos em busca de um Assistente Administrativo para auxiliar em nossas rotinas administrativas. Se você é organizado, proativo e tem boa comunicação, essa vaga é para você!",
-    empresa_id: alpargatas ? alpargatas._id : null,
+    empresa: alpargatas,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -236,7 +236,7 @@ await db.collection("vagas").insertMany([
     titulo: "Motorista Entregador",
     descrição:
       "Procuramos um Motorista Entregador para realizar entregas em nossa região. Se você é responsável, pontual e tem boa direção, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -259,7 +259,7 @@ await db.collection("vagas").insertMany([
     titulo: "Cozinheiro(a) Chefe",
     descrição:
       "Estamos procurando um Cozinheiro Chefe para liderar nossa equipe na cozinha. Se você é criativo, apaixonado por culinária e tem experiência em gestão de equipe, essa vaga é para você!",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Salário competitivo",
       "Vale alimentação",
@@ -282,7 +282,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Dados Júnior",
     descrição:
       "Estamos em busca de um Analista de Dados Júnior para integrar nosso time de ciência de dados. Se você é apaixonado por números e quer aprender a extrair insights valiosos, essa vaga é para você!",
-    empresa_id: neurotech ? neurotech._id : null,
+    empresa: neurotech,
     beneficios: [
       "Plano de saúde",
       "Vale alimentação",
@@ -305,7 +305,7 @@ await db.collection("vagas").insertMany([
     titulo: "Desenvolvedor Backend",
     descrição:
       "Procuramos um Desenvolvedor Backend para construir e manter nossos sistemas. Se você tem experiência com desenvolvimento de APIs e bancos de dados, essa vaga é para você!",
-    empresa_id: viitra ? viitra._id : null,
+    empresa: viitra,
     beneficios: [
       "Plano de saúde",
       "Vale alimentação",
@@ -328,7 +328,7 @@ await db.collection("vagas").insertMany([
     titulo: "Auxiliar de Limpeza",
     descrição:
       "Estamos procurando um Auxiliar de Limpeza para manter nosso ambiente limpo e organizado. Se você é proativo e responsável, essa vaga é para você!",
-    empresa_id: alpargatas ? alpargatas._id : null,
+    empresa: alpargatas,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -351,7 +351,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Projetos",
     descrição:
       "Buscamos um Analista de Projetos para auxiliar no planejamento e execução de nossos projetos. Se você é organizado e tem boa comunicação, essa vaga é para você!",
-    empresa_id: trackingTrade ? trackingTrade._id : null,
+    empresa: trackingTrade,
     beneficios: [
       "Plano de saúde",
       "Vale alimentação",
@@ -374,7 +374,7 @@ await db.collection("vagas").insertMany([
     titulo: "Ajudante de Cozinha",
     descrição:
       "Estamos procurando um Ajudante de Cozinha para auxiliar na preparação de pratos. Se você é rápido, organizado e apaixonado por culinária, essa vaga é para você!",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -397,7 +397,7 @@ await db.collection("vagas").insertMany([
     titulo: "Motorista de Caminhão",
     descrição:
       "Procuramos um Motorista de Caminhão para realizar o transporte de cargas em nossa região. Se você é responsável, pontual e tem boa direção, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -420,7 +420,7 @@ await db.collection("vagas").insertMany([
     titulo: "Engenheiro de Alimentos Sênior",
     descrição:
       "Estamos em busca de um Engenheiro de Alimentos Sênior para liderar nossos projetos de desenvolvimento de novos produtos. Se você tem experiência em pesquisa e desenvolvimento, controle de qualidade e gestão de processos industriais, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -446,7 +446,7 @@ await db.collection("vagas").insertMany([
     titulo: "Médico Veterinário Sênior",
     descrição:
       "Estamos em busca de um Médico Veterinário Sênior para liderar nossa equipe de saúde animal. Se você tem experiência em diagnóstico e tratamento de doenças animais, cirurgia veterinária e manejo de grandes rebanhos, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -472,7 +472,7 @@ await db.collection("vagas").insertMany([
     titulo: "Atendente de Confeitaria",
     descrição:
       "Estamos em busca de um Atendente de Confeitaria apaixonado por encantar nossos clientes com um atendimento caloroso e acolhedor. Se você tem paixão por doces, bolos e outras delícias, e adora trabalhar em um ambiente alegre e saboroso, essa vaga é para você!",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -497,7 +497,7 @@ await db.collection("vagas").insertMany([
     titulo: "Atendente de Suporte Técnico",
     descrição:
       "Estamos em busca de um Atendente de Suporte Técnico para auxiliar nossos clientes com dúvidas e problemas técnicos. Se você é paciente, comunicativo e tem conhecimento em tecnologia, essa vaga é para você!",
-    empresa_id: neurotech ? neurotech._id : null,
+    empresa: neurotech,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -522,7 +522,7 @@ await db.collection("vagas").insertMany([
     titulo: "Designer de UI/UX",
     descrição:
       "Estamos procurando um Designer de UI/UX para criar interfaces incríveis para nossos produtos digitais. Se você é apaixonado por design e usabilidade, essa vaga é para você!",
-    empresa_id: viitra ? viitra._id : null,
+    empresa: viitra,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -547,7 +547,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Segurança da Informação",
     descrição:
       "Estamos em busca de um Analista de Segurança da Informação para proteger nossos sistemas e dados. Se você é apaixonado por segurança cibernética, essa vaga é para você!",
-    empresa_id: viitra ? viitra._id : null,
+    empresa: viitra,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -572,7 +572,7 @@ await db.collection("vagas").insertMany([
     titulo: "Engenheiro de Machine Learning",
     descrição:
       "Estamos procurando um Engenheiro de Machine Learning para desenvolver e implementar modelos de aprendizado de máquina. Se você é apaixonado por inteligência artificial, essa vaga é para você!",
-    empresa_id: neurotech ? neurotech._id : null,
+    empresa: neurotech,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -597,7 +597,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Dados Sênior",
     descrição:
       "Estamos em busca de um Analista de Dados Sênior para extrair insights valiosos de nossos dados. Se você é analítico e tem experiência em análise de dados, essa vaga é para você!",
-    empresa_id: neurotech ? neurotech._id : null,
+    empresa: neurotech,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -622,7 +622,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Logística",
     descrição:
       "Estamos procurando um Analista de Logística para otimizar nossos processos de distribuição. Se você é organizado e tem conhecimento em logística, essa vaga é para você!",
-    empresa_id: alpargatas ? alpargatas._id : null,
+    empresa: alpargatas,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -647,7 +647,7 @@ await db.collection("vagas").insertMany([
     titulo: "Técnico de Segurança do Trabalho",
     descrição:
       "Estamos em busca de um Técnico de Segurança do Trabalho para garantir a segurança de nossos colaboradores. Se você é proativo e tem conhecimento em normas de segurança, essa vaga é para você!",
-    empresa_id: alpargatas ? alpargatas._id : null,
+    empresa: alpargatas,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -671,7 +671,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Sistemas Sênior",
     descrição:
       "Estamos procurando um Analista de Sistemas Sênior para liderar nossos projetos de desenvolvimento de software. Se você é experiente e tem conhecimento em arquitetura de sistemas, essa vaga é para você!",
-    empresa_id: trackingTrade ? trackingTrade._id : null,
+    empresa: trackingTrade,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -696,7 +696,7 @@ await db.collection("vagas").insertMany([
     titulo: "Especialista em DevOps",
     descrição:
       "Estamos em busca de um Especialista em DevOps para automatizar nossos processos de desenvolvimento e implantação. Se você é apaixonado por automação e infraestrutura, essa vaga é para você!",
-    empresa_id: trackingTrade ? trackingTrade._id : null,
+    empresa: trackingTrade,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -721,7 +721,7 @@ await db.collection("vagas").insertMany([
     titulo: "Analista de Marketing",
     descrição:
       "Estamos procurando um Analista de Marketing para desenvolver e implementar nossas estratégias de marketing. Se você é criativo e tem conhecimento em marketing digital, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -745,7 +745,7 @@ await db.collection("vagas").insertMany([
     titulo: "Supervisor de Produção",
     descrição:
       "Estamos em busca de um Supervisor de Produção para liderar nossa equipe de produção. Se você é organizado e tem experiência em gestão de equipes, essa vaga é para você!",
-    empresa_id: mauriceia ? mauriceia._id : null,
+    empresa: mauriceia,
     beneficios: [
       "Plano de saúde e odontológico",
       "Vale alimentação",
@@ -769,7 +769,7 @@ await db.collection("vagas").insertMany([
     titulo: "Gerente de Loja",
     descrição:
       "Estamos procurando um Gerente de Loja para liderar nossa equipe e garantir a excelência no atendimento aos nossos clientes. Se você é apaixonado por pessoas e tem experiência em gestão de equipes, essa vaga é para você!",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -794,7 +794,7 @@ await db.collection("vagas").insertMany([
     titulo: "Confeiteiro(a) Sênior",
     descrição:
       "Estamos em busca de um Confeiteiro(a) Sênior para criar e preparar nossas deliciosas sobremesas. Se você é apaixonado por confeitaria e tem experiência na área, essa vaga é para você!",
-    empresa_id: colombo ? colombo._id : null,
+    empresa: colombo,
     beneficios: [
       "Vale transporte",
       "Vale refeição",
@@ -816,7 +816,7 @@ await db.collection("vagas").insertMany([
   },
   {
     _id: 33,
-    empresa: dippolum._id,
+    empresa: dippolum,
     titulo: "Desenvolvedor(a) Full Stack",
     descrição: "Desenvolvimento de aplicações web e mobile, utilizando tecnologias como Node.js, React e React Native.",
     habilidades: ["Node.js", "React", "React Native", "JavaScript", "SQL", "NoSQL"],
@@ -826,7 +826,7 @@ await db.collection("vagas").insertMany([
   },
   {
     _id: 34,
-    empresa: dippolum._id,
+    empresa: dippolum,
     titulo: "Especialista em IoT",
     descrição: "Desenvolvimento de soluções de Internet das Coisas, desde o hardware até o software, utilizando plataformas como Arduino e Raspberry Pi.",
     habilidades: ["Arduino", "Raspberry Pi", "C/C++", "Python", "Sensores", "Comunicação sem fio"],
@@ -836,7 +836,7 @@ await db.collection("vagas").insertMany([
   },
   {
     _id: 35,
-    empresa: dippolum._id,
+    empresa: dippolum,
     titulo: "Designer de Interfaces (UI/UX)",
     descrição: "Criação de interfaces intuitivas e agradáveis para aplicações web e mobile, com foco na experiência do usuário.",
     habilidades: ["UI", "UX", "Figma", "Adobe XD", "Design responsivo", "Testes de usabilidade"],
@@ -847,7 +847,7 @@ await db.collection("vagas").insertMany([
   // Vagas para Avanade
   {
     _id: 36,
-    empresa: avanade._id,
+    empresa: avanade,
     titulo: "Consultor(a) Microsoft Dynamics 365",
     descrição: "Implementação e customização de soluções Microsoft Dynamics 365 para clientes de diversos setores.",
     habilidades: ["Microsoft Dynamics 365", "CRM", "ERP", "Consultoria", "Análise de requisitos", "Treinamento"],
@@ -857,7 +857,7 @@ await db.collection("vagas").insertMany([
   },
   {
     _id: 37,
-    empresa: avanade._id,
+    empresa: avanade,
     titulo: "Engenheiro(a) de Dados",
     descrição: "Desenvolvimento de pipelines de dados, modelagem de dados e implementação de soluções de Big Data na plataforma Azure.",
     habilidades: ["Azure", "Big Data", "SQL", "Python", "ETL", "Data Warehousing"],
@@ -867,7 +867,7 @@ await db.collection("vagas").insertMany([
   },
   {
     _id: 38,
-    empresa: avanade._id,
+    empresa: avanade,
     titulo: "Analista de Segurança da Informação",
     descrição: "Implementação de políticas de segurança, monitoramento de sistemas e resposta a incidentes de segurança.",
     habilidades: ["Segurança da informação", "Firewall", "IDS/IPS", "Testes de penetração", "Normas ISO 27001", "LGPD"],
