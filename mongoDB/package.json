@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "dotenv": "^16.4.7",
+    "mongodb": "^6.15.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.1",
     "mongosh": "^2.4.2"
