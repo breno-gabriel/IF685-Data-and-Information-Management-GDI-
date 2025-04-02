@@ -63,11 +63,35 @@ async function criarProcessoSeletivo() {
       etapa_atual: "Triagem de Currículos",
     }));
 
+    let descricoes;
+    if (
+      vaga.titulo.toLowerCase().includes("desenvolvimento") ||
+      vaga.titulo.toLowerCase().includes("cientista")
+    ) {
+      descricoes = [
+        "Estamos em busca de profissionais talentosos para inovar no setor de tecnologia!",
+        "Nosso objetivo é recrutar os melhores desenvolvedores para transformar o mercado digital.",
+        "Uma grande oportunidade para aqueles que desejam crescer em um ambiente tecnológico dinâmico!",
+      ];
+    } else if (vaga.titulo.toLowerCase().includes("engenharia")) {
+      descricoes = [
+        "Procuramos engenheiros comprometidos com inovação e qualidade para grandes projetos.",
+        "Uma excelente oportunidade para profissionais que desejam fazer a diferença na engenharia!",
+        "Nosso processo seletivo visa encontrar talentos para desafios estruturais e técnicos.",
+      ];
+    } else {
+      descricoes = [
+        "Estamos recrutando profissionais qualificados para integrar nossa equipe!",
+        "Se você busca uma oportunidade de crescimento, este processo seletivo é para você.",
+        "Nosso objetivo é encontrar os melhores talentos para nosso time.",
+      ];
+    }
+
     const processoSeletivo = {
       vagas: vagasSelecionadas.map((v) => v._id),
       etapas,
       candidatos: candidatosSelecionados,
-      descricao: faker.lorem.paragraph(),
+      descricao: faker.helpers.arrayElement(descricoes),
       responsavel: faker.person.fullName(),
       data_criacao: new Date(),
       status: faker.helpers.arrayElement([
@@ -81,7 +105,7 @@ async function criarProcessoSeletivo() {
   });
 
   // // Inserir os processos no MongoDB
-  await processoCollection.insertMany(processos);
+  console.log(processos);
 
   console.log("Processos seletivos inseridos com sucesso!");
 }

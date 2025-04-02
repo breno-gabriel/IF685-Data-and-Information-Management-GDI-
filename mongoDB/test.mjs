@@ -18,10 +18,7 @@ async function run() {
 
     // List all collections to verify
 
-    const result = await db
-      .collection("processos_seletivos")
-      .aggregate([{ $count: "MyCount" }])
-      .toArray();
+    const result = await db.collection("vagas").distinct("titulo");
 
     console.log("result:", result);
 
