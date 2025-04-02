@@ -8,15 +8,49 @@ await db
   .aggregate([
     {
       $group: {
-        _id: "$localização",
+        _id: {
+          localização: "$localização",
+          tipo: "$tipo",
+        },
+        quantidade: { $sum: 1 },
+        média_salarial: { $avg: "$salário" },
+        empresas_distintas: { $addToSet: "$empresa_id" },
+      },
+    },
+    {
+      $project: {
+        localização: "$_id.localização",
+        tipo: "$_id.tipo",
+        quantidade: 1,
+        média_salarial: 1,
+        número_empresas: { $size: "$empresas_distintas" },
+      },
+    },
+    { $sort: { quantidade: -1 } },
+  ])
+  .toArray();
+
+await db
+  .collection("vagas")
+  .aggregate([
+    {
+      $lookup: {
+        from: "empresas",
+        localField: "empresa_id",
+        foreignField: "_id",
+        as: "empresa_info",
+      },
+    },
+    { $unwind: "$empresa_info" },
+    {
+      $group: {
+        _id: "$empresa_info.Razão Social",
         total_vagas: { $sum: 1 },
         média_salarial: { $avg: "$salário" },
         menor_salário: { $min: "$salário" },
         maior_salário: { $max: "$salário" },
       },
     },
-    {
-      $sort: { total_vagas: -1 },
-    },
+    { $sort: { total_vagas: -1 } },
   ])
   .toArray();
