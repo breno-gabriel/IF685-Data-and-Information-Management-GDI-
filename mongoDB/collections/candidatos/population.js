@@ -476,7 +476,7 @@ db.collection("candidatos").insertMany([
 
     formação: [],
 
-    categoria: "Assitente",
+    categoria: "Assistente",
   },
 
   {
@@ -1141,7 +1141,7 @@ db.collection("candidatos").insertMany([
         "data de conclusão": "2020-12-20",
       },
     ],
-    categoria: "Assitente admintrativo",
+    categoria: "Assitente administrativo",
   },
   {
     _id: 32,
