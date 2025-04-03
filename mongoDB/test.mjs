@@ -16,40 +16,14 @@ async function run() {
 
     const db = client.db("gdi-project");
 
-    // List all collections to verify
-
-    const result = await db
-      .collection("vagas")
-      .aggregate([
-        {
-          $lookup: {
-            from: "empresas",
-            localField: "empresa_id",
-            foreignField: "_id",
-            as: "empresa_info",
-          },
-        },
-        { $unwind: "$empresa_info" },
-        {
-          $group: {
-            _id: "$empresa_info.Razão Social",
-            total_vagas: { $sum: 1 },
-            média_salarial: { $avg: "$salário" },
-            menor_salário: { $min: "$salário" },
-            maior_salário: { $max: "$salário" },
-          },
-        },
-        { $sort: { total_vagas: -1 } },
-      ])
-      .toArray();
-
-    console.log("Vagas:", result);
-
-    const collections = await db.listCollections().toArray();
-    console.log(
-      "Available collections:",
-      collections.map((c) => c.name)
+    await db.collection("candidatos").updateOne(
+      { _id: 1 }, // Filtra o candidato pelo ID
+      { $addToSet: { habilidades: "Python" } }
     );
+
+    const result = await db.collection("candidatos").findOne({ _id: 1 });
+
+    console.log(result);
   } catch (error) {
     console.error("Error:", error);
   } finally {
