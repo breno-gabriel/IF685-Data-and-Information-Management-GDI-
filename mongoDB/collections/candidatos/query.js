@@ -1,31 +1,28 @@
-db.collection("candidatos").aggregate([
+db.candidatos.aggregate([
   { $match: { nome: "Breno Gabriel de Melo Lima" } },
 ]);
 
 db.candidatos.find().pretty();
 
-db.collection("candidatos")
+db.candidatos
   .find({
     "experiência.fim": { $gte: "2022-04-01" }, // Ajuste a data conforme necessário
   })
   .toArray();
 
-await db
-  .collection("candidatos")
+await db.candidatos
   .find({
     habilidades: { $regex: "React", $options: "i" }, // Busca candidatos que tenham "React" nas habilidades (case insensitive)
   })
   .toArray();
 
-const candidatos = await db
-  .collection("candidatos")
+const candidatos = await db.candidatos
   .find({})
   .sort({ _id: -1 })
   .limit(3)
   .toArray();
 
-await db
-  .collection("candidatos")
+await db.candidatos
   .aggregate([
     {
       $addFields: {
@@ -43,15 +40,13 @@ await db
   ])
   .toArray();
 
-await db
-  .collection("candidatos")
+await db.candidatos
   .find({
     habilidades: { $size: 5 },
   })
   .toArray();
 
-await db
-  .collection("candidatos")
+await db.candidatos
   .find({
     habilidades: {
       $all: [
@@ -68,7 +63,9 @@ await db
   })
   .toArray();
 
-db.collection("candidatos").updateOne(
+db.candidatos.updateOne(
   { _id: 1 }, // Filtra o candidato pelo ID
   { $addToSet: { habilidades: "Python" } }
 );
+
+db.candidatos.insert

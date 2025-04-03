@@ -1,5 +1,6 @@
-db.collection("empresas").countDocuments({ setor: "tecnologia" });
-await db.collection("empresas").updateOne(
+db.empresas.countDocuments({ setor: "tecnologia" });
+
+await db.empresas.updateOne(
   { _id: 13 },
   {
     $set: {
@@ -21,12 +22,12 @@ await db.collection("empresas").updateOne(
   { upsert: true }
 );
 
-await db.collection("empresas").findOne({
+await db.empresas.findOne({
   CNPJ: "98765432000199",
 });
 
 const empresas = await db
-  .collection("empresas")
+  .empresas
   .find({
     $where: function () {
       return this.endereço && this.endereço.cidade === "Recife";

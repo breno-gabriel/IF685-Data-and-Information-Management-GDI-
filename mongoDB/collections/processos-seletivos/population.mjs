@@ -24,7 +24,6 @@ async function criarProcessoSeletivo() {
   await db.collection("processos_seletivos").drop();
 
   // Buscar vagas e candidatos existentes no banco
-  // Buscar vagas e candidatos existentes no banco
   const vagas = await vagasCollection.find({}).toArray();
   const candidatos = await candidatosCollection.find({}).toArray();
 
