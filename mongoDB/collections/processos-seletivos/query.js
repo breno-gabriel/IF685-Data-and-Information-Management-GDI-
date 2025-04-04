@@ -22,7 +22,7 @@ db.processos_seletivos.aggregate([
 // Procura candidatos em uma etapa específica do processo seletivo
 db.processos_seletivos.aggregate([
     {$unwind: '$candidatos'},
-    {$match: {'candidatos.etapa_atual': 'Entrevista Técnica'}}
+    {$match: {'candidatos.etapa_atual': 'Triagem de Currículos'}}
 ])
 
 // Procura processos seletivos com etapas com data prevista menor que 10/04/2025

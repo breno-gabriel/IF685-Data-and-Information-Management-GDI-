@@ -5,7 +5,7 @@ await db.empresas.updateOne(
   {
     $set: {
       CNPJ: "98765432000199",
-      "Razão Social": "Tech Solutions",
+      "Razão Social": "Technology Solutions",
       descrição:
         "Empresa especializada em soluções tecnológicas para o mercado financeiro.",
       endereço: {

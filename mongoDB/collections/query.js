@@ -1,16 +1,4 @@
-// 1. Análise de Candidatos por Nível de Experiência
-db.candidatos.aggregate([
-  {
-    $group: {
-      _id: "$nível_experiência",
-      total_candidatos: { $sum: 1 },
-      média_pretensão_salarial: { $avg: "$pretensão_salarial" }
-    }
-  },
-  { $sort: { total_candidatos: -1 } }
-]);
-
-// 2. Total de Vagas por Empresa com Estatísticas Salariais
+// 1. Total de Vagas por Empresa com Estatísticas Salariais
 db.vagas.aggregate([
   {
     $lookup: {
@@ -31,19 +19,6 @@ db.vagas.aggregate([
     }
   },
   { $sort: { total_vagas: -1 } }
-]);
-
-// 3. Empresas por Setor com Contagem de Funcionários
-db.empresas.aggregate([
-  {
-    $group: {
-      _id: "$setor",
-      total_empresas: { $sum: 1 },
-      total_funcionários: { $sum: "$número_funcionários" },
-      empresas: { $push: "$Razão Social" }
-    }
-  },
-  { $sort: { total_empresas: -1 } }
 ]);
 
 // 4. Análise Cruzada: Vagas vs Candidatos por Área

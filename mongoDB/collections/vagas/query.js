@@ -58,7 +58,14 @@ await db
 await db
   .vagas
   .find({
-    beneficios: { $exists: true, $eq: [] },
+    beneficios: { $exists: true, $eq: [
+      "Plano de saúde e odontológico",
+      "Vale alimentação ou refeição",
+      "Horário flexível",
+      "Opção de trabalho remoto ou híbrido",
+      "Auxílio para cursos e certificações",
+      "Ambiente colaborativo e inovador",
+    ], },
   })
   .toArray();
 

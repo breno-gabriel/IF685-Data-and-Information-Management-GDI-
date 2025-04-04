@@ -24,7 +24,7 @@ const avanade = await db
   .collection("empresas")
   .findOne({ "Razão Social": "Avanade" });
 
-await db.collection("vagas").insertMany([
+await db.vagas.insertMany([
   {
     _id: 1,
     titulo: "Desenvolvimento frontend",
@@ -821,6 +821,7 @@ await db.collection("vagas").insertMany([
     descrição: "Desenvolvimento de aplicações web e mobile, utilizando tecnologias como Node.js, React e React Native.",
     habilidades: ["Node.js", "React", "React Native", "JavaScript", "SQL", "NoSQL"],
     categoria: "Desenvolvimento",
+    tipo: "PJ",
     salário: 6000,
     localização: "Recife, PE",
   },
@@ -831,6 +832,7 @@ await db.collection("vagas").insertMany([
     descrição: "Desenvolvimento de soluções de Internet das Coisas, desde o hardware até o software, utilizando plataformas como Arduino e Raspberry Pi.",
     habilidades: ["Arduino", "Raspberry Pi", "C/C++", "Python", "Sensores", "Comunicação sem fio"],
     categoria: "IoT",
+    tipo: "PJ",
     salário: 7000,
     localização: "Recife, PE",
   },
@@ -841,6 +843,7 @@ await db.collection("vagas").insertMany([
     descrição: "Criação de interfaces intuitivas e agradáveis para aplicações web e mobile, com foco na experiência do usuário.",
     habilidades: ["UI", "UX", "Figma", "Adobe XD", "Design responsivo", "Testes de usabilidade"],
     categoria: "Design",
+    tipo: "PJ",
     salário: 5500,
     localização: "Recife, PE",
   },
@@ -852,6 +855,7 @@ await db.collection("vagas").insertMany([
     descrição: "Implementação e customização de soluções Microsoft Dynamics 365 para clientes de diversos setores.",
     habilidades: ["Microsoft Dynamics 365", "CRM", "ERP", "Consultoria", "Análise de requisitos", "Treinamento"],
     categoria: "Consultoria",
+    tipo: "PJ",
     salário: 8000,
     localização: "Recife, PE",
   },
@@ -862,6 +866,7 @@ await db.collection("vagas").insertMany([
     descrição: "Desenvolvimento de pipelines de dados, modelagem de dados e implementação de soluções de Big Data na plataforma Azure.",
     habilidades: ["Azure", "Big Data", "SQL", "Python", "ETL", "Data Warehousing"],
     categoria: "Dados",
+    tipo: "PJ",
     salário: 9000,
     localização: "Recife, PE",
   },
@@ -872,6 +877,7 @@ await db.collection("vagas").insertMany([
     descrição: "Implementação de políticas de segurança, monitoramento de sistemas e resposta a incidentes de segurança.",
     habilidades: ["Segurança da informação", "Firewall", "IDS/IPS", "Testes de penetração", "Normas ISO 27001", "LGPD"],
     categoria: "Segurança",
+    tipo: "PJ",
     salário: 7500,
     localização: "Recife, PE",
   },

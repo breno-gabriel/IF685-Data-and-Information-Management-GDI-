@@ -1,7 +1,7 @@
 db.collection("empresas").drop();
 
 // Drop the existing vagas collection
-db.collection("empresas").insertMany([
+db.empresas.insertMany([
   {
     _id: 1,
     CNPJ: "12345678000101",
